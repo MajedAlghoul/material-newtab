@@ -1,7 +1,0 @@
-.widget-template.add-new-item-placeholder {
-  background-color: var(--placeholder-background-color);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /*box-shadow: 0px 0px 0px 14px #f0dcc6;*/
-}

@@ -1,0 +1,19 @@
+.widget-template.bookmarks-widget {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2px solid var(--widget-depth-color);
+  /*box-shadow: 0px 0px 0px 14px #f0dcc6;*/
+}
+
+.bookmarks-big-outer-div {
+  color: var(--widget-text-color);
+  font-size: 21px;
+  display: flex;
+}
+
+.bookmarks-big-text {
+  margin-left: 11px;
+  user-select: none;
+  pointer-events: none;
+}

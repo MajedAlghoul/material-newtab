@@ -1,0 +1,12 @@
+.widget-template {
+  background-color: var(--primary-color);
+  min-width: 76px;
+  min-height: 76px;
+  border-radius: 26px;
+  color: var(--text-color);
+  /*box-shadow: 0px 0px 0px 14px #f0dcc6;*/
+}
+
+.widget-template:hover {
+  box-shadow: 0px 0px 0px 14px var(--highlight-color);
+}

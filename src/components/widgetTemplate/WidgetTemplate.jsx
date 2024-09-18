@@ -15,7 +15,8 @@ function WidgetTemplate({ className, id, sizes, layout, setLayout, children }) {
     addItems,
     removeItems,
   } = useGridsContent();
-  const { widgets, editWidget } = useWidgets();
+  const { widgets, addWidget, removeWidget, editWidget, getComponent } =
+    useWidgets();
   const {
     gridRepresentation,
     addWidgetToGridRepresentation,
@@ -49,21 +50,21 @@ function WidgetTemplate({ className, id, sizes, layout, setLayout, children }) {
   useEffect(() => {
     async function innerEffect() {
       const [gridType, localX, localY, localW, localH, outOfBoundFactor] =
-        await calculateChanges(id, sizes);
+        await calculateChanges(id, sizes, layout);
       if (outOfBoundFactor === "falling") {
         setTimeout(async () => {
           //thequeue.current = [...thequeue.current, id];
           //console.log("queue", thequeue.current);
-          await scheduleFalling(id, sizes, layout, setLayout);
+          scheduleFalling(id, sizes, layout, setLayout);
         }, 0);
       } else {
-        await scheduleFalling(id, sizes, layout, setLayout);
+        scheduleFalling(id, sizes, layout, setLayout);
       }
     }
     if (setWidgetAndGridReady) {
       //setTimeout(() => {
       innerEffect();
-      //console.log("after", gridRepresentation, HiddenItems);
+      //console.log("after", gridRepresentation.current, HiddenItems);
       //}, 0);
     }
   }, [gridsWH]);

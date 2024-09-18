@@ -19,9 +19,16 @@ import WeatherWidget from "../components/widgets/weatherWidget/WeatherWidget.jsx
 import { useWidgets } from "../hooks/useWidgets.js";
 
 function App() {
-  const { leftItems, centerItems, RightItems, HiddenItems, addItems } =
-    useGridsContent();
-  const { widgets, addWidget, removeWidget, getComponent } = useWidgets();
+  const {
+    leftItems,
+    centerItems,
+    RightItems,
+    HiddenItems,
+    addItems,
+    removeItems,
+  } = useGridsContent();
+  const { widgets, addWidget, removeWidget, editWidget, getComponent } =
+    useWidgets();
   const { gridsWH } = useGridsWH();
   const [widgetAndGridReady, setWidgetAndGridReady] = useState(false);
 

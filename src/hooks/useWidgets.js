@@ -14,7 +14,7 @@ const WidgetsContext = createContext();
 export function WidgetsProvider({ children }) {
   const [widgets, setWidgets] = useState(null);
 
-  const componentMap = {
+  const defaultWidgetsList = {
     AddNewItemWidget,
     BookmarksWidget,
     HiddenWidgetsWidget,
@@ -24,7 +24,7 @@ export function WidgetsProvider({ children }) {
   };
 
   const getComponent = (wComponent) => {
-    return componentMap[wComponent];
+    return defaultWidgetsList[wComponent];
   };
 
   const addWidget = (id, widget) => {
@@ -39,11 +39,14 @@ export function WidgetsProvider({ children }) {
   };
 
   const editWidget = (id, property1, property2, edited) => {
-    setWidgets((prev) => {
-      const temp = { ...prev };
-      temp[id] = { ...temp[id] };
-      temp[id][property1][property2] = edited;
-      return temp;
+    return new Promise((resolve) => {
+      setWidgets((prev) => {
+        const temp = { ...prev };
+        temp[id] = { ...temp[id] };
+        temp[id][property1][property2] = edited;
+        return temp;
+      });
+      resolve();
     });
   };
 
@@ -63,6 +66,7 @@ export function WidgetsProvider({ children }) {
     async function innerEffect() {
       if (widgets) {
         await setStorage("widgets", widgets);
+        //console.log(widgets);
       }
     }
     innerEffect();
@@ -142,6 +146,31 @@ function defaultWidgets() {
       },
       { city: "Ramallah" }
     ),
+    bbbbbb: new WidgetBackend(
+      "WeatherWidget",
+      {
+        gridType: "left",
+        regularX: 3,
+        regularY: 1,
+        minimizedX: null,
+        minimizedY: null,
+        sizeIndex: 2,
+      },
+      { city: "Ramallah" }
+    ),
+    cccccc: new WidgetBackend(
+      "WeatherWidget",
+      {
+        gridType: "left",
+        regularX: 5,
+        regularY: 1,
+        minimizedX: null,
+        minimizedY: null,
+        sizeIndex: 1,
+      },
+      { city: "Ramallah" }
+    ),
+
     yyyyyy: new WidgetBackend(
       "SearchWidget",
       {

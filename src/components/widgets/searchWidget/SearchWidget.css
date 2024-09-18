@@ -47,3 +47,8 @@
   outline: none;
   padding-left: 16px;
 }
+
+.search-input::placeholder {
+  color: var(--widget-inner-depth-wall-color);
+  font-style: italic;
+}

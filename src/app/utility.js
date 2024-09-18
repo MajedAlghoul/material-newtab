@@ -14,7 +14,7 @@ export async function pullStorage(item) {
   try {
     let result = await chkStrg(item);
     if (!result[item]) {
-      await pushStorage(item, {});
+      //await pushStorage(item, {});
       result = await chkStrg(item);
     }
     return result[item];

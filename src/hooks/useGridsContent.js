@@ -7,6 +7,9 @@ export function GridsContentProvider({ children }) {
   const [centerItems, setCenterItems] = useState({});
   const [RightItems, setRightItems] = useState({});
   const [HiddenItems, setHiddenItems] = useState({});
+  const [centerWidget, setCenterWidget] = useState([]);
+  const [rightWidget, setRightWidget] = useState([]);
+  const classSetter = useRef([null, ""]);
   const removeItems = (gridType, widget) => {
     if (gridType === "left") {
       setLeftItems((prev) => {
@@ -37,7 +40,7 @@ export function GridsContentProvider({ children }) {
     }
   };
 
-  const addItems = (gridType, widget) => {
+  const addItems = (gridType, widget, setClass, classs) => {
     if (gridType === "left") {
       setLeftItems((prev) => ({ ...prev, [widget]: null }));
     } else if (gridType === "right") {
@@ -46,10 +49,32 @@ export function GridsContentProvider({ children }) {
       setCenterItems((prev) => ({ ...prev, [widget]: null }));
     } else if (gridType === "hidden") {
       setHiddenItems((prev) => ({ ...prev, [widget]: null }));
+    } else if (gridType === "centerW") {
+      setCenterWidget([widget]);
+      classSetter.current = [setClass, classs];
+      setRightWidget([]);
+    } else if (gridType === "rightW") {
+      setRightWidget([widget]);
+      classSetter.current = [setClass, classs];
+      setCenterWidget([]);
     } else {
       console.log("Invalid Grid Type");
     }
   };
+
+  const flushMenu = () => {
+    if (classSetter.current[0]) {
+      classSetter.current[0](classSetter.current[1]);
+      setCenterWidget([]);
+      setRightWidget([]);
+    }
+  };
+
+  const currentClass = () => {
+    return classSetter.current[1];
+  };
+
+  const isMenuVisible = () => centerWidget.length > 0 || rightWidget.length > 0;
 
   return (
     <GridsContentContext.Provider
@@ -60,6 +85,11 @@ export function GridsContentProvider({ children }) {
         HiddenItems,
         addItems,
         removeItems,
+        centerWidget,
+        rightWidget,
+        flushMenu,
+        isMenuVisible,
+        currentClass,
       }}
     >
       {children}

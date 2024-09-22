@@ -2,12 +2,58 @@ import "./BookmarksWidget.css";
 import WidgetTemplate from "../../widgetTemplate/WidgetTemplate.jsx";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { BookmarksMenu } from "../../menus/bookmarksMenu/bookmarksMenu.jsx";
+import { useGridsContent } from "../../../hooks/useGridsContent.js";
+import { useGridsWH } from "../../../hooks/useGridsWH.js";
 
 export function BookmarksWidget({ id }) {
   const [layout, setLayout] = useState({ x: null, y: null, w: null, h: null });
-
+  const { gridsWH } = useGridsWH();
   const [content, setContent] = useState(null);
-
+  const [classes, setClasses] = useState("bookmarks-widget");
+  const {
+    leftItems,
+    centerItems,
+    RightItems,
+    HiddenItems,
+    addItems,
+    removeItems,
+    centerWidget,
+    rightWidget,
+    flushMenu,
+    isMenuVisible,
+    currentClass,
+  } = useGridsContent();
+  const handleOnClick = () => {
+    const w = gridsWH["rw"];
+    if (w) {
+      flushMenu();
+      if (!isMenuVisible() || currentClass() !== "bookmarks-widget") {
+        if (w === 1) {
+          addItems(
+            "centerW",
+            <BookmarksMenu
+              setClasses={setClasses}
+              key={"bookmarks-menu"}
+            ></BookmarksMenu>,
+            setClasses,
+            "bookmarks-widget"
+          );
+        } else {
+          addItems(
+            "rightW",
+            <BookmarksMenu
+              setClasses={setClasses}
+              key={"bookmarks-menu"}
+            ></BookmarksMenu>,
+            setClasses,
+            "bookmarks-widget"
+          );
+        }
+        setClasses("bookmarks-widget bookmarks-widget-active");
+      }
+    }
+  };
   useEffect(() => {
     if (layout.w === 1 && layout.h === 1) {
       setContent(() => {
@@ -52,13 +98,15 @@ export function BookmarksWidget({ id }) {
   }, [layout.w, layout.h]);
   return (
     <WidgetTemplate
-      className="bookmarks-widget"
+      className={classes}
       id={id}
       sizes={BookmarksWidgetSizes}
       layout={layout}
       setLayout={setLayout}
     >
-      {content}
+      <button className="bookmarks-widget-button" onClick={handleOnClick}>
+        {content}
+      </button>
     </WidgetTemplate>
   );
 }

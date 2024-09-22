@@ -170,6 +170,54 @@ function defaultWidgets() {
       },
       { city: "Ramallah" }
     ),
+    tttttt: new WidgetBackend(
+      "WeatherWidget",
+      {
+        gridType: "left",
+        regularX: 5,
+        regularY: 3,
+        minimizedX: null,
+        minimizedY: null,
+        sizeIndex: 1,
+      },
+      { city: "Ramallah" }
+    ),
+    kkkkkk: new WidgetBackend(
+      "WeatherWidget",
+      {
+        gridType: "left",
+        regularX: 7,
+        regularY: 1,
+        minimizedX: null,
+        minimizedY: null,
+        sizeIndex: 1,
+      },
+      { city: "Ramallah" }
+    ),
+    rrrrrr: new WidgetBackend(
+      "WeatherWidget",
+      {
+        gridType: "left",
+        regularX: 7,
+        regularY: 3,
+        minimizedX: null,
+        minimizedY: null,
+        sizeIndex: 1,
+      },
+      { city: "Ramallah" }
+    ),
+    qqqqqq: new WidgetBackend(
+      "WeatherWidget",
+      {
+        gridType: "left",
+        regularX: 1,
+        regularY: 4,
+        minimizedX: null,
+        minimizedY: null,
+        sizeIndex: 0,
+      },
+      { city: "Ramallah" }
+    ),
 
     yyyyyy: new WidgetBackend(
       "SearchWidget",

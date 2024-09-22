@@ -43,6 +43,7 @@
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.6.0",
     "mini-css-extract-plugin": "^2.9.0",
+    "svg-inline-loader": "^0.8.2",
     "svg-url-loader": "^8.0.0",
     "webpack": "^5.94.0",
     "webpack-cli": "^5.1.4"

@@ -26,6 +26,8 @@ function App() {
     HiddenItems,
     addItems,
     removeItems,
+    centerWidget,
+    rightWidget,
   } = useGridsContent();
   const { widgets, addWidget, removeWidget, editWidget, getComponent } =
     useWidgets();
@@ -65,12 +67,14 @@ function App() {
             const WidgetComponent = getComponent(widgets[key].wComponent);
             return <WidgetComponent key={key} id={key} />;
           })}
+          {centerWidget}
         </Grid>
         <Grid gridType="right">
           {Object.keys(RightItems).map((key) => {
             const WidgetComponent = getComponent(widgets[key].wComponent);
             return <WidgetComponent key={key} id={key} />;
           })}
+          {rightWidget}
         </Grid>
         <Grid gridType="hidden">
           {Object.keys(HiddenItems).map((key) => {

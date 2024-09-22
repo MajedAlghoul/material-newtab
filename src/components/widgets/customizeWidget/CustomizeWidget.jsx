@@ -2,10 +2,60 @@ import "./CustomizeWidget.css";
 import WidgetTemplate from "../../widgetTemplate/WidgetTemplate.jsx";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
+import { useGridsWH } from "../../../hooks/useGridsWH.js";
+import { CustomizeMenu } from "../../menus/customizeMenu/CustomizeMenu.jsx";
+import { useGridsContent } from "../../../hooks/useGridsContent.js";
 export function CustomizeWidget({ id }) {
   const [layout, setLayout] = useState({ x: null, y: null, w: null, h: null });
 
   const [content, setContent] = useState(null);
+
+  const { gridsWH } = useGridsWH();
+  const [classes, setClasses] = useState("customize-widget");
+  const {
+    leftItems,
+    centerItems,
+    RightItems,
+    HiddenItems,
+    addItems,
+    removeItems,
+    centerWidget,
+    rightWidget,
+    flushMenu,
+    isMenuVisible,
+    currentClass,
+  } = useGridsContent();
+  const handleOnClick = () => {
+    const w = gridsWH["rw"];
+    if (w) {
+      flushMenu();
+      if (!isMenuVisible() || currentClass() !== "customize-widget") {
+        if (w === 1) {
+          addItems(
+            "centerW",
+            <CustomizeMenu
+              setClasses={setClasses}
+              key={"customize-menu"}
+            ></CustomizeMenu>,
+            setClasses,
+            "customize-widget"
+          );
+        } else {
+          addItems(
+            "rightW",
+            <CustomizeMenu
+              setClasses={setClasses}
+              key={"customize-menu"}
+            ></CustomizeMenu>,
+            setClasses,
+            "customize-widget"
+          );
+        }
+        setClasses("customize-widget customize-widget-active");
+      }
+    }
+  };
+
   useEffect(() => {
     if (layout.w === 1 && layout.h === 1) {
       setContent(() => {
@@ -67,13 +117,15 @@ export function CustomizeWidget({ id }) {
 
   return (
     <WidgetTemplate
-      className="customize-widget"
+      className={classes}
       id={id}
       sizes={CustomizeWidgetSizes}
       layout={layout}
       setLayout={setLayout}
     >
-      {content}
+      <button className="customize-widget-button" onClick={handleOnClick}>
+        {content}
+      </button>
     </WidgetTemplate>
   );
 }

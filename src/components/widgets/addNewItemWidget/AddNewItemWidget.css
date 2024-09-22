@@ -3,5 +3,27 @@
   align-items: center;
   justify-content: center;
   border-bottom: 2px solid var(--widget-depth-color);
+  z-index: 2;
   /*box-shadow: 0px 0px 0px 14px #f0dcc6;*/
+}
+
+.add-new-item-widget-button {
+  width: 100%;
+  height: 100%;
+  border-radius: 26px;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+.add-new-item-widget-active {
+  border-bottom: none !important;
+  /*box-shadow: 0px 0px 0px 14px var(--highlight-color);*/
+}
+
+.shadow-active {
+  width: 76px;
+  height: 76px;
+  border-radius: 0 26px 26px 0;
+  box-shadow: 0px 0px 0px 14px var(--highlight-color);
 }

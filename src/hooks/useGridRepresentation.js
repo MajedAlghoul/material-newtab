@@ -2,9 +2,6 @@ import { createContext, useContext, useState, useEffect, useRef } from "react";
 import { useGridsWH } from "./useGridsWH";
 import { useWidgets } from "./useWidgets";
 import { useGridsContent } from "./useGridsContent";
-import Mutex from "../app/Mutex";
-
-const mutex = new Mutex();
 
 const GridRepresentationContext = createContext();
 export function GridRepresentationProvider({ children }) {
@@ -332,8 +329,8 @@ export function GridRepresentationProvider({ children }) {
             let tempY = widgets[id]["layouts"]["minimizedY"];
             if (tempX !== localX || tempY !== localY) {
               //console.log("minimized is getting edited ", localX, localY, id);
-              editWidget(id, "layouts", "minimizedX", localX);
-              editWidget(id, "layouts", "minimizedY", localY);
+              //editWidget(id, "layouts", "minimizedX", localX);
+              //editWidget(id, "layouts", "minimizedY", localY);
             }
           }
         } else {

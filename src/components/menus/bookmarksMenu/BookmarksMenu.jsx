@@ -4,7 +4,6 @@ import { useWidgets } from "../../../hooks/useWidgets.js";
 import { useGridsContent } from "../../../hooks/useGridsContent.js";
 import { useEffect, useState, useRef } from "react";
 import { useGridRepresentation } from "../../../hooks/useGridRepresentation.js";
-import { MenuTemplate } from "../../menuTemplate/MenuTemplate.jsx";
 
 export function BookmarksMenu({ setClasses }) {
   const [layout, setLayout] = useState({ x: null, y: null, w: null, h: null });

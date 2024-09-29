@@ -1,9 +1,9 @@
-import { useGridsWH } from "../../hooks/useGridsWH.js";
+import { useGridsWH } from "../../hooks/useGridsWH.jsx";
 import "./WidgetTemplate.css";
-import { useWidgets } from "../../hooks/useWidgets.js";
-import { useGridsContent } from "../../hooks/useGridsContent.js";
+import { useWidgets } from "../../hooks/useWidgets.jsx";
+import { useGridsContent } from "../../hooks/useGridsContent.jsx";
 import { useEffect, useState, useRef } from "react";
-import { useGridRepresentation } from "../../hooks/useGridRepresentation.js";
+import { useGridRepresentation } from "../../hooks/useGridRepresentation.jsx";
 
 function WidgetTemplate({ className, id, sizes, layout, setLayout, children }) {
   const { gridsWH } = useGridsWH();

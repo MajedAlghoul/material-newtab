@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect, useRef } from "react";
-import { useGridsWH } from "./useGridsWH";
-import { useWidgets } from "./useWidgets";
-import { useGridsContent } from "./useGridsContent";
+import { useGridsWH } from "./useGridsWH.jsx";
+import { useWidgets } from "./useWidgets.jsx";
+import { useGridsContent } from "./useGridsContent.jsx";
 
 const GridRepresentationContext = createContext();
 export function GridRepresentationProvider({ children }) {

@@ -2,9 +2,9 @@ import "./hiddenWidgetsWidget.css";
 import WidgetTemplate from "../../widgetTemplate/WidgetTemplate.jsx";
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { useGridsWH } from "../../../hooks/useGridsWH.js";
+import { useGridsWH } from "../../../hooks/useGridsWH.jsx";
 import { HiddenWidgetsMenu } from "../../menus/hiddenMenu/HiddenWidgetsMenu.jsx";
-import { useGridsContent } from "../../../hooks/useGridsContent.js";
+import { useGridsContent } from "../../../hooks/useGridsContent.jsx";
 
 export function HiddenWidgetsWidget({ id }) {
   const [layout, setLayout] = useState({ x: null, y: null, w: null, h: null });
@@ -19,14 +19,15 @@ export function HiddenWidgetsWidget({ id }) {
     removeItems,
     centerWidget,
     rightWidget,
-    flushMenu,
+    hardFlushMenu,
+    softFlushMenu,
     isMenuVisible,
     currentClass,
   } = useGridsContent();
   const handleOnClick = () => {
     const w = gridsWH["rw"];
     if (w) {
-      flushMenu();
+      hardFlushMenu();
       if (!isMenuVisible() || currentClass() !== "hidden-widgets-widget") {
         if (w === 1) {
           addItems(

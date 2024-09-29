@@ -2,10 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./app/App.jsx";
-import { GridsWHProvider } from "./hooks/useGridsWH.js";
-import { WidgetsProvider } from "./hooks/useWidgets.js";
-import { GridRepresentationProvider } from "./hooks/useGridRepresentation.js";
-import { GridsContentProvider } from "./hooks/useGridsContent.js";
+import { GridsWHProvider } from "./hooks/useGridsWH.jsx";
+import { WidgetsProvider } from "./hooks/useWidgets.jsx";
+import { GridRepresentationProvider } from "./hooks/useGridRepresentation.jsx";
+import { GridsContentProvider } from "./hooks/useGridsContent.jsx";
 //import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

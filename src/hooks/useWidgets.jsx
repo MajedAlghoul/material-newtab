@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect, useRef } from "react";
 import { pullStorage, setStorage } from "../app/utility.js";
-import { useGridsWH } from "./useGridsWH.js";
+import { useGridsWH } from "./useGridsWH.jsx";
 import WidgetBackend from "../app/WidgetBackend.js";
 import { AddNewItemWidget } from "../components/widgets/addNewItemWidget/AddNewItemWidget.jsx";
 import { BookmarksWidget } from "../components/widgets/bookmarksWidget/BookmarksWidget.jsx";

@@ -9,14 +9,14 @@ import "./App.css";
 import * as utility from "./utility.js";
 import WidgetBackend from "./WidgetBackend.js";
 import { useEffect, useState } from "react";
-import { useGridsContent } from "../hooks/useGridsContent.js";
-import { useGridsWH } from "../hooks/useGridsWH.js";
+import { useGridsContent } from "../hooks/useGridsContent.jsx";
+import { useGridsWH } from "../hooks/useGridsWH.jsx";
 
-import { type } from "@testing-library/user-event/dist/type/index.js";
+//import { type } from "@testing-library/user-event/dist/type/index.js";
 import AddNewItemPlaceholder from "../components/addNewItemPlaceholder/AddNewItemPlaceholder.jsx";
 import SearchWidget from "../components/widgets/searchWidget/SearchWidget.jsx";
 import WeatherWidget from "../components/widgets/weatherWidget/WeatherWidget.jsx";
-import { useWidgets } from "../hooks/useWidgets.js";
+import { useWidgets } from "../hooks/useWidgets.jsx";
 
 function App() {
   const {

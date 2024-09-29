@@ -62,12 +62,16 @@ export function GridsContentProvider({ children }) {
     }
   };
 
-  const flushMenu = () => {
+  const hardFlushMenu = () => {
     if (classSetter.current[0]) {
       classSetter.current[0](classSetter.current[1]);
-      setCenterWidget([]);
-      setRightWidget([]);
+      softFlushMenu();
     }
+  };
+
+  const softFlushMenu = () => {
+    setCenterWidget([]);
+    setRightWidget([]);
   };
 
   const currentClass = () => {
@@ -87,7 +91,8 @@ export function GridsContentProvider({ children }) {
         removeItems,
         centerWidget,
         rightWidget,
-        flushMenu,
+        hardFlushMenu,
+        softFlushMenu,
         isMenuVisible,
         currentClass,
       }}

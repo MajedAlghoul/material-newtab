@@ -2,9 +2,9 @@ import "./CustomizeWidget.css";
 import WidgetTemplate from "../../widgetTemplate/WidgetTemplate.jsx";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import { useGridsWH } from "../../../hooks/useGridsWH.js";
+import { useGridsWH } from "../../../hooks/useGridsWH.jsx";
 import { CustomizeMenu } from "../../menus/customizeMenu/CustomizeMenu.jsx";
-import { useGridsContent } from "../../../hooks/useGridsContent.js";
+import { useGridsContent } from "../../../hooks/useGridsContent.jsx";
 export function CustomizeWidget({ id }) {
   const [layout, setLayout] = useState({ x: null, y: null, w: null, h: null });
 
@@ -21,14 +21,15 @@ export function CustomizeWidget({ id }) {
     removeItems,
     centerWidget,
     rightWidget,
-    flushMenu,
+    hardFlushMenu,
+    softFlushMenu,
     isMenuVisible,
     currentClass,
   } = useGridsContent();
   const handleOnClick = () => {
     const w = gridsWH["rw"];
     if (w) {
-      flushMenu();
+      hardFlushMenu();
       if (!isMenuVisible() || currentClass() !== "customize-widget") {
         if (w === 1) {
           addItems(

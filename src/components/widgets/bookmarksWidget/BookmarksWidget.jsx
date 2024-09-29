@@ -3,8 +3,8 @@ import WidgetTemplate from "../../widgetTemplate/WidgetTemplate.jsx";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { BookmarksMenu } from "../../menus/bookmarksMenu/bookmarksMenu.jsx";
-import { useGridsContent } from "../../../hooks/useGridsContent.js";
-import { useGridsWH } from "../../../hooks/useGridsWH.js";
+import { useGridsContent } from "../../../hooks/useGridsContent.jsx";
+import { useGridsWH } from "../../../hooks/useGridsWH.jsx";
 
 export function BookmarksWidget({ id }) {
   const [layout, setLayout] = useState({ x: null, y: null, w: null, h: null });
@@ -20,14 +20,15 @@ export function BookmarksWidget({ id }) {
     removeItems,
     centerWidget,
     rightWidget,
-    flushMenu,
+    hardFlushMenu,
+    softFlushMenu,
     isMenuVisible,
     currentClass,
   } = useGridsContent();
   const handleOnClick = () => {
     const w = gridsWH["rw"];
     if (w) {
-      flushMenu();
+      hardFlushMenu();
       if (!isMenuVisible() || currentClass() !== "bookmarks-widget") {
         if (w === 1) {
           addItems(

@@ -1,9 +1,9 @@
-import { useGridsWH } from "../../../hooks/useGridsWH.js";
+import { useGridsWH } from "../../../hooks/useGridsWH.jsx";
 import "./CustomizeMenu.css";
-import { useWidgets } from "../../../hooks/useWidgets.js";
-import { useGridsContent } from "../../../hooks/useGridsContent.js";
+import { useWidgets } from "../../../hooks/useWidgets.jsx";
+import { useGridsContent } from "../../../hooks/useGridsContent.jsx";
 import { useEffect, useState, useRef } from "react";
-import { useGridRepresentation } from "../../../hooks/useGridRepresentation.js";
+import { useGridRepresentation } from "../../../hooks/useGridRepresentation.jsx";
 
 export function CustomizeMenu({ setClasses }) {
   const [layout, setLayout] = useState({ x: null, y: null, w: null, h: null });
@@ -13,13 +13,13 @@ export function CustomizeMenu({ setClasses }) {
   const { gridsWH } = useGridsWH();
 
   const isInitialMount = useRef(true);
-  const { flushMenu } = useGridsContent();
+  const { hardFlushMenu, softFlushMenu } = useGridsContent();
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
     } else if (gridsWH) {
       setClasses("customize-widget");
-      flushMenu();
+      hardFlushMenu();
     }
   }, [gridsWH]);
   useEffect(() => {

@@ -33,7 +33,6 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 .top-widget-menu-container {
@@ -66,6 +65,16 @@
   border: none;
   outline: none;
 }
+.widget-menu-title-x-button:hover {
+  background-color: #ffffff20;
+  border-radius: 999px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translate(-37%, 37%);
+}
 
 .widget-menu-search-container {
   display: flex;
@@ -85,6 +94,9 @@
   text-align: center;
   font-size: 12px;
   border-top: 1px solid #ffffff10;
+  border-bottom: 1px solid #00000040;
+  border-left: 1px solid #00000020;
+  border-right: 1px solid #00000020;
 }
 
 .widget-menu-search-bar::-webkit-input-placeholder {
@@ -97,44 +109,42 @@
 
 .bottom-widget-menu-container {
   width: 100%;
-  height: 71%;
+  height: 76%;
+  overflow: auto;
+  margin-top: 6px;
+}
+.bottom-widget-menu-container::-webkit-scrollbar {
+  width: 6px;
+}
+.bottom-widget-menu-container::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-.widget-menu-item-weather-container {
-  height: 168px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.bottom-widget-menu-container::-webkit-scrollbar-thumb {
+  background-color: #ffffff30;
+  border-radius: 20px;
+}
+
+.bottom-widget-menu-container::-webkit-scrollbar-thumb:hover {
+  background-color: #ffffff50;
 }
 .widget-menu-item-title {
   font-size: 14px;
-  height: 14%;
   width: 82%;
 }
 
 .widget-menu-item-weather-body {
-  height: 86%;
+  height: 100%;
   width: 100%;
   position: relative;
-}
-
-.widget-menu-item-search-body {
-  height: 82%;
-  width: 100%;
-  position: relative;
-}
-.widget-menu-item-search-title {
-  font-size: 14px;
-  height: 28%;
-  width: 82%;
 }
 
 .widget-menu-item-weather-horizontal-viewer {
   position: absolute;
   width: 100%;
-  height: 100%;
   display: flex;
   overflow-x: hidden;
+  align-items: flex-end;
 }
 
 .add-weather-containers {
@@ -145,31 +155,10 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
+  margin-top: 8px;
 }
 
-.add-weather-3x3-container {
-  width: 120px;
-}
-
-.add-weather-3x2-container {
-  width: 120px;
-}
-.add-weather-2x2-container {
-  width: 76px;
-}
-.add-weather-1x1-container {
-  width: 32px;
-  margin-right: 24px;
-}
-
-.add-search-5x1-container {
-  width: 208px;
-}
-.add-search-3x1-container {
-  width: 120px;
-}
-.add-search-1x1-container {
-  width: 32px;
+.last-widget-margin {
   margin-right: 24px;
 }
 
@@ -195,23 +184,16 @@
   justify-content: center;
   align-items: center;
 }
-.weather-3x3-container {
-  width: 100%;
-  height: 120px;
-  display: flex;
-}
+
 .widget-dimensions-text {
   margin-top: 5px;
 }
-.weather-3x3-button {
-  width: 100%;
-  height: 100%;
+.weather-buttons {
   background: none;
   outline: none;
   border: none;
   display: flex;
   padding: 0;
-  z-index: 5;
 }
 
 .weather-buttons:hover {
@@ -219,59 +201,6 @@
   border-radius: 11px;
 }
 
-.weather-3x2-container {
-  width: 100%;
-  height: 76px;
-  display: flex;
-}
-
-.search-containers {
-  width: 100%;
-  height: 32px;
-  display: flex;
-}
-
-.weather-3x2-button {
-  width: 100%;
-  height: 100%;
-  background: none;
-  outline: none;
-  border: none;
-  display: flex;
-  padding: 0;
-}
-
-.weather-2x2-container {
-  width: 100%;
-  height: 76px;
-  display: flex;
-}
-
-.weather-1x1-button {
-  width: 100%;
-  height: 100%;
-  background: none;
-  outline: none;
-  border: none;
-  display: flex;
-  padding: 0;
-}
-
-.weather-1x1-container {
-  width: 100%;
-  height: 32px;
-  display: flex;
-}
-
-.weather-2x2-button {
-  width: 100%;
-  height: 100%;
-  background: none;
-  outline: none;
-  border: none;
-  display: flex;
-  padding: 0;
-}
 .scroll-button-previous {
   left: 10px;
   top: 50%;
@@ -284,8 +213,7 @@
   transform: translateY(-50%);
 }
 
-.widget-menu-item-search-container {
-  height: 82px;
+.widget-menu-item-weather-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -296,16 +224,10 @@
   .widget-menu-item-title {
     width: 90%;
   }
-  .widget-menu-item-search-title {
-    width: 90%;
-  }
 }
 
 @media (max-width: 707px) {
   .widget-menu-item-title {
-    width: 82%;
-  }
-  .widget-menu-item-search-title {
     width: 82%;
   }
 }

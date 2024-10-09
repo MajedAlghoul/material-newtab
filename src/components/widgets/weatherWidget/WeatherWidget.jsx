@@ -12,7 +12,6 @@ export function WeatherWidget({ id }) {
     <WidgetTemplate
       className="weather-widget"
       id={id}
-      sizes={WeatherWidgetSizes}
       layout={layout}
       setLayout={setLayout}
     >
@@ -23,13 +22,4 @@ export function WeatherWidget({ id }) {
 
 WeatherWidget.propTypes = {
   id: PropTypes.string,
-};
-
-export const WeatherWidgetSizes = {
-  sizesCount: 3,
-  sizes: [
-    { w: 1, h: 1 },
-    { w: 2, h: 2 },
-    { w: 3, h: 2 },
-  ],
 };

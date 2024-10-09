@@ -22,7 +22,7 @@ export function AddMenu({ setClasses }) {
       softFlushMenu();
       addItems(
         "centerW",
-        <WidgetsMenu setClasses={setClasses} key={"add-menu"}></WidgetsMenu>,
+        <WidgetsMenu key={"add-menu"}></WidgetsMenu>,
         setClasses,
         "add-new-item-widget"
       );
@@ -44,7 +44,7 @@ export function AddMenu({ setClasses }) {
     if (isInitialMount.current) {
       isInitialMount.current = false;
     } else if (gridsWH) {
-      setClasses("add-new-item-widget");
+      //setClasses("add-new-item-widget");
       hardFlushMenu();
     }
   }, [gridsWH]);

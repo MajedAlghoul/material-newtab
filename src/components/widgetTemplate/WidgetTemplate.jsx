@@ -5,7 +5,7 @@ import { useGridsContent } from "../../hooks/useGridsContent.jsx";
 import { useEffect, useState, useRef } from "react";
 import { useGridRepresentation } from "../../hooks/useGridRepresentation.jsx";
 
-function WidgetTemplate({ className, id, sizes, layout, setLayout, children }) {
+function WidgetTemplate({ className, id, layout, setLayout, children }) {
   const { gridsWH } = useGridsWH();
   const {
     leftItems,
@@ -50,15 +50,15 @@ function WidgetTemplate({ className, id, sizes, layout, setLayout, children }) {
   useEffect(() => {
     async function innerEffect() {
       const [gridType, localX, localY, localW, localH, outOfBoundFactor] =
-        await calculateChanges(id, sizes, layout);
+        await calculateChanges(id, widgets[id].sizes, layout);
       if (outOfBoundFactor === "falling") {
         setTimeout(async () => {
           //thequeue.current = [...thequeue.current, id];
           //console.log("queue", thequeue.current);
-          scheduleFalling(id, sizes, layout, setLayout);
+          scheduleFalling(id, widgets[id].sizes, layout, setLayout);
         }, 0);
       } else {
-        scheduleFalling(id, sizes, layout, setLayout);
+        scheduleFalling(id, widgets[id].sizes, layout, setLayout);
       }
     }
     if (setWidgetAndGridReady) {

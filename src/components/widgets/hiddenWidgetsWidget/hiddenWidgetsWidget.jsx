@@ -32,20 +32,14 @@ export function HiddenWidgetsWidget({ id }) {
         if (w === 1) {
           addItems(
             "centerW",
-            <HiddenWidgetsMenu
-              setClasses={setClasses}
-              key={"hidden-widgets-menu"}
-            ></HiddenWidgetsMenu>,
+            <HiddenWidgetsMenu key={"hidden-widgets-menu"}></HiddenWidgetsMenu>,
             setClasses,
             "hidden-widgets-widget"
           );
         } else {
           addItems(
             "rightW",
-            <HiddenWidgetsMenu
-              setClasses={setClasses}
-              key={"hidden-widgets-menu"}
-            ></HiddenWidgetsMenu>,
+            <HiddenWidgetsMenu key={"hidden-widgets-menu"}></HiddenWidgetsMenu>,
             setClasses,
             "hidden-widgets-widget"
           );
@@ -58,7 +52,6 @@ export function HiddenWidgetsWidget({ id }) {
     <WidgetTemplate
       className={classes}
       id={id}
-      sizes={HiddenWidgetsWidgetSizes}
       layout={layout}
       setLayout={setLayout}
     >
@@ -103,9 +96,4 @@ export function HiddenWidgetsWidget({ id }) {
 
 HiddenWidgetsWidget.propTypes = {
   id: PropTypes.string,
-};
-
-export const HiddenWidgetsWidgetSizes = {
-  sizesCount: 1,
-  sizes: [{ w: 1, h: 1 }],
 };

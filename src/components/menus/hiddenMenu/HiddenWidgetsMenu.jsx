@@ -5,7 +5,7 @@ import { useGridsContent } from "../../../hooks/useGridsContent.jsx";
 import { useEffect, useState, useRef } from "react";
 import { useGridRepresentation } from "../../../hooks/useGridRepresentation.jsx";
 
-export function HiddenWidgetsMenu({ setClasses }) {
+export function HiddenWidgetsMenu() {
   const [layout, setLayout] = useState({ x: null, y: null, w: null, h: null });
 
   const [content, setContent] = useState(null);
@@ -18,7 +18,7 @@ export function HiddenWidgetsMenu({ setClasses }) {
     if (isInitialMount.current) {
       isInitialMount.current = false;
     } else if (gridsWH) {
-      setClasses("hidden-widgets-widget");
+      //setClasses("hidden-widgets-widget");
       hardFlushMenu();
     }
   }, [gridsWH]);

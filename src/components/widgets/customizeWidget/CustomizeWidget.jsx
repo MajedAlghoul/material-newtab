@@ -34,20 +34,14 @@ export function CustomizeWidget({ id }) {
         if (w === 1) {
           addItems(
             "centerW",
-            <CustomizeMenu
-              setClasses={setClasses}
-              key={"customize-menu"}
-            ></CustomizeMenu>,
+            <CustomizeMenu key={"customize-menu"}></CustomizeMenu>,
             setClasses,
             "customize-widget"
           );
         } else {
           addItems(
             "rightW",
-            <CustomizeMenu
-              setClasses={setClasses}
-              key={"customize-menu"}
-            ></CustomizeMenu>,
+            <CustomizeMenu key={"customize-menu"}></CustomizeMenu>,
             setClasses,
             "customize-widget"
           );
@@ -120,7 +114,6 @@ export function CustomizeWidget({ id }) {
     <WidgetTemplate
       className={classes}
       id={id}
-      sizes={CustomizeWidgetSizes}
       layout={layout}
       setLayout={setLayout}
     >
@@ -133,12 +126,4 @@ export function CustomizeWidget({ id }) {
 
 CustomizeWidget.propTypes = {
   id: PropTypes.string,
-};
-
-export const CustomizeWidgetSizes = {
-  sizesCount: 2,
-  sizes: [
-    { w: 1, h: 1 },
-    { w: 2, h: 1 },
-  ],
 };

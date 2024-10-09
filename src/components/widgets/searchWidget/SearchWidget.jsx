@@ -84,7 +84,6 @@ export function SearchWidget({ id }) {
     <WidgetTemplate
       className="search-widget"
       id={id}
-      sizes={SearchWidgetSizes}
       layout={layout}
       setLayout={setLayout}
     >
@@ -95,13 +94,4 @@ export function SearchWidget({ id }) {
 
 SearchWidget.propTypes = {
   id: PropTypes.string,
-};
-
-export const SearchWidgetSizes = {
-  sizesCount: 3,
-  sizes: [
-    { w: 1, h: 1 },
-    { w: 3, h: 1 },
-    { w: 5, h: 1 },
-  ],
 };

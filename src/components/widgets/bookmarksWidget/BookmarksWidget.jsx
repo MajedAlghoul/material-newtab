@@ -33,20 +33,14 @@ export function BookmarksWidget({ id }) {
         if (w === 1) {
           addItems(
             "centerW",
-            <BookmarksMenu
-              setClasses={setClasses}
-              key={"bookmarks-menu"}
-            ></BookmarksMenu>,
+            <BookmarksMenu key={"bookmarks-menu"}></BookmarksMenu>,
             setClasses,
             "bookmarks-widget"
           );
         } else {
           addItems(
             "rightW",
-            <BookmarksMenu
-              setClasses={setClasses}
-              key={"bookmarks-menu"}
-            ></BookmarksMenu>,
+            <BookmarksMenu key={"bookmarks-menu"}></BookmarksMenu>,
             setClasses,
             "bookmarks-widget"
           );
@@ -101,7 +95,6 @@ export function BookmarksWidget({ id }) {
     <WidgetTemplate
       className={classes}
       id={id}
-      sizes={BookmarksWidgetSizes}
       layout={layout}
       setLayout={setLayout}
     >
@@ -113,12 +106,4 @@ export function BookmarksWidget({ id }) {
 }
 BookmarksWidget.propTypes = {
   id: PropTypes.string,
-};
-
-export const BookmarksWidgetSizes = {
-  sizesCount: 2,
-  sizes: [
-    { w: 1, h: 1 },
-    { w: 2, h: 1 },
-  ],
 };

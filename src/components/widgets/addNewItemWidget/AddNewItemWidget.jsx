@@ -43,7 +43,6 @@ export function AddNewItemWidget({ id }) {
     <WidgetTemplate
       className={classes}
       id={id}
-      sizes={AddNewItemWidgetSizes}
       layout={layout}
       setLayout={setLayout}
     >
@@ -66,9 +65,4 @@ export function AddNewItemWidget({ id }) {
 
 AddNewItemWidget.propTypes = {
   id: PropTypes.string,
-};
-
-export const AddNewItemWidgetSizes = {
-  sizesCount: 1,
-  sizes: [{ w: 1, h: 1 }],
 };

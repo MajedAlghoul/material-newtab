@@ -5,6 +5,8 @@ import { useGridsContent } from "../../../hooks/useGridsContent.jsx";
 import { useEffect, useState, useRef } from "react";
 import { useGridRepresentation } from "../../../hooks/useGridRepresentation.jsx";
 import { useWidgetsBlueprints } from "../../../hooks/useWidgetsBlueprints.jsx";
+import { sliderBackArrow, sliderForwardArrow } from "../../../app/Svgs.jsx";
+
 export function WidgetsMenu() {
   const [layout, setLayout] = useState({ x: null, y: null, w: null, h: null });
 
@@ -29,10 +31,14 @@ export function WidgetsMenu() {
     scheduleFalling,
   } = useGridRepresentation();
 
+  const silderRefs = useRef([]);
+
   const weatherRef = useRef(null);
   const searchRef = useRef(null);
-  const [canScrollLeft, setCanScrollLeft] = useState([false, false]);
-  const [canScrollRight, setCanScrollRight] = useState([false, false]);
+  const [canScrollLeft, setCanScrollLeft] = useState([]);
+  const [canScrollRight, setCanScrollRight] = useState([]);
+  const [scrollIntervals, setScrollIntervals] = useState([]);
+
   let weatherScrollInterval = 0;
   let searchScrollInterval = 0;
 
@@ -45,26 +51,16 @@ export function WidgetsMenu() {
   };
 
   const scrollNext = (whichContainer) => {
-    if (whichContainer === "weather") {
-      if (weatherRef.current) {
-        weatherRef.current.scrollLeft += weatherScrollInterval;
-      }
-    } else {
-      if (searchRef.current) {
-        searchRef.current.scrollLeft += searchScrollInterval;
-      }
+    if (silderRefs.current[whichContainer]) {
+      silderRefs.current[whichContainer].scrollLeft +=
+        scrollIntervals[whichContainer];
     }
   };
 
   const scrollPrev = (whichContainer) => {
-    if (whichContainer === "weather") {
-      if (weatherRef.current) {
-        weatherRef.current.scrollLeft -= weatherScrollInterval;
-      }
-    } else {
-      if (searchRef.current) {
-        searchRef.current.scrollLeft -= searchScrollInterval;
-      }
+    if (silderRefs.current[whichContainer]) {
+      silderRefs.current[whichContainer].scrollLeft -=
+        scrollIntervals[whichContainer];
     }
   };
 
@@ -79,35 +75,30 @@ export function WidgetsMenu() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (weatherRef.current) {
-        const { scrollLeft, scrollWidth, clientWidth } = weatherRef.current;
-        if (canScrollLeft[0] !== scrollLeft > 0) {
-          setCanScrollLeft((prev) => {
-            return [scrollLeft > 0, prev[1]];
+      silderRefs.current.forEach((ref, index) => {
+        if (ref) {
+          const { scrollLeft, scrollWidth, clientWidth } = ref;
+          if (canScrollLeft[index] !== scrollLeft > 0) {
+            setCanScrollLeft((prev) => {
+              let temp = [...prev];
+              temp[index] = scrollLeft > 0;
+              return temp;
+            });
+          }
+          if (canScrollRight[0] !== scrollLeft < scrollWidth - clientWidth) {
+            setCanScrollRight((prev) => {
+              let temp = [...prev];
+              temp[index] = scrollLeft < scrollWidth - clientWidth;
+              return temp;
+            });
+          }
+          setScrollIntervals((prev) => {
+            let temp = [...prev];
+            temp[index] = clientWidth;
+            return temp;
           });
         }
-        if (canScrollRight[0] !== scrollLeft < scrollWidth - clientWidth) {
-          setCanScrollRight((prev) => {
-            return [scrollLeft < scrollWidth - clientWidth, prev[1]];
-          });
-        }
-        weatherScrollInterval = clientWidth;
-      }
-      if (searchRef.current) {
-        const { scrollLeft, scrollWidth, clientWidth } = searchRef.current;
-        if (canScrollLeft[1] !== scrollLeft > 0) {
-          setCanScrollLeft((prev) => {
-            return [prev[0], scrollLeft > 0];
-          });
-        }
-        if (canScrollRight[1] !== scrollLeft < scrollWidth - clientWidth) {
-          setCanScrollRight((prev) => {
-            return [prev[0], scrollLeft < scrollWidth - clientWidth];
-          });
-        }
-
-        searchScrollInterval = clientWidth;
-      }
+      });
     };
 
     let w = gridsWH["cw"];
@@ -153,135 +144,90 @@ export function WidgetsMenu() {
               </div>
             </div>
             <div className="bottom-widget-menu-container">
-              {Object.entries(data).map(([outerKey, outerObject]) => (
-                <div key={outerKey} className="outer-div-class">
-                  {Object.entries(outerObject).map(
-                    ([innerKey, innerObject]) => (
-                      <svg key={innerKey} className="inner-svg-class">
-                        {/* Render your SVG content here */}
-                        {/* You can use innerObject properties if needed */}
-                      </svg>
-                    )
-                  )}
-                </div>
-              ))}
+              {Object.entries(blueprints).map(
+                ([blueprintName, blueprintValue], blueprintIndex) => {
+                  if (!blueprintValue.sizes.images) return null;
 
-              <div
-                className="widget-menu-item-weather-container"
-                style={{ height: "172px" }}
-              >
-                <div className="widget-menu-item-title">Weather</div>
-                <div className="widget-menu-item-weather-body">
-                  <div
-                    className="widget-menu-item-weather-horizontal-viewer"
-                    ref={weatherRef}
-                  >
-                    <div className="add-weather-containers">
-                      <button className="weather-buttons">
-                        {blueprints["Weather"].sizes.images[3]}
-                      </button>
-                      <div className="widget-dimensions-text">3x3</div>
+                  const maxHeight = Math.max(
+                    ...blueprintValue.sizes.sizes.map((element) => element.h)
+                  );
+                  return (
+                    <div
+                      key={blueprintName}
+                      className="widget-menu-item-weather-container"
+                      style={{ height: `${76 + maxHeight * 32}px` }}
+                    >
+                      <div className="widget-menu-item-title">
+                        {blueprintName}
+                      </div>
+                      <div className="widget-menu-item-weather-body">
+                        <div
+                          className="widget-menu-item-weather-horizontal-viewer"
+                          ref={(el) =>
+                            (silderRefs.current[blueprintIndex] = el)
+                          }
+                        >
+                          {[...blueprintValue.sizes.images]
+                            .reverse()
+                            .map((image, index) => (
+                              <div
+                                className={`${
+                                  index ===
+                                  blueprintValue.sizes.images.length - 1
+                                    ? "last-widget-margin"
+                                    : null
+                                } add-weather-containers`}
+                              >
+                                <button className="weather-buttons">
+                                  {image}
+                                </button>
+                                <div className="widget-dimensions-text">
+                                  {`${
+                                    blueprintValue.sizes.sizes[
+                                      blueprintValue.sizes.images.length -
+                                        1 -
+                                        index
+                                    ].w
+                                  }x${
+                                    blueprintValue.sizes.sizes[
+                                      blueprintValue.sizes.images.length -
+                                        1 -
+                                        index
+                                    ].h
+                                  }`}
+                                </div>
+                              </div>
+                            ))}
+                        </div>
+                        {canScrollLeft[blueprintIndex] && (
+                          <div className="scroll-button-containers scroll-button-previous">
+                            <button
+                              className="scroll-buttons"
+                              onClick={() => {
+                                scrollPrev(blueprintIndex);
+                              }}
+                            >
+                              {sliderBackArrow}
+                            </button>
+                          </div>
+                        )}
+                        {canScrollRight[blueprintIndex] && (
+                          <div className="scroll-button-containers scroll-button-next">
+                            <button
+                              className="scroll-buttons"
+                              onClick={() => {
+                                scrollNext(blueprintIndex);
+                              }}
+                            >
+                              {sliderForwardArrow}
+                            </button>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                    <div className="add-weather-containers">
-                      <button className="weather-buttons">
-                        {blueprints["Weather"].sizes.images[2]}
-                      </button>
-                      <div className="widget-dimensions-text">3x2</div>
-                    </div>
-                    <div className="add-weather-containers">
-                      <button className="weather-buttons">
-                        {blueprints["Weather"].sizes.images[1]}
-                      </button>
-                      <div className="widget-dimensions-text">2x2</div>
-                    </div>
-                    <div className="add-weather-containers last-widget-margin">
-                      <button className="weather-buttons">
-                        {blueprints["Weather"].sizes.images[0]}
-                      </button>
-                      <div className="widget-dimensions-text">1x1</div>
-                    </div>
-                  </div>
-                  {canScrollLeft[0] && (
-                    <div className="scroll-button-containers scroll-button-previous">
-                      <button
-                        className="scroll-buttons"
-                        onClick={() => {
-                          scrollPrev("weather");
-                        }}
-                      >
-                        {BackArrow()}
-                      </button>
-                    </div>
-                  )}
-                  {canScrollRight[0] && (
-                    <div className="scroll-button-containers scroll-button-next">
-                      <button
-                        className="scroll-buttons"
-                        onClick={() => {
-                          scrollNext("weather");
-                        }}
-                      >
-                        {ForwardArrow()}
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </div>
-              <div
-                className="widget-menu-item-weather-container"
-                style={{ height: "82px" }}
-              >
-                <div className="widget-menu-item-title">Search</div>
-                <div className="widget-menu-item-weather-body">
-                  <div
-                    className="widget-menu-item-weather-horizontal-viewer"
-                    ref={searchRef}
-                  >
-                    <div className="add-weather-containers">
-                      <button className="weather-buttons">
-                        {blueprints["Search"].sizes.images[2]}
-                      </button>
-                      <div className="widget-dimensions-text">5x1</div>
-                    </div>
-                    <div className="add-weather-containers">
-                      <button className="weather-buttons">
-                        {blueprints["Search"].sizes.images[1]}
-                      </button>
-                      <div className="widget-dimensions-text">3x1</div>
-                    </div>
-                    <div className="add-weather-containers last-widget-margin">
-                      <button className="weather-buttons">
-                        {blueprints["Search"].sizes.images[0]}
-                      </button>
-                      <div className="widget-dimensions-text">1x1</div>
-                    </div>
-                  </div>
-                  {canScrollLeft[1] && (
-                    <div className="scroll-button-containers scroll-button-previous">
-                      <button
-                        className="scroll-buttons"
-                        onClick={() => {
-                          scrollPrev("search");
-                        }}
-                      >
-                        {BackArrow()}
-                      </button>
-                    </div>
-                  )}
-                  {canScrollRight[1] && (
-                    <div className="scroll-button-containers scroll-button-next">
-                      <button
-                        className="scroll-buttons"
-                        onClick={() => {
-                          scrollNext("search");
-                        }}
-                      >
-                        {ForwardArrow()}
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </div>
+                  );
+                }
+              )}
             </div>
           </div>
         </div>,
@@ -346,24 +292,21 @@ export function WidgetsMenu() {
     }
 
     setTimeout(() => {
-      if (weatherRef.current) {
-        handleScroll();
-        weatherRef.current.addEventListener("scroll", handleScroll);
-      }
-      if (searchRef.current) {
-        handleScroll();
-        searchRef.current.addEventListener("scroll", handleScroll);
-      }
+      silderRefs.current.forEach((ref) => {
+        if (ref) {
+          handleScroll();
+          ref.addEventListener("scroll", handleScroll);
+        }
+      });
     }, 0);
     return () => {
-      if (weatherRef.current) {
-        weatherRef.current.removeEventListener("scroll", handleScroll);
-      }
-      if (searchRef.current) {
-        searchRef.current.removeEventListener("scroll", handleScroll);
-      }
+      silderRefs.current.forEach((ref) => {
+        if (ref) {
+          ref.removeEventListener("scroll", handleScroll);
+        }
+      });
     };
-  }, [weatherRef, searchRef, canScrollLeft, canScrollRight]);
+  }, [silderRefs, canScrollLeft, canScrollRight, scrollIntervals]);
   return (
     <div
       className={`menu-template`}
@@ -378,65 +321,3 @@ export function WidgetsMenu() {
     </div>
   );
 }
-
-const BackArrow = () => {
-  return (
-    <svg
-      width="13"
-      height="11"
-      viewBox="0 0 13 11"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M1 5.32324H11.67"
-        stroke="white"
-        strokeWidth="1.51274"
-        strokeLinecap="round"
-      />
-      <path
-        d="M1 5.32324L5.26594 1.0003"
-        stroke="white"
-        strokeWidth="1.51274"
-        strokeLinecap="round"
-      />
-      <path
-        d="M1 5.32324L5.24457 9.66819"
-        stroke="white"
-        strokeWidth="1.51274"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-};
-
-const ForwardArrow = () => {
-  return (
-    <svg
-      width="14"
-      height="12"
-      viewBox="0 0 14 12"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M12.333 5.95898H1.66634"
-        stroke="white"
-        strokeWidth="1.51274"
-        strokeLinecap="round"
-      />
-      <path
-        d="M12.333 5.95898L8.0684 1.63604"
-        stroke="white"
-        strokeWidth="1.51274"
-        strokeLinecap="round"
-      />
-      <path
-        d="M12.333 5.95898L8.08976 10.3039"
-        stroke="white"
-        strokeWidth="1.51274"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-};

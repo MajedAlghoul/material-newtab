@@ -171,6 +171,7 @@ export function WidgetsMenu() {
                             .reverse()
                             .map((image, index) => (
                               <div
+                              key={index}
                                 className={`${
                                   index ===
                                   blueprintValue.sizes.images.length - 1
@@ -178,7 +179,7 @@ export function WidgetsMenu() {
                                     : null
                                 } add-weather-containers`}
                               >
-                                <button className="weather-buttons">
+                                <button className="weather-buttons" style={{filter:"grayscale(60%)"}}>
                                   {image}
                                 </button>
                                 <div className="widget-dimensions-text">

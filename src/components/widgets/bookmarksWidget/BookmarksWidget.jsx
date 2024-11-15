@@ -2,7 +2,7 @@ import "./BookmarksWidget.css";
 import WidgetTemplate from "../../widgetTemplate/WidgetTemplate.jsx";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { BookmarksMenu } from "../../menus/bookmarksMenu/bookmarksMenu.jsx";
+import { BookmarksMenu } from "../../menus/bookmarksMenu/BookmarksMenu.jsx";
 import { useGridsContent } from "../../../hooks/useGridsContent.jsx";
 import { useGridsWH } from "../../../hooks/useGridsWH.jsx";
 

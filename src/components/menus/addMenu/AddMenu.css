@@ -53,6 +53,7 @@
   border: none;
   outline: none;
   color: var(--text-color);
+  cursor: pointer;
 }
 .add-app-button:hover {
   background-color: var(--widget-menu-highlight-color);
@@ -64,7 +65,7 @@
 .add-menu-item-inner {
   display: flex;
   justify-content: flex-start;
-  margin-left: 10px;
+  margin-left: 20px;
   margin-top: 6px;
 }
 .add-menu-item-inner2 {

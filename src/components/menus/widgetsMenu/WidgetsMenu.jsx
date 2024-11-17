@@ -5,7 +5,11 @@ import { useGridsContent } from "../../../hooks/useGridsContent.jsx";
 import { useEffect, useState, useRef } from "react";
 import { useGridRepresentation } from "../../../hooks/useGridRepresentation.jsx";
 import { useWidgetsBlueprints } from "../../../hooks/useWidgetsBlueprints.jsx";
-import { sliderBackArrow, sliderForwardArrow } from "../../../app/Svgs.jsx";
+import {
+  sliderBackArrow,
+  sliderForwardArrow,
+  closeXSvg,
+} from "../../../app/Svgs.jsx";
 
 export function WidgetsMenu() {
   const [layout, setLayout] = useState({ x: null, y: null, w: null, h: null });
@@ -42,9 +46,17 @@ export function WidgetsMenu() {
   let weatherScrollInterval = 0;
   let searchScrollInterval = 0;
 
-  const widgetPlaceable = (x, y, w, h) => {
-    return isSpaceAvailable("gh", x, y, w, h);
+  const widgetPlaceable = (w, h) => {
+    let resultLeft =
+      findAvailibleSpace("left", w, h, "") == null ? false : true;
+    let resultCenter =
+      findAvailibleSpace("center", w, h, "") == null ? false : true;
+    let resultRight =
+      findAvailibleSpace("right", w, h, "") == null ? false : true;
+    return resultLeft || resultCenter || resultRight;
   };
+
+  const placeWidget = () => {};
 
   const closeMenu = () => {
     hardFlushMenu();
@@ -113,26 +125,7 @@ export function WidgetsMenu() {
                   className="widget-menu-title-x-button"
                   onClick={closeMenu}
                 >
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M2 2L14 14"
-                      stroke="white"
-                      strokeWidth="2.38648"
-                      strokeLinecap="round"
-                    />
-                    <path
-                      d="M2 14L14 2"
-                      stroke="white"
-                      strokeWidth="2.38648"
-                      strokeLinecap="round"
-                    />
-                  </svg>
+                  {closeXSvg}
                 </button>
               </div>
               <div className="widget-menu-search-container">
@@ -171,7 +164,7 @@ export function WidgetsMenu() {
                             .reverse()
                             .map((image, index) => (
                               <div
-                              key={index}
+                                key={index}
                                 className={`${
                                   index ===
                                   blueprintValue.sizes.images.length - 1
@@ -179,7 +172,23 @@ export function WidgetsMenu() {
                                     : null
                                 } add-weather-containers`}
                               >
-                                <button className="weather-buttons" style={{filter:"grayscale(60%)"}}>
+                                <button
+                                  onClick={placeWidget}
+                                  className={`weather-buttons ${
+                                    !widgetPlaceable(
+                                      blueprintValue.sizes.sizes[
+                                        blueprintValue.sizes.images.length -
+                                          1 -
+                                          index
+                                      ].w,
+                                      blueprintValue.sizes.sizes[
+                                        blueprintValue.sizes.images.length -
+                                          1 -
+                                          index
+                                      ].h
+                                    ) && "grayed-out-widgets"
+                                  }`}
+                                >
                                   {image}
                                 </button>
                                 <div className="widget-dimensions-text">

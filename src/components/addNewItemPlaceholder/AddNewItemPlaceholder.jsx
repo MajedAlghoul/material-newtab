@@ -1,28 +1,49 @@
 import "./AddNewItemPlaceholder.css";
 import WidgetTemplate from "../widgetTemplate/WidgetTemplate.jsx";
+import PropTypes from "prop-types";
+import { useState } from "react";
+import { useGridsWH } from "../../hooks/useGridsWH.jsx";
+import { useGridsContent } from "../../hooks/useGridsContent.jsx";
+import { placeholderPlusSvg } from "../../app/Svgs.jsx";
+import { generateUUID } from "../../app/utility.js";
 
-function AddNewItemPlaceholder({ x, y, w, h }) {
+export function AddNewItemPlaceholder({ x, y }) {
+  const [layout, setLayout] = useState({ x: x, y: y, w: 1, h: 1 });
+  const { gridsWH } = useGridsWH();
+  const [classes, setClasses] = useState("add-new-item-placeholder");
+  const {
+    leftItems,
+    centerItems,
+    RightItems,
+    HiddenItems,
+    addItems,
+    removeItems,
+    centerWidget,
+    rightWidget,
+    hardFlushMenu,
+    softFlushMenu,
+    isMenuVisible,
+    currentClass,
+  } = useGridsContent();
+  const handleOnClick = () => {};
   return (
     <WidgetTemplate
-      className="add-new-item-placeholder"
-      x={x}
-      y={y}
-      w={w}
-      h={h}
+      className={classes}
+      id={generateUUID()}
+      layout={layout}
+      setLayout={setLayout}
     >
-      <svg
-        width="26"
-        stroke="var(--secondary-color)"
-        height="26"
-        viewBox="0 0 26 26"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
+      <button
+        className="add-new-item-placeholder-widget-button"
+        onClick={handleOnClick}
       >
-        <path d="M13 24L13 2" strokeWidth="3.09375" strokeLinecap="round" />
-        <path d="M2 13L24 13" strokeWidth="3.09375" strokeLinecap="round" />
-      </svg>
+        {placeholderPlusSvg}
+      </button>
     </WidgetTemplate>
   );
 }
 
-export default AddNewItemPlaceholder;
+AddNewItemPlaceholder.propTypes = {
+  x: PropTypes.number,
+  y: PropTypes.number,
+};

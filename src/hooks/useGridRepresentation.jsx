@@ -2,11 +2,13 @@ import { createContext, useContext, useState, useEffect, useRef } from "react";
 import { useGridsWH } from "./useGridsWH.jsx";
 import { useWidgets } from "./useWidgets.jsx";
 import { useGridsContent } from "./useGridsContent.jsx";
+import { AddNewItemPlaceholder } from "../components/addNewItemPlaceholder/AddNewItemPlaceholder.jsx";
 
 const GridRepresentationContext = createContext();
 export function GridRepresentationProvider({ children }) {
   const { widgets, addWidget, removeWidget, editWidget, getComponent } =
     useWidgets();
+
   const gridRepresentation = useRef({
     left: [
       [null, null, null, null],
@@ -48,7 +50,28 @@ export function GridRepresentationProvider({ children }) {
     HiddenItems,
     addItems,
     removeItems,
+    centerWidget,
+    rightWidget,
+    removePlaceHolders,
   } = useGridsContent();
+
+  //====================================================================================================
+
+  const addPlaceHolders = () => {
+    Object.entries(gridRepresentation.current).forEach(([key, value]) => {
+      for (let i = 0; i < value.length; i++) {
+        for (let j = 0; j < value[0].length; j++) {
+          if (value[i][j] === null) {
+            const WidgetComponent = (
+              <AddNewItemPlaceholder x={j + 1} y={i + 1} />
+            );
+            addItems(`${key}P`, WidgetComponent, "", "");
+          }
+        }
+      }
+    });
+  };
+
   //===============================================================================================================================
   const isSpaceAvailable = (gridType, x, y, w, h, id) => {
     //console.log(gridRepresentation.current);
@@ -431,6 +454,7 @@ export function GridRepresentationProvider({ children }) {
         calculateChanges,
         applyChanges,
         scheduleFalling,
+        addPlaceHolders,
       }}
     >
       {children}

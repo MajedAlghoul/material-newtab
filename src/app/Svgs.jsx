@@ -1,319 +1,383 @@
 import React from "react";
 
-export const genericEditGridSvg = (<svg
-  width="24"
-  height="24"
-  viewBox="0 0 24 24"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
->
-  <rect
-    y="5.35547"
-    width="11.838"
-    height="9.10187"
-    rx="2.05075"
-    fill="white"
-  />
-  <rect
-    x="13.3086"
-    y="5.35547"
-    width="5.44108"
-    height="9.10187"
-    rx="2.05075"
-    fill="white"
-  />
-  <rect
-    x="6.98535"
-    y="14.8979"
-    width="11.838"
-    height="9.10187"
-    rx="2.05075"
-    fill="white"
-  />
-  <rect
-    y="14.8979"
-    width="5.44108"
-    height="9.10187"
-    rx="2.05075"
-    fill="white"
-  />
-  <ellipse
-    cx="18.353"
-    cy="5.63729"
-    rx="5.64696"
-    ry="5.63729"
-    fill="#DADADA"
-  />
-  <path
-    d="M20.1758 2.93066L21.0692 3.82259L16.6358 8.24846C16.5412 8.3429 16.3878 8.3429 16.2932 8.24846L15.7423 7.69853C15.6477 7.60409 15.6477 7.45097 15.7423 7.35653L20.1758 2.93066Z"
-    fill="white"
-  />
-  <path
-    d="M20.543 2.55973C20.7897 2.31343 21.1898 2.31343 21.4365 2.55973V2.55973C21.6832 2.80603 21.6832 3.20536 21.4365 3.45166L21.1959 3.6918L20.3025 2.79987L20.543 2.55973Z"
-    fill="white"
-  />
-  <path
-    d="M15.5277 8.59958C15.4354 8.62603 15.3505 8.53978 15.3785 8.44806L15.684 7.44891C15.7106 7.36164 15.8208 7.33419 15.8855 7.39871L16.5951 8.10715C16.6604 8.1723 16.6316 8.28347 16.5429 8.30888L15.5277 8.59958Z"
-    fill="white"
-  />
-</svg>);
+export const placeholderPlusSvg = (
+  <svg
+    width="26"
+    stroke="var(--secondary-color)"
+    height="26"
+    viewBox="0 0 26 26"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M13 24L13 2" strokeWidth="3.09375" strokeLinecap="round" />
+    <path d="M2 13L24 13" strokeWidth="3.09375" strokeLinecap="round" />
+  </svg>
+);
 
-export const genericWidgetsSvg = (<svg
-  width="24"
-  height="24"
-  viewBox="0 0 24 24"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
->
-  <rect
-    x="12.375"
-    y="12.375"
-    width="11.625"
-    height="11.625"
-    rx="2.625"
-    fill="white"
-  />
-  <rect
-    width="11.625"
-    height="11.625"
-    rx="2.625"
-    fill="white"
-  />
-  <circle
-    cx="5.8125"
-    cy="18.1875"
-    r="5.8125"
-    fill="white"
-  />
-  <circle
-    cx="18.1875"
-    cy="5.8125"
-    r="5.8125"
-    fill="white"
-  />
-</svg>);
+export const hiddenWidgetsWidgetSvg = (
+  <svg
+    width="28"
+    height="32"
+    viewBox="0 0 28 32"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M13.7358 29.7359H22.9434C25.4443 29.7359 27.4717 27.7085 27.4717 25.2076V6.79246C27.4717 4.29155 25.4443 2.26416 22.9434 2.26416H13.7358V29.7359Z"
+      fill="black"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M4.5283 2.26416H6.06289V3.26416V4.26416H4.5283C4.1818 4.26416 3.85636 4.33275 3.56103 4.45522L3.17798 3.5315L2.79492 2.60777C3.32885 2.38636 3.9143 2.26416 4.5283 2.26416ZM1 23.673H0V25.2076C0 25.8216 0.122202 26.407 0.343611 26.9409L1.26734 26.5579L2.19106 26.1748C2.06859 25.8795 2 25.5541 2 25.2076V23.673H1ZM9.13208 3.26416V2.26416H12.2013V3.26416V4.26416H9.13208V3.26416ZM12.2013 28.7359V29.7359H9.13208V28.7359V27.7359H12.2013V28.7359ZM6.0629 28.7359V29.7359H4.52831C3.91431 29.7359 3.32885 29.6137 2.79493 29.3922L3.17798 28.4685L3.56103 27.5448C3.85637 27.6673 4.1818 27.7359 4.52831 27.7359H6.0629V28.7359ZM1 20.6038H0V17.5346H1H2V20.6038H1ZM1 14.4654H0V11.3962H1H2V14.4654H1ZM1 8.32706H0V6.79247C0 6.17847 0.122202 5.59301 0.34361 5.05909L1.26734 5.44214L2.19106 5.82519C2.06859 6.12053 2 6.44596 2 6.79247V8.32706H1Z"
+      fill="black"
+    />
+    <mask id="path-3-inside-1_104_327" fill="white">
+      <path d="M12.0757 0.603773C12.0757 0.270318 12.346 0 12.6795 0H14.7927C15.1261 0 15.3964 0.270319 15.3964 0.603774V31.3962C15.3964 31.7297 15.1261 32 14.7927 32H12.6795C12.346 32 12.0757 31.7297 12.0757 31.3962V0.603773Z" />
+    </mask>
+    <path
+      d="M12.0757 0.603773C12.0757 0.270318 12.346 0 12.6795 0H14.7927C15.1261 0 15.3964 0.270319 15.3964 0.603774V31.3962C15.3964 31.7297 15.1261 32 14.7927 32H12.6795C12.346 32 12.0757 31.7297 12.0757 31.3962V0.603773Z"
+      fill="#272727"
+    />
+    <path
+      d="M12.6795 0.0754717H14.7927V-0.0754717H12.6795V0.0754717ZM15.321 0.603774V31.3962H15.4719V0.603774H15.321ZM14.7927 31.9245H12.6795V32.0755H14.7927V31.9245ZM12.1512 31.3962V0.603773H12.0002V31.3962H12.1512ZM12.6795 31.9245C12.3877 31.9245 12.1512 31.688 12.1512 31.3962H12.0002C12.0002 31.7714 12.3043 32.0755 12.6795 32.0755V31.9245ZM15.321 31.3962C15.321 31.688 15.0844 31.9245 14.7927 31.9245V32.0755C15.1678 32.0755 15.4719 31.7714 15.4719 31.3962H15.321ZM14.7927 0.0754717C15.0844 0.0754717 15.321 0.312001 15.321 0.603774H15.4719C15.4719 0.228637 15.1678 -0.0754717 14.7927 -0.0754717V0.0754717ZM12.6795 -0.0754717C12.3043 -0.0754717 12.0002 0.228636 12.0002 0.603773H12.1512C12.1512 0.312 12.3877 0.0754717 12.6795 0.0754717V-0.0754717Z"
+      fill="white"
+      fillOpacity="0.26"
+      mask="url(#path-3-inside-1_104_327)"
+    />
+  </svg>
+);
 
-export const genericAppSvg = (<svg
-  width="24"
-  height="24"
-  viewBox="0 0 24 24"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
->
-  <rect width="24" height="24" rx="6" fill="white" />
-  <rect
-    y="12.0938"
-    width="0.1875"
+export const closeXSvg = (
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M2 2L14 14"
+      stroke="white"
+      strokeWidth="2.38648"
+      strokeLinecap="round"
+    />
+    <path
+      d="M2 14L14 2"
+      stroke="white"
+      strokeWidth="2.38648"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
+export const genericEditGridSvg = (
+  <svg
+    width="24"
     height="24"
-    transform="rotate(-90 0 12.0938)"
-    fill="black"
-    fillOpacity="0.1"
-  />
-  <rect
-    x="0.046875"
-    y="12.0469"
-    width="0.09375"
-    height="23.9062"
-    transform="rotate(-90 0.046875 12.0469)"
-    stroke="black"
-    strokeOpacity="0.1"
-    strokeWidth="0.09375"
-  />
-  <rect
-    y="16.7812"
-    width="0.1875"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      y="5.35547"
+      width="11.838"
+      height="9.10187"
+      rx="2.05075"
+      fill="white"
+    />
+    <rect
+      x="13.3086"
+      y="5.35547"
+      width="5.44108"
+      height="9.10187"
+      rx="2.05075"
+      fill="white"
+    />
+    <rect
+      x="6.98535"
+      y="14.8979"
+      width="11.838"
+      height="9.10187"
+      rx="2.05075"
+      fill="white"
+    />
+    <rect
+      y="14.8979"
+      width="5.44108"
+      height="9.10187"
+      rx="2.05075"
+      fill="white"
+    />
+    <ellipse
+      cx="18.353"
+      cy="5.63729"
+      rx="5.64696"
+      ry="5.63729"
+      fill="#DADADA"
+    />
+    <path
+      d="M20.1758 2.93066L21.0692 3.82259L16.6358 8.24846C16.5412 8.3429 16.3878 8.3429 16.2932 8.24846L15.7423 7.69853C15.6477 7.60409 15.6477 7.45097 15.7423 7.35653L20.1758 2.93066Z"
+      fill="white"
+    />
+    <path
+      d="M20.543 2.55973C20.7897 2.31343 21.1898 2.31343 21.4365 2.55973V2.55973C21.6832 2.80603 21.6832 3.20536 21.4365 3.45166L21.1959 3.6918L20.3025 2.79987L20.543 2.55973Z"
+      fill="white"
+    />
+    <path
+      d="M15.5277 8.59958C15.4354 8.62603 15.3505 8.53978 15.3785 8.44806L15.684 7.44891C15.7106 7.36164 15.8208 7.33419 15.8855 7.39871L16.5951 8.10715C16.6604 8.1723 16.6316 8.28347 16.5429 8.30888L15.5277 8.59958Z"
+      fill="white"
+    />
+  </svg>
+);
+
+export const genericWidgetsSvg = (
+  <svg
+    width="24"
     height="24"
-    transform="rotate(-90 0 16.7812)"
-    fill="black"
-    fillOpacity="0.1"
-  />
-  <rect
-    x="0.046875"
-    y="16.7344"
-    width="0.09375"
-    height="23.9062"
-    transform="rotate(-90 0.046875 16.7344)"
-    stroke="black"
-    strokeOpacity="0.1"
-    strokeWidth="0.09375"
-  />
-  <rect
-    y="7.40625"
-    width="0.1875"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      x="12.375"
+      y="12.375"
+      width="11.625"
+      height="11.625"
+      rx="2.625"
+      fill="white"
+    />
+    <rect width="11.625" height="11.625" rx="2.625" fill="white" />
+    <circle cx="5.8125" cy="18.1875" r="5.8125" fill="white" />
+    <circle cx="18.1875" cy="5.8125" r="5.8125" fill="white" />
+  </svg>
+);
+
+export const genericAppSvg = (
+  <svg
+    width="24"
     height="24"
-    transform="rotate(-90 0 7.40625)"
-    fill="black"
-    fillOpacity="0.1"
-  />
-  <rect
-    x="0.046875"
-    y="7.35938"
-    width="0.09375"
-    height="23.9062"
-    transform="rotate(-90 0.046875 7.35938)"
-    stroke="black"
-    strokeOpacity="0.1"
-    strokeWidth="0.09375"
-  />
-  <rect
-    x="11.9062"
-    width="0.1875"
-    height="24"
-    fill="black"
-    fillOpacity="0.1"
-  />
-  <rect
-    x="11.9531"
-    y="0.046875"
-    width="0.09375"
-    height="23.9062"
-    stroke="black"
-    strokeOpacity="0.1"
-    strokeWidth="0.09375"
-  />
-  <rect
-    x="7.21875"
-    width="0.1875"
-    height="24"
-    fill="black"
-    fillOpacity="0.1"
-  />
-  <rect
-    x="7.26562"
-    y="0.046875"
-    width="0.09375"
-    height="23.9062"
-    stroke="black"
-    strokeOpacity="0.1"
-    strokeWidth="0.09375"
-  />
-  <rect
-    x="16.5938"
-    width="0.1875"
-    height="24"
-    fill="black"
-    fillOpacity="0.1"
-  />
-  <rect
-    x="16.6406"
-    y="0.046875"
-    width="0.09375"
-    height="23.9062"
-    stroke="black"
-    strokeOpacity="0.1"
-    strokeWidth="0.09375"
-  />
-  <path
-    d="M22.125 1.78125H22.2656L22.3125 1.82812V22.1719L22.2656 22.2188H22.125V1.78125Z"
-    fill="black"
-    fillOpacity="0.1"
-  />
-  <path
-    d="M22.2462 1.82812L22.2656 1.84754V22.1525L22.2462 22.1719H22.1719V1.82812H22.2462Z"
-    stroke="black"
-    strokeOpacity="0.1"
-    strokeWidth="0.09375"
-  />
-  <path
-    d="M1.78125 1.875V1.73438L1.82812 1.6875L22.1719 1.6875L22.2188 1.73437V1.875L1.78125 1.875Z"
-    fill="black"
-    fillOpacity="0.1"
-  />
-  <path
-    d="M1.82812 1.75379L1.84754 1.73438L22.1525 1.73437L22.1719 1.75379V1.82812L1.82812 1.82812V1.75379Z"
-    stroke="black"
-    strokeOpacity="0.1"
-    strokeWidth="0.09375"
-  />
-  <path
-    d="M1.78125 22.125V22.2656L1.82812 22.3125L22.1719 22.3125L22.2188 22.2656V22.125L1.78125 22.125Z"
-    fill="black"
-    fillOpacity="0.1"
-  />
-  <path
-    d="M1.82812 22.2462L1.84754 22.2656L22.1525 22.2656L22.1719 22.2462V22.1719L1.82812 22.1719V22.2462Z"
-    stroke="black"
-    strokeOpacity="0.1"
-    strokeWidth="0.09375"
-  />
-  <path
-    d="M1.875 1.78125H1.73438L1.6875 1.82812V22.1719L1.73438 22.2188H1.875V1.78125Z"
-    fill="black"
-    fillOpacity="0.1"
-  />
-  <path
-    d="M1.75379 1.82812L1.73438 1.84754V22.1525L1.75379 22.1719H1.82812V1.82812H1.75379Z"
-    stroke="black"
-    strokeOpacity="0.1"
-    strokeWidth="0.09375"
-  />
-  <rect
-    x="1.69141"
-    y="1.82422"
-    width="0.1875"
-    height="28.9695"
-    transform="rotate(-45 1.69141 1.82422)"
-    fill="black"
-    fillOpacity="0.1"
-  />
-  <rect
-    x="1.7577"
-    y="1.82422"
-    width="0.09375"
-    height="28.8758"
-    transform="rotate(-45 1.7577 1.82422)"
-    stroke="black"
-    strokeOpacity="0.1"
-    strokeWidth="0.09375"
-  />
-  <rect
-    x="22.1768"
-    y="1.69141"
-    width="0.1875"
-    height="28.9695"
-    transform="rotate(45 22.1768 1.69141)"
-    fill="black"
-    fillOpacity="0.1"
-  />
-  <rect
-    x="22.1768"
-    y="1.7577"
-    width="0.09375"
-    height="28.8758"
-    transform="rotate(45 22.1768 1.7577)"
-    stroke="black"
-    strokeOpacity="0.1"
-    strokeWidth="0.09375"
-  />
-  <circle
-    cx="12"
-    cy="12"
-    r="6.65625"
-    stroke="black"
-    strokeOpacity="0.1"
-    strokeWidth="0.1875"
-  />
-  <circle
-    cx="12"
-    cy="12"
-    r="10.2188"
-    stroke="black"
-    strokeOpacity="0.1"
-    strokeWidth="0.1875"
-  />
-  <path
-    d="M12.2051 11.5879C12.1738 11.4473 12.1318 11.2549 12.0791 11.0107L11.9473 10.4277L11.8154 11.0107C11.7627 11.2549 11.7207 11.4473 11.6895 11.5879L11.0713 14.125H10.2012L9.12598 9.87695H9.70898L10.248 12.042L10.6436 13.5918L11.0273 12.042L11.5605 9.87695H12.3311L12.8643 12.042L13.248 13.5918L13.6436 12.042L14.1826 9.87695H14.7656L13.6934 14.125H12.8232L12.2051 11.5879Z"
-    fill="black"
-  />
-  <path
-    d="M6.29883 11.5879C6.26758 11.4473 6.22559 11.2549 6.17285 11.0107L6.04102 10.4277L5.90918 11.0107C5.85645 11.2549 5.81445 11.4473 5.7832 11.5879L5.16504 14.125H4.29492L3.21973 9.87695H3.80273L4.3418 12.042L4.7373 13.5918L5.12109 12.042L5.6543 9.87695H6.4248L6.95801 12.042L7.3418 13.5918L7.7373 12.042L8.27637 9.87695H8.85938L7.78711 14.125H6.91699L6.29883 11.5879Z"
-    fill="black"
-  />
-  <path
-    d="M18.1113 11.5879C18.0801 11.4473 18.0381 11.2549 17.9854 11.0107L17.8535 10.4277L17.7217 11.0107C17.6689 11.2549 17.627 11.4473 17.5957 11.5879L16.9775 14.125H16.1074L15.0322 9.87695H15.6152L16.1543 12.042L16.5498 13.5918L16.9336 12.042L17.4668 9.87695H18.2373L18.7705 12.042L19.1543 13.5918L19.5498 12.042L20.0889 9.87695H20.6719L19.5996 14.125H18.7295L18.1113 11.5879Z"
-    fill="black"
-  />
-</svg>);
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect width="24" height="24" rx="6" fill="white" />
+    <rect
+      y="12.0938"
+      width="0.1875"
+      height="24"
+      transform="rotate(-90 0 12.0938)"
+      fill="black"
+      fillOpacity="0.1"
+    />
+    <rect
+      x="0.046875"
+      y="12.0469"
+      width="0.09375"
+      height="23.9062"
+      transform="rotate(-90 0.046875 12.0469)"
+      stroke="black"
+      strokeOpacity="0.1"
+      strokeWidth="0.09375"
+    />
+    <rect
+      y="16.7812"
+      width="0.1875"
+      height="24"
+      transform="rotate(-90 0 16.7812)"
+      fill="black"
+      fillOpacity="0.1"
+    />
+    <rect
+      x="0.046875"
+      y="16.7344"
+      width="0.09375"
+      height="23.9062"
+      transform="rotate(-90 0.046875 16.7344)"
+      stroke="black"
+      strokeOpacity="0.1"
+      strokeWidth="0.09375"
+    />
+    <rect
+      y="7.40625"
+      width="0.1875"
+      height="24"
+      transform="rotate(-90 0 7.40625)"
+      fill="black"
+      fillOpacity="0.1"
+    />
+    <rect
+      x="0.046875"
+      y="7.35938"
+      width="0.09375"
+      height="23.9062"
+      transform="rotate(-90 0.046875 7.35938)"
+      stroke="black"
+      strokeOpacity="0.1"
+      strokeWidth="0.09375"
+    />
+    <rect
+      x="11.9062"
+      width="0.1875"
+      height="24"
+      fill="black"
+      fillOpacity="0.1"
+    />
+    <rect
+      x="11.9531"
+      y="0.046875"
+      width="0.09375"
+      height="23.9062"
+      stroke="black"
+      strokeOpacity="0.1"
+      strokeWidth="0.09375"
+    />
+    <rect
+      x="7.21875"
+      width="0.1875"
+      height="24"
+      fill="black"
+      fillOpacity="0.1"
+    />
+    <rect
+      x="7.26562"
+      y="0.046875"
+      width="0.09375"
+      height="23.9062"
+      stroke="black"
+      strokeOpacity="0.1"
+      strokeWidth="0.09375"
+    />
+    <rect
+      x="16.5938"
+      width="0.1875"
+      height="24"
+      fill="black"
+      fillOpacity="0.1"
+    />
+    <rect
+      x="16.6406"
+      y="0.046875"
+      width="0.09375"
+      height="23.9062"
+      stroke="black"
+      strokeOpacity="0.1"
+      strokeWidth="0.09375"
+    />
+    <path
+      d="M22.125 1.78125H22.2656L22.3125 1.82812V22.1719L22.2656 22.2188H22.125V1.78125Z"
+      fill="black"
+      fillOpacity="0.1"
+    />
+    <path
+      d="M22.2462 1.82812L22.2656 1.84754V22.1525L22.2462 22.1719H22.1719V1.82812H22.2462Z"
+      stroke="black"
+      strokeOpacity="0.1"
+      strokeWidth="0.09375"
+    />
+    <path
+      d="M1.78125 1.875V1.73438L1.82812 1.6875L22.1719 1.6875L22.2188 1.73437V1.875L1.78125 1.875Z"
+      fill="black"
+      fillOpacity="0.1"
+    />
+    <path
+      d="M1.82812 1.75379L1.84754 1.73438L22.1525 1.73437L22.1719 1.75379V1.82812L1.82812 1.82812V1.75379Z"
+      stroke="black"
+      strokeOpacity="0.1"
+      strokeWidth="0.09375"
+    />
+    <path
+      d="M1.78125 22.125V22.2656L1.82812 22.3125L22.1719 22.3125L22.2188 22.2656V22.125L1.78125 22.125Z"
+      fill="black"
+      fillOpacity="0.1"
+    />
+    <path
+      d="M1.82812 22.2462L1.84754 22.2656L22.1525 22.2656L22.1719 22.2462V22.1719L1.82812 22.1719V22.2462Z"
+      stroke="black"
+      strokeOpacity="0.1"
+      strokeWidth="0.09375"
+    />
+    <path
+      d="M1.875 1.78125H1.73438L1.6875 1.82812V22.1719L1.73438 22.2188H1.875V1.78125Z"
+      fill="black"
+      fillOpacity="0.1"
+    />
+    <path
+      d="M1.75379 1.82812L1.73438 1.84754V22.1525L1.75379 22.1719H1.82812V1.82812H1.75379Z"
+      stroke="black"
+      strokeOpacity="0.1"
+      strokeWidth="0.09375"
+    />
+    <rect
+      x="1.69141"
+      y="1.82422"
+      width="0.1875"
+      height="28.9695"
+      transform="rotate(-45 1.69141 1.82422)"
+      fill="black"
+      fillOpacity="0.1"
+    />
+    <rect
+      x="1.7577"
+      y="1.82422"
+      width="0.09375"
+      height="28.8758"
+      transform="rotate(-45 1.7577 1.82422)"
+      stroke="black"
+      strokeOpacity="0.1"
+      strokeWidth="0.09375"
+    />
+    <rect
+      x="22.1768"
+      y="1.69141"
+      width="0.1875"
+      height="28.9695"
+      transform="rotate(45 22.1768 1.69141)"
+      fill="black"
+      fillOpacity="0.1"
+    />
+    <rect
+      x="22.1768"
+      y="1.7577"
+      width="0.09375"
+      height="28.8758"
+      transform="rotate(45 22.1768 1.7577)"
+      stroke="black"
+      strokeOpacity="0.1"
+      strokeWidth="0.09375"
+    />
+    <circle
+      cx="12"
+      cy="12"
+      r="6.65625"
+      stroke="black"
+      strokeOpacity="0.1"
+      strokeWidth="0.1875"
+    />
+    <circle
+      cx="12"
+      cy="12"
+      r="10.2188"
+      stroke="black"
+      strokeOpacity="0.1"
+      strokeWidth="0.1875"
+    />
+    <path
+      d="M12.2051 11.5879C12.1738 11.4473 12.1318 11.2549 12.0791 11.0107L11.9473 10.4277L11.8154 11.0107C11.7627 11.2549 11.7207 11.4473 11.6895 11.5879L11.0713 14.125H10.2012L9.12598 9.87695H9.70898L10.248 12.042L10.6436 13.5918L11.0273 12.042L11.5605 9.87695H12.3311L12.8643 12.042L13.248 13.5918L13.6436 12.042L14.1826 9.87695H14.7656L13.6934 14.125H12.8232L12.2051 11.5879Z"
+      fill="black"
+    />
+    <path
+      d="M6.29883 11.5879C6.26758 11.4473 6.22559 11.2549 6.17285 11.0107L6.04102 10.4277L5.90918 11.0107C5.85645 11.2549 5.81445 11.4473 5.7832 11.5879L5.16504 14.125H4.29492L3.21973 9.87695H3.80273L4.3418 12.042L4.7373 13.5918L5.12109 12.042L5.6543 9.87695H6.4248L6.95801 12.042L7.3418 13.5918L7.7373 12.042L8.27637 9.87695H8.85938L7.78711 14.125H6.91699L6.29883 11.5879Z"
+      fill="black"
+    />
+    <path
+      d="M18.1113 11.5879C18.0801 11.4473 18.0381 11.2549 17.9854 11.0107L17.8535 10.4277L17.7217 11.0107C17.6689 11.2549 17.627 11.4473 17.5957 11.5879L16.9775 14.125H16.1074L15.0322 9.87695H15.6152L16.1543 12.042L16.5498 13.5918L16.9336 12.042L17.4668 9.87695H18.2373L18.7705 12.042L19.1543 13.5918L19.5498 12.042L20.0889 9.87695H20.6719L19.5996 14.125H18.7295L18.1113 11.5879Z"
+      fill="black"
+    />
+  </svg>
+);
 
 export const sliderBackArrow = (
   <svg

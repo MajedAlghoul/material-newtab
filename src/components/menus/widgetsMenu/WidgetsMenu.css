@@ -195,6 +195,7 @@
   border: none;
   display: flex;
   padding: 0;
+  cursor: pointer;
 }
 
 .weather-buttons:hover {
@@ -219,6 +220,11 @@
   flex-direction: column;
   align-items: center;
   margin-top: 18px;
+}
+
+.grayed-out-widgets {
+  filter: grayscale(60%);
+  cursor: auto;
 }
 
 @media (min-width: 708px) {

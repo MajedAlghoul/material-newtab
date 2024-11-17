@@ -1,3 +1,4 @@
+import { object } from "prop-types";
 import React, { createContext, useContext, useState, useRef } from "react";
 
 const GridsContentContext = createContext();
@@ -9,6 +10,11 @@ export function GridsContentProvider({ children }) {
   const [HiddenItems, setHiddenItems] = useState({});
   const [centerWidget, setCenterWidget] = useState([]);
   const [rightWidget, setRightWidget] = useState([]);
+  const [placeholders, setPlaceholders] = useState({
+    left: [],
+    center: [],
+    right: [],
+  });
   const classSetter = useRef([null, ""]);
   const removeItems = (gridType, widget) => {
     if (gridType === "left") {
@@ -49,6 +55,24 @@ export function GridsContentProvider({ children }) {
       setCenterItems((prev) => ({ ...prev, [widget]: null }));
     } else if (gridType === "hidden") {
       setHiddenItems((prev) => ({ ...prev, [widget]: null }));
+    } else if (gridType === "leftP") {
+      setPlaceholders((prev) => {
+        let temp = { ...prev };
+        temp.left = [...prev.left, widget];
+        return temp;
+      });
+    } else if (gridType === "centerP") {
+      setPlaceholders((prev) => {
+        let temp = { ...prev };
+        temp.center = [...prev.center, widget];
+        return temp;
+      });
+    } else if (gridType === "rightP") {
+      setPlaceholders((prev) => {
+        let temp = { ...prev };
+        temp.right = [...prev.right, widget];
+        return temp;
+      });
     } else if (gridType === "centerW") {
       setCenterWidget([widget]);
       classSetter.current = [setClass, classs];
@@ -80,6 +104,16 @@ export function GridsContentProvider({ children }) {
 
   const isMenuVisible = () => centerWidget.length > 0 || rightWidget.length > 0;
 
+  const removePlaceHolders = () => {
+    setPlaceholders((prev) => {
+      let temp = { ...prev };
+      temp.left = [];
+      temp.center = [];
+      temp.right = [];
+      return temp;
+    });
+  };
+
   return (
     <GridsContentContext.Provider
       value={{
@@ -95,6 +129,8 @@ export function GridsContentProvider({ children }) {
         softFlushMenu,
         isMenuVisible,
         currentClass,
+        removePlaceHolders,
+        placeholders,
       }}
     >
       {children}

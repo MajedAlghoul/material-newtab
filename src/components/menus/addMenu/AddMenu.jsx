@@ -5,7 +5,11 @@ import { useGridsContent } from "../../../hooks/useGridsContent.jsx";
 import { useEffect, useState, useRef } from "react";
 import { useGridRepresentation } from "../../../hooks/useGridRepresentation.jsx";
 import { WidgetsMenu } from "../widgetsMenu/WidgetsMenu.jsx";
-import { genericAppSvg, genericWidgetsSvg, genericEditGridSvg } from "../../../app/Svgs.jsx";
+import {
+  genericAppSvg,
+  genericWidgetsSvg,
+  genericEditGridSvg,
+} from "../../../app/Svgs.jsx";
 
 export function AddMenu({ setClasses }) {
   const [layout, setLayout] = useState({ x: null, y: null, w: null, h: null });
@@ -16,6 +20,11 @@ export function AddMenu({ setClasses }) {
 
   const isInitialMount = useRef(true);
   const { hardFlushMenu, softFlushMenu, addItems } = useGridsContent();
+  const { addPlaceHolders } = useGridRepresentation();
+
+  const editLayout = () => {
+    addPlaceHolders();
+  };
 
   const handleAddWidget = () => {
     const w = gridsWH["cw"];
@@ -71,7 +80,9 @@ export function AddMenu({ setClasses }) {
             >
               <div className="add-menu-item-inner">
                 {genericWidgetsSvg}
-                {w !== 1 ? <div className="add-menu-text">Add Widget</div> : null}
+                {w !== 1 ? (
+                  <div className="add-menu-text">Add Widget</div>
+                ) : null}
               </div>
             </button>
             <div className="menu-separator">
@@ -79,10 +90,15 @@ export function AddMenu({ setClasses }) {
               <div className="separator-light-part"></div>
             </div>
 
-            <button className="add-app-button edit-layout-button">
+            <button
+              className="add-app-button edit-layout-button"
+              onClick={editLayout}
+            >
               <div className="add-menu-item-inner4">
                 {genericEditGridSvg}
-                {w !== 1 ? <div className="add-menu-text">Edit Layout</div> : null}
+                {w !== 1 ? (
+                  <div className="add-menu-text">Edit Layout</div>
+                ) : null}
               </div>
             </button>
           </div>
@@ -98,23 +114,27 @@ export function AddMenu({ setClasses }) {
         });
 
         setContent((prev) => {
-          return (<>{prev}<svg
-            width="104"
-            height="311"
-            viewBox="0 0 104 311"
-            fill="none"
-            className="add-menu-shadow-1"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <rect
-              width="104"
-              height="311"
-              rx="39"
-              fill="var(--highlight-color)"
-            />
-          </svg></>)
-        }
-        );
+          return (
+            <>
+              {prev}
+              <svg
+                width="104"
+                height="311"
+                viewBox="0 0 104 311"
+                fill="none"
+                className="add-menu-shadow-1"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  width="104"
+                  height="311"
+                  rx="39"
+                  fill="var(--highlight-color)"
+                />
+              </svg>
+            </>
+          );
+        });
       } else {
         setLayout({
           x: 1,
@@ -124,21 +144,25 @@ export function AddMenu({ setClasses }) {
         });
 
         setContent((prev) => {
-          return (<>{prev}<svg
-            width="312"
-            height="207"
-            viewBox="0 0 312 207"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="add-menu-shadow"
-          >
-            <path
-              d="M0 39C0 17.4609 17.4609 0 39 0H273C294.539 0 312 17.4609 312 39V66C312 87.5391 294.539 105 273 105H247C225.461 105 208 122.461 208 144V168C208 189.539 190.539 207 169 207H39C17.4609 207 0 189.539 0 168V39Z"
-              fill="var(--highlight-color)"
-            />
-          </svg></>)
-        }
-        );
+          return (
+            <>
+              {prev}
+              <svg
+                width="312"
+                height="207"
+                viewBox="0 0 312 207"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="add-menu-shadow"
+              >
+                <path
+                  d="M0 39C0 17.4609 17.4609 0 39 0H273C294.539 0 312 17.4609 312 39V66C312 87.5391 294.539 105 273 105H247C225.461 105 208 122.461 208 144V168C208 189.539 190.539 207 169 207H39C17.4609 207 0 189.539 0 168V39Z"
+                  fill="var(--highlight-color)"
+                />
+              </svg>
+            </>
+          );
+        });
       }
     }
   }, []);

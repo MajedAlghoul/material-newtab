@@ -90,6 +90,7 @@ export function GridsContentProvider({ children }) {
     if (classSetter.current[0]) {
       classSetter.current[0](classSetter.current[1]);
       softFlushMenu();
+      removePlaceHolders();
     }
   };
 

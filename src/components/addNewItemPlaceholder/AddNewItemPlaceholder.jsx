@@ -27,11 +27,14 @@ export function AddNewItemPlaceholder({ x, y }) {
   } = useGridsContent();
   const handleOnClick = () => {};
   return (
-    <WidgetTemplate
-      className={classes}
-      id={generateUUID()}
-      layout={layout}
-      setLayout={setLayout}
+    <div
+      className={`widget-template ${classes}`}
+      style={{
+        gridRow: `${layout.x} / ${layout.x + layout.h}`,
+        gridColumn: `${layout.y} / ${layout.y + layout.w}`,
+        width: `${layout.w * 76 + (layout.w - 1) * 28}px`,
+        height: `${layout.h * 76 + (layout.h - 1) * 28}px`,
+      }}
     >
       <button
         className="add-new-item-placeholder-widget-button"
@@ -39,7 +42,7 @@ export function AddNewItemPlaceholder({ x, y }) {
       >
         {placeholderPlusSvg}
       </button>
-    </WidgetTemplate>
+    </div>
   );
 }
 

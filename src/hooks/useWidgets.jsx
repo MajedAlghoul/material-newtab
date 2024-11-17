@@ -9,7 +9,7 @@ import { CustomizeWidget } from "../components/widgets/customizeWidget/Customize
 import { WeatherWidget } from "../components/widgets/weatherWidget/WeatherWidget.jsx";
 import { SearchWidget } from "../components/widgets/searchWidget/SearchWidget.jsx";
 import { useWidgetsBlueprints } from "./useWidgetsBlueprints.jsx";
-import AddNewItemPlaceholder from "../components/addNewItemPlaceholder/AddNewItemPlaceholder.jsx";
+import {AddNewItemPlaceholder} from "../components/addNewItemPlaceholder/AddNewItemPlaceholder.jsx";
 
 const WidgetsContext = createContext();
 

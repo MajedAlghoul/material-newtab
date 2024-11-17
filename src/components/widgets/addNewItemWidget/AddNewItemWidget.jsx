@@ -23,6 +23,7 @@ export function AddNewItemWidget({ id }) {
     softFlushMenu,
     isMenuVisible,
     currentClass,
+    removePlaceHolders
   } = useGridsContent();
   const handleOnClick = () => {
     const w = gridsWH["rw"];

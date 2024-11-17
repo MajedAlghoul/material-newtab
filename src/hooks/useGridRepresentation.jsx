@@ -61,9 +61,15 @@ export function GridRepresentationProvider({ children }) {
     Object.entries(gridRepresentation.current).forEach(([key, value]) => {
       for (let i = 0; i < value.length; i++) {
         for (let j = 0; j < value[0].length; j++) {
-          if (value[i][j] === null) {
+          if (
+            value[i][j] === null &&
+            gridsWH["gh"] > i &&
+            ((key === "left" && gridsWH["lw"] > j) ||
+              (key === "center" && gridsWH["cw"] > j) ||
+              (key === "right" && gridsWH["rw"] > j))
+          ) {
             const WidgetComponent = (
-              <AddNewItemPlaceholder x={j + 1} y={i + 1} />
+              <AddNewItemPlaceholder x={i + 1} y={j + 1} />
             );
             addItems(`${key}P`, WidgetComponent, "", "");
           }

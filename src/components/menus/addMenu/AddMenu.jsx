@@ -19,11 +19,16 @@ export function AddMenu({ setClasses }) {
   const { gridsWH } = useGridsWH();
 
   const isInitialMount = useRef(true);
-  const { hardFlushMenu, softFlushMenu, addItems } = useGridsContent();
+  const { hardFlushMenu, softFlushMenu, addItems, removePlaceHolders } =
+    useGridsContent();
   const { addPlaceHolders } = useGridRepresentation();
-
-  const editLayout = () => {
-    addPlaceHolders();
+  const handleEditLayout = () => {
+    const w = gridsWH["cw"];
+    if (w) {
+      softFlushMenu();
+      addPlaceHolders();
+      addItems("centerW", <></>, setClasses, "add-new-item-widget");
+    }
   };
 
   const handleAddWidget = () => {
@@ -92,7 +97,7 @@ export function AddMenu({ setClasses }) {
 
             <button
               className="add-app-button edit-layout-button"
-              onClick={editLayout}
+              onClick={handleEditLayout}
             >
               <div className="add-menu-item-inner4">
                 {genericEditGridSvg}

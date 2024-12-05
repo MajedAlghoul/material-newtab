@@ -3,6 +3,7 @@ import { useGridsWH } from "./useGridsWH.jsx";
 import { useWidgets } from "./useWidgets.jsx";
 import { useGridsContent } from "./useGridsContent.jsx";
 import { AddNewItemPlaceholder } from "../components/addNewItemPlaceholder/AddNewItemPlaceholder.jsx";
+import { generateUUID } from "../app/utility.js";
 
 const GridRepresentationContext = createContext();
 export function GridRepresentationProvider({ children }) {
@@ -69,7 +70,7 @@ export function GridRepresentationProvider({ children }) {
               (key === "right" && gridsWH["rw"] > j))
           ) {
             const WidgetComponent = (
-              <AddNewItemPlaceholder x={i + 1} y={j + 1} />
+              <AddNewItemPlaceholder key={generateUUID()} x={i + 1} y={j + 1} />
             );
             addItems(`${key}P`, WidgetComponent, "", "");
           }

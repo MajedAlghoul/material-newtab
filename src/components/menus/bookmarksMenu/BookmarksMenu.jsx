@@ -14,13 +14,13 @@ export function BookmarksMenu() {
 
   const isInitialMount = useRef(true);
   const { hardFlushMenu, softFlushMenu } = useGridsContent();
-  useEffect(() => {
+  /*useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
     } else if (gridsWH) {
       hardFlushMenu();
     }
-  }, [gridsWH]);
+  }, [gridsWH]);*/
   useEffect(() => {
     let w = gridsWH["rw"];
     if (w) {

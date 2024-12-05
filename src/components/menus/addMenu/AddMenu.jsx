@@ -10,6 +10,7 @@ import {
   genericWidgetsSvg,
   genericEditGridSvg,
 } from "../../../app/Svgs.jsx";
+import { EditModeFakeMenu } from "../editModeFakeMenu/EditModeFakeMenu.jsx";
 
 export function AddMenu({ setClasses }) {
   const [layout, setLayout] = useState({ x: null, y: null, w: null, h: null });
@@ -19,15 +20,25 @@ export function AddMenu({ setClasses }) {
   const { gridsWH } = useGridsWH();
 
   const isInitialMount = useRef(true);
-  const { hardFlushMenu, softFlushMenu, addItems, removePlaceHolders } =
-    useGridsContent();
+  const {
+    hardFlushMenu,
+    softFlushMenu,
+    addItems,
+    placeholders,
+    removePlaceHolders,
+  } = useGridsContent();
   const { addPlaceHolders } = useGridRepresentation();
   const handleEditLayout = () => {
     const w = gridsWH["cw"];
     if (w) {
       softFlushMenu();
       addPlaceHolders();
-      addItems("centerW", <></>, setClasses, "add-new-item-widget");
+      addItems(
+        "centerW",
+        <EditModeFakeMenu key={"fake-menu"}></EditModeFakeMenu>,
+        setClasses,
+        "add-new-item-widget"
+      );
     }
   };
 
@@ -54,15 +65,15 @@ export function AddMenu({ setClasses }) {
       }*/
     }
   };
-
+  /*
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
-    } else if (gridsWH) {
+    } else if (gridsWH["cw"]) {
       //setClasses("add-new-item-widget");
       hardFlushMenu();
     }
-  }, [gridsWH]);
+  }, [gridsWH]);*/
   useEffect(() => {
     const w = gridsWH["rw"];
     if (w) {

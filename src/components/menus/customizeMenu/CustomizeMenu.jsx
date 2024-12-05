@@ -14,14 +14,14 @@ export function CustomizeMenu() {
 
   const isInitialMount = useRef(true);
   const { hardFlushMenu, softFlushMenu } = useGridsContent();
-  useEffect(() => {
+  /*useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
     } else if (gridsWH) {
       //setClasses("customize-widget");
       hardFlushMenu();
     }
-  }, [gridsWH]);
+  }, [gridsWH]);*/
   useEffect(() => {
     let w = gridsWH["rw"];
     const h = gridsWH["gh"];

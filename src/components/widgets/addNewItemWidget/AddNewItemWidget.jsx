@@ -1,15 +1,18 @@
 import "./AddNewItemWidget.css";
 import WidgetTemplate from "../../widgetTemplate/WidgetTemplate.jsx";
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useGridsWH } from "../../../hooks/useGridsWH.jsx";
 import { useGridsContent } from "../../../hooks/useGridsContent.jsx";
 import { AddMenu } from "../../menus/addMenu/AddMenu.jsx";
+import { useGridRepresentation } from "../../../hooks/useGridRepresentation.jsx";
 
 export function AddNewItemWidget({ id }) {
   const [layout, setLayout] = useState({ x: null, y: null, w: null, h: null });
   const { gridsWH } = useGridsWH();
   const [classes, setClasses] = useState("add-new-item-widget");
+  const isInitialMount = useRef(true);
+  const { addPlaceHolders } = useGridRepresentation();
   const {
     leftItems,
     centerItems,
@@ -23,8 +26,9 @@ export function AddNewItemWidget({ id }) {
     softFlushMenu,
     isMenuVisible,
     currentClass,
-    removePlaceHolders
+    removePlaceHolders,
   } = useGridsContent();
+
   const handleOnClick = () => {
     const w = gridsWH["rw"];
     if (w) {

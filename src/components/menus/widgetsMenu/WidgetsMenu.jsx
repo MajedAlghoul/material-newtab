@@ -37,14 +37,9 @@ export function WidgetsMenu() {
 
   const silderRefs = useRef([]);
 
-  const weatherRef = useRef(null);
-  const searchRef = useRef(null);
   const [canScrollLeft, setCanScrollLeft] = useState([]);
   const [canScrollRight, setCanScrollRight] = useState([]);
   const [scrollIntervals, setScrollIntervals] = useState([]);
-
-  let weatherScrollInterval = 0;
-  let searchScrollInterval = 0;
 
   const widgetPlaceable = (w, h) => {
     let resultLeft =
@@ -55,6 +50,15 @@ export function WidgetsMenu() {
       findAvailibleSpace("right", w, h, "") == null ? false : true;
     return resultLeft || resultCenter || resultRight;
   };
+
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else if (gridsWH) {
+      //setClasses("add-new-item-widget");
+      hardFlushMenu();
+    }
+  }, [gridsWH]);
 
   const placeWidget = () => {};
 
@@ -75,15 +79,6 @@ export function WidgetsMenu() {
         scrollIntervals[whichContainer];
     }
   };
-
-  useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-    } else if (gridsWH) {
-      //setClasses("add-new-item-widget");
-      hardFlushMenu();
-    }
-  }, [gridsWH]);
 
   useEffect(() => {
     const handleScroll = () => {

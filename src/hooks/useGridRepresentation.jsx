@@ -70,7 +70,12 @@ export function GridRepresentationProvider({ children }) {
               (key === "right" && gridsWH["rw"] > j))
           ) {
             const WidgetComponent = (
-              <AddNewItemPlaceholder key={generateUUID()} x={i + 1} y={j + 1} />
+              <AddNewItemPlaceholder
+                key={generateUUID()}
+                gridType={key}
+                x={i + 1}
+                y={j + 1}
+              />
             );
             addItems(`${key}P`, WidgetComponent, "", "");
           }
@@ -80,6 +85,34 @@ export function GridRepresentationProvider({ children }) {
   };
 
   //===============================================================================================================================
+  const getBestEstimatedPlace = (gridType, x, y, w, h) => {
+    const halfW = Math.trunc(w / 2);
+    const halfH = Math.trunc(h / 2);
+    for (let hopeY = y - halfW; hopeY <= y; hopeY++) {
+      if (hopeY < 1) hopeY = 1;
+      for (let hopeX = x - halfH; hopeX <= x; hopeX++) {
+        if (hopeX < 1) hopeX = 1;
+        if (isSpaceAvailable(gridType, hopeX, hopeY, w, h, "")) {
+          //console.log("found1 ", hopeX, hopeY);
+          return [hopeX, hopeY];
+        }
+      }
+    }
+
+    //if (halfH > 1 || halfW > 1) {
+    for (let hopeY = Math.max(y, 1); hopeY >= 1; hopeY--) {
+      //if (hopeY < 1) hopeY = 1;
+      for (let hopeX = Math.max(x, 1); hopeX >= 1; hopeX--) {
+        //if (hopeX < 1) hopeX = 1;
+        if (isSpaceAvailable(gridType, hopeX, hopeY, w, h, "")) {
+          return [hopeX, hopeY];
+        }
+      }
+    }
+    //}
+    return [null, null];
+  };
+
   const isSpaceAvailable = (gridType, x, y, w, h, id) => {
     //console.log(gridRepresentation.current);
     let requiredGrid = gridRepresentation.current[gridType];
@@ -96,6 +129,7 @@ export function GridRepresentationProvider({ children }) {
     }
     for (let i = 0; i < h; i++) {
       for (let j = 0; j < w; j++) {
+        //console.log("wha6t the fuck ", x, j + y - 1);
         if (
           requiredGrid[i + x - 1][j + y - 1] !== null &&
           id !== requiredGrid[i + x - 1][j + y - 1]
@@ -462,6 +496,7 @@ export function GridRepresentationProvider({ children }) {
         applyChanges,
         scheduleFalling,
         addPlaceHolders,
+        getBestEstimatedPlace,
       }}
     >
       {children}

@@ -11,6 +11,7 @@ import {
   genericEditGridSvg,
 } from "../../../app/Svgs.jsx";
 import { EditModeFakeMenu } from "../editModeFakeMenu/EditModeFakeMenu.jsx";
+import { AppsMenu } from "../appsMenu/AppsMenu.jsx";
 
 export function AddMenu({ setClasses }) {
   const [layout, setLayout] = useState({ x: null, y: null, w: null, h: null });
@@ -35,7 +36,7 @@ export function AddMenu({ setClasses }) {
       addPlaceHolders();
       addItems(
         "centerW",
-        <EditModeFakeMenu key={"fake-menu"}></EditModeFakeMenu>,
+        <EditModeFakeMenu key={"add-menu"}></EditModeFakeMenu>,
         setClasses,
         "add-new-item-widget"
       );
@@ -48,7 +49,31 @@ export function AddMenu({ setClasses }) {
       softFlushMenu();
       addItems(
         "centerW",
-        <WidgetsMenu key={"add-menu"}></WidgetsMenu>,
+        <WidgetsMenu key={"add-menu"}>{setClasses}</WidgetsMenu>,
+        setClasses,
+        "add-new-item-widget"
+      );
+      /*
+      flushMenu();
+      if (!isMenuVisible() || currentClass() !== "add-new-item-widget") {
+        addItems(
+          "rightW",
+          <AddMenu setClasses={setClasses} key={"add-menu"}></AddMenu>,
+          setClasses,
+          "add-new-item-widget"
+        );
+        setClasses("add-new-item-widget add-new-item-widget-active");
+      }*/
+    }
+  };
+
+  const handleAddApp = () => {
+    const w = gridsWH["cw"];
+    if (w) {
+      softFlushMenu();
+      addItems(
+        "centerW",
+        <AppsMenu key={"add-menu"}></AppsMenu>,
         setClasses,
         "add-new-item-widget"
       );
@@ -80,7 +105,7 @@ export function AddMenu({ setClasses }) {
       setContent(
         <div className="actual-add-menu">
           <div className="actual-add-menu-inner">
-            <button className="add-app-button">
+            <button className="add-app-button" onClick={handleAddApp}>
               <div className="add-menu-item-inner">
                 {genericAppSvg}
                 {w !== 1 ? <div className="add-menu-text">Add App</div> : null}

@@ -19,6 +19,10 @@
   cursor: pointer;
 }
 
-.widget-template.add-new-item-placeholder:hover{
+.widget-template.add-new-item-placeholder:hover {
   box-shadow: none !important;
+}
+
+.supreme-placeholder {
+  z-index: 99;
 }

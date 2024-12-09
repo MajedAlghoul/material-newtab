@@ -1,5 +1,6 @@
 import { object } from "prop-types";
 import React, { createContext, useContext, useState, useRef } from "react";
+import { useWidgetDropper } from "./useWidgetDropper.jsx";
 
 const GridsContentContext = createContext();
 
@@ -16,6 +17,7 @@ export function GridsContentProvider({ children }) {
     right: [],
   });
   const classSetter = useRef([null, ""]);
+  const { emptyDropper } = useWidgetDropper();
   const removeItems = (gridType, widget) => {
     if (gridType === "left") {
       setLeftItems((prev) => {
@@ -91,6 +93,7 @@ export function GridsContentProvider({ children }) {
       classSetter.current[0](classSetter.current[1]);
       softFlushMenu();
       removePlaceHolders();
+      emptyDropper();
     }
   };
 

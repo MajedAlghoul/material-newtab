@@ -7,6 +7,7 @@ import { WidgetsProvider } from "./hooks/useWidgets.jsx";
 import { GridRepresentationProvider } from "./hooks/useGridRepresentation.jsx";
 import { GridsContentProvider } from "./hooks/useGridsContent.jsx";
 import { WidgetsBlueprintsProvider } from "./hooks/useWidgetsBlueprints.jsx";
+import { WidgetsDropper } from "./hooks/useWidgetDropper.jsx";
 //import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -14,11 +15,13 @@ root.render(
   <GridsWHProvider>
     <WidgetsBlueprintsProvider>
       <WidgetsProvider>
-        <GridsContentProvider>
-          <GridRepresentationProvider>
-            <App />
-          </GridRepresentationProvider>
-        </GridsContentProvider>
+        <WidgetsDropper>
+          <GridsContentProvider>
+            <GridRepresentationProvider>
+              <App />
+            </GridRepresentationProvider>
+          </GridsContentProvider>
+        </WidgetsDropper>
       </WidgetsProvider>
     </WidgetsBlueprintsProvider>
   </GridsWHProvider>

@@ -69,7 +69,7 @@ export function AddNewItemPlaceholder({ gridType, x, y }) {
         className="add-new-item-placeholder-widget-button"
         onClick={handleOnClick}
       >
-        {placeholderPlusSvg}
+        {classes.includes("supreme-placeholder") && placeholderPlusSvg}
       </button>
     </div>
   );

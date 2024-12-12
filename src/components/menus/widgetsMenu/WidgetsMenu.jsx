@@ -64,7 +64,7 @@ export function WidgetsMenu({ children }) {
     }
   }, [gridsWH]);
 
-  const placeWidget = (ww, wh) => {
+  const placeWidget = (ww, wh, index, data, widget) => {
     //softFlushMenu();
     addPlaceHolders();
     addItems(
@@ -73,7 +73,7 @@ export function WidgetsMenu({ children }) {
       children,
       "add-new-item-widget"
     );
-    drop(ww, wh);
+    drop(ww, wh, index, data, widget);
   };
 
   const closeMenu = () => {
@@ -192,7 +192,17 @@ export function WidgetsMenu({ children }) {
                                   } add-weather-containers`}
                                 >
                                   <button
-                                    onClick={() => placeWidget(ww, wh)}
+                                    onClick={() =>
+                                      placeWidget(
+                                        ww,
+                                        wh,
+                                        blueprintValue.sizes.images.length -
+                                          1 -
+                                          index,
+                                        blueprintValue.otherProps,
+                                        blueprintName
+                                      )
+                                    }
                                     className={`weather-buttons ${
                                       !widgetPlaceable(ww, wh) &&
                                       "grayed-out-widgets"

@@ -29,9 +29,12 @@ function App() {
     rightWidget,
     placeholders,
   } = useGridsContent();
+
   const { widgets, addWidget, removeWidget, editWidget, getComponent } =
     useWidgets();
+
   const { gridsWH } = useGridsWH();
+
   const [widgetAndGridReady, setWidgetAndGridReady] = useState(false);
 
   useEffect(() => {
@@ -39,6 +42,7 @@ function App() {
       setWidgetAndGridReady(true);
     }
   }, [widgets, gridsWH]);
+
   useEffect(() => {
     try {
       if (widgetAndGridReady) {
@@ -51,7 +55,7 @@ function App() {
     } catch (err) {
       console.log(err);
     }
-  }, [widgetAndGridReady]);
+  }, [widgetAndGridReady, widgets]);
 
   return (
     <div className="app-container">

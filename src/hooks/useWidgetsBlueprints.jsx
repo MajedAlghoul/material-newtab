@@ -183,7 +183,7 @@ function defaultWidgetsBlueprints() {
         minimizedY: null,
         sizeIndex: 2,
       },
-      { city: "Ramallah" },
+      { city: "" },
       {
         sizesCount: 3,
         sizes: [
@@ -219,11 +219,7 @@ function defaultWidgetsBlueprints() {
           { w: 3, h: 1 },
           { w: 5, h: 1 },
         ],
-        images: [
-          searchSize0Svg,
-          searchSize1Svg,
-          searchSize2Svg,
-        ],
+        images: [searchSize0Svg, searchSize1Svg, searchSize2Svg],
       }
     ),
   };

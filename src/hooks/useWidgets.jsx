@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, useRef } from "react";
-import { pullStorage, setStorage } from "../app/utility.js";
+import { generateUUID, pullStorage, setStorage } from "../app/utility.js";
 import { useGridsWH } from "./useGridsWH.jsx";
 import WidgetBackend from "../app/WidgetBackend.js";
 import { AddNewItemWidget } from "../components/widgets/addNewItemWidget/AddNewItemWidget.jsx";
@@ -9,7 +9,7 @@ import { CustomizeWidget } from "../components/widgets/customizeWidget/Customize
 import { WeatherWidget } from "../components/widgets/weatherWidget/WeatherWidget.jsx";
 import { SearchWidget } from "../components/widgets/searchWidget/SearchWidget.jsx";
 import { useWidgetsBlueprints } from "./useWidgetsBlueprints.jsx";
-import {AddNewItemPlaceholder} from "../components/addNewItemPlaceholder/AddNewItemPlaceholder.jsx";
+import { AddNewItemPlaceholder } from "../components/addNewItemPlaceholder/AddNewItemPlaceholder.jsx";
 
 const WidgetsContext = createContext();
 
@@ -30,8 +30,26 @@ export function WidgetsProvider({ children }) {
     return defaultWidgetsList[wComponent];
   };
 
-  const addWidget = (id, widget) => {
-    setWidgets({ ...widgets, [id]: widget });
+  const addWidget = (widget, gridType, x, y, sizeIndex, data) => {
+    setWidgets((prev) => {
+      const actualWidgetBlueprint = { ...blueprints[widget] };
+      const actualWidget = new WidgetBackend(
+        actualWidgetBlueprint["wComponent"],
+        actualWidgetBlueprint["layouts"],
+        actualWidgetBlueprint["otherProps"],
+        actualWidgetBlueprint["sizes"]
+      );
+
+      actualWidget.layouts.gridType = gridType;
+      actualWidget.layouts.regularX = x;
+      actualWidget.layouts.regularY = y;
+      actualWidget.layouts.sizeIndex = sizeIndex;
+      actualWidget.otherProps = data;
+      const id = generateUUID();
+
+      const temp = { ...prev, [id]: actualWidget };
+      return temp;
+    });
   };
   const removeWidget = (id) => {
     setWidgets((prev) => {

@@ -14,16 +14,16 @@ import { AddNewItemPlaceholder } from "../components/addNewItemPlaceholder/AddNe
 const WidgetDropperContext = createContext();
 
 export function WidgetsDropper({ children }) {
-  const [dropper, setDropper] = useState([null, null]);
+  const [dropper, setDropper] = useState(null);
 
-  const drop = (w, h) => {
-    setDropper([w, h]);
+  const drop = (w, h, sizeIndex, data, widget) => {
+    setDropper({ w, h, sizeIndex, data, widget });
   };
   const emptyDropper = () => {
-    setDropper([null, null]);
+    setDropper(null);
   };
   const isDropperEmpty = () => {
-    return dropper[0] === null;
+    return dropper === null;
   };
   const getDropper = () => {
     return dropper;

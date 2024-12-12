@@ -8,6 +8,7 @@ import { placeholderPlusSvg } from "../../app/Svgs.jsx";
 import { generateUUID } from "../../app/utility.js";
 import { useWidgetDropper } from "../../hooks/useWidgetDropper.jsx";
 import { useGridRepresentation } from "../../hooks/useGridRepresentation.jsx";
+import { useWidgets } from "../../hooks/useWidgets.jsx";
 
 export function AddNewItemPlaceholder({ gridType, x, y }) {
   const [layout, setLayout] = useState({ x: x, y: y, w: 1, h: 1 });
@@ -29,26 +30,48 @@ export function AddNewItemPlaceholder({ gridType, x, y }) {
   } = useGridsContent();
   const { isSpaceAvailable, getBestEstimatedPlace } = useGridRepresentation();
   const { getDropper, isDropperEmpty } = useWidgetDropper();
+  const { widgets, addWidget } = useWidgets();
+  const [dropReady, setDropReady] = useState(false);
   const [mouseOn, setMouseOn] = useState(false);
 
   const handleMouseOn = (stat) => {
     setMouseOn(stat);
+    console.log("im here ", x, y);
   };
 
-  const handleOnClick = () => {};
+  const handleOnClick = () => {
+    if (dropReady) {
+      const dropperObj = getDropper();
+      addWidget(
+        dropperObj.widget,
+        gridType,
+        layout.x,
+        layout.y,
+        dropperObj.sizeIndex,
+        dropperObj.data
+      );
+      hardFlushMenu();
+    }
+    //console.log("clicking ", layout.x, layout.y);
+  };
 
   useEffect(() => {
-    const [dropW, dropH] = isDropperEmpty() ? [null, null] : getDropper();
+    const dropperObj = getDropper();
+    const [dropW, dropH] = isDropperEmpty()
+      ? [null, null]
+      : [dropperObj.w, dropperObj.h];
     const [bestX, bestY] =
       dropW !== null
         ? getBestEstimatedPlace(gridType, x, y, dropW, dropH, "")
         : [null, null];
     if (!isDropperEmpty() && mouseOn && bestX !== null) {
+      setDropReady(true);
       setLayout({ x: bestX, y: bestY, w: dropW, h: dropH });
       setClasses((prev) => {
         return prev + " supreme-placeholder";
       });
     } else {
+      setDropReady(false);
       setLayout({ x: x, y: y, w: 1, h: 1 });
       setClasses((prev) => prev.replace(" supreme-placeholder", ""));
     }

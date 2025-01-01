@@ -5,9 +5,39 @@
   border-radius: 26px;
   color: var(--text-color);
   z-index: 2;
+  position: relative;
   /*box-shadow: 0px 0px 0px 14px #f0dcc6;*/
 }
 
 .widget-template:hover {
   box-shadow: 0px 0px 0px 14px var(--highlight-color);
+}
+
+.widget-template-buttons-container {
+  border-radius: 99px;
+  width: 26px;
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.widget-template-buttons {
+  background-color: black;
+  border: none;
+  outline: none;
+  border-radius: 999px;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+  cursor: pointer;
+}
+
+.widget-template-buttons:hover {
+  background-color: #2c2c2c;
 }

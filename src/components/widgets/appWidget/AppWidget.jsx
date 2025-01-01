@@ -10,7 +10,7 @@ import { useGridRepresentation } from "../../../hooks/useGridRepresentation.jsx"
 export function AppWidget({ id }) {
   const [layout, setLayout] = useState({ x: null, y: null, w: null, h: null });
   const { gridsWH } = useGridsWH();
-  const [classes, setClasses] = useState("add-new-item-widget");
+  const [classes, setClasses] = useState("app-widget");
   const isInitialMount = useRef(true);
   const { addPlaceHolders } = useGridRepresentation();
   const {

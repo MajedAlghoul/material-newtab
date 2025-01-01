@@ -4,7 +4,11 @@ import { useWidgets } from "../../hooks/useWidgets.jsx";
 import { useGridsContent } from "../../hooks/useGridsContent.jsx";
 import { useEffect, useState, useRef } from "react";
 import { useGridRepresentation } from "../../hooks/useGridRepresentation.jsx";
-
+import {
+  widgetOverlayXSvg,
+  widgetOverlayMinusSvg,
+  widgetOverlayEditSvg,
+} from "../../app/Svgs.jsx";
 function WidgetTemplate({ className, id, layout, setLayout, children }) {
   const { gridsWH } = useGridsWH();
   const {
@@ -79,6 +83,16 @@ function WidgetTemplate({ className, id, layout, setLayout, children }) {
         height: `${layout.h * 76 + (layout.h - 1) * 28}px`,
       }}
     >
+      <div className="widget-template-buttons-container">
+        <button className="widget-template-buttons">
+          {className.includes("app-widget")
+            ? widgetOverlayXSvg
+            : widgetOverlayMinusSvg}
+        </button>
+        <button className="widget-template-buttons">
+          {widgetOverlayEditSvg}
+        </button>
+      </div>
       {children}
     </div>
   );

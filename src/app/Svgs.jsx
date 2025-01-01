@@ -1,5 +1,71 @@
 import React from "react";
 
+export const widgetOverlayXSvg = (
+  <svg
+    width="23"
+    height="24"
+    viewBox="0 0 23 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M16.9707 17.5557L5.65699 6.24196"
+      stroke="white"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+    <path
+      d="M5.65625 17.5557L16.97 6.24196"
+      stroke="white"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+  </svg>
+);
+
+export const widgetOverlayMinusSvg = (
+  <svg
+    width="16"
+    height="2"
+    viewBox="0 0 16 2"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <line
+      x1="1"
+      y1="1"
+      x2="15"
+      y2="1"
+      stroke="white"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+  </svg>
+);
+
+export const widgetOverlayEditSvg = (
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 14 14"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M10.7605 1.2455L12.7625 3.24496L2.82999 13.1651C2.61724 13.3776 2.2723 13.3776 2.05955 13.1651L0.828055 11.9352C0.615303 11.7227 0.615303 11.3782 0.828055 11.1657L10.7605 1.2455Z"
+      fill="white"
+    />
+    <path
+      d="M11.5834 0.414102C12.1363 -0.138034 13.0326 -0.138034 13.5854 0.414102C14.1382 0.966238 14.1382 1.86143 13.5854 2.41356L13.0464 2.95188L11.0445 0.952418L11.5834 0.414102Z"
+      fill="white"
+    />
+    <path
+      d="M0.347874 13.9532C0.140221 14.0127 -0.0508242 13.8187 0.0122353 13.6123L0.695644 11.3758C0.755642 11.1795 1.00344 11.1177 1.14878 11.2629L2.73653 12.8487C2.8833 12.9953 2.81854 13.2454 2.61902 13.3025L0.347874 13.9532Z"
+      fill="white"
+    />
+  </svg>
+);
+
 export const placeholderPlusSvg = (
   <svg
     width="26"

@@ -27,11 +27,14 @@ export function AddMenu({ setClasses }) {
     addItems,
     placeholders,
     removePlaceHolders,
+    isEditModeOn,
+    toggleEditMode,
   } = useGridsContent();
   const { addPlaceHolders } = useGridRepresentation();
   const handleEditLayout = () => {
     const w = gridsWH["cw"];
     if (w) {
+      toggleEditMode(true);
       softFlushMenu();
       addPlaceHolders();
       addItems(

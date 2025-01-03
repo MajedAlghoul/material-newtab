@@ -27,6 +27,8 @@ export function AddNewItemWidget({ id }) {
     isMenuVisible,
     currentClass,
     removePlaceHolders,
+    isEditModeOn,
+    toggleEditMode,
   } = useGridsContent();
 
   const handleOnClick = () => {

@@ -18,9 +18,18 @@ function WidgetTemplate({ className, id, layout, setLayout, children }) {
     HiddenItems,
     addItems,
     removeItems,
+    isEditModeOn,
+    toggleEditMode,
+    removePlaceHolders,
   } = useGridsContent();
-  const { widgets, addWidget, removeWidget, editWidget, getComponent } =
-    useWidgets();
+  const {
+    widgets,
+    addWidget,
+    removeWidget,
+    editWidget,
+    getComponent,
+    defaultWidgetIDs,
+  } = useWidgets();
   const {
     gridRepresentation,
     addWidgetToGridRepresentation,
@@ -33,6 +42,7 @@ function WidgetTemplate({ className, id, layout, setLayout, children }) {
     calculateChanges,
     applyChanges,
     scheduleFalling,
+    addPlaceHolders,
   } = useGridRepresentation();
   const [widgetAndGridReady, setWidgetAndGridReady] = useState(false);
   useEffect(() => {
@@ -49,6 +59,22 @@ function WidgetTemplate({ className, id, layout, setLayout, children }) {
     } else {
       return gridsWH["cw"];
     }
+  };
+
+  const handleWidgetDelete = () => {
+    const gType = findWidgetGridType(id);
+    removeWidgetFromGridRepresentation(
+      gType,
+      layout.x,
+      layout.y,
+      layout.w,
+      layout.h
+    );
+    removeItems(gType, id);
+    removeWidget(id);
+
+    //removePlaceHolders();
+    addPlaceHolders();
   };
 
   useEffect(() => {
@@ -83,16 +109,21 @@ function WidgetTemplate({ className, id, layout, setLayout, children }) {
         height: `${layout.h * 76 + (layout.h - 1) * 28}px`,
       }}
     >
-      <div className="widget-template-buttons-container">
-        <button className="widget-template-buttons">
-          {className.includes("app-widget")
-            ? widgetOverlayXSvg
-            : widgetOverlayMinusSvg}
-        </button>
-        <button className="widget-template-buttons">
-          {widgetOverlayEditSvg}
-        </button>
-      </div>
+      {isEditModeOn() && !defaultWidgetIDs.includes(id) && (
+        <div className="widget-template-buttons-container">
+          <button
+            className="widget-template-buttons"
+            onClick={handleWidgetDelete}
+          >
+            {className.includes("app-widget")
+              ? widgetOverlayXSvg
+              : widgetOverlayMinusSvg}
+          </button>
+          <button className="widget-template-buttons">
+            {widgetOverlayEditSvg}
+          </button>
+        </div>
+      )}
       {children}
     </div>
   );

@@ -36,7 +36,6 @@ export function AddNewItemPlaceholder({ gridType, x, y }) {
 
   const handleMouseOn = (stat) => {
     setMouseOn(stat);
-    console.log("im here ", x, y);
   };
 
   const handleOnClick = () => {

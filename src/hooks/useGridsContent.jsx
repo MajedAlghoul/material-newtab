@@ -16,6 +16,7 @@ export function GridsContentProvider({ children }) {
     center: [],
     right: [],
   });
+  const [editMode, setEditMode] = useState(false);
   const classSetter = useRef([null, ""]);
   const { emptyDropper } = useWidgetDropper();
   const removeItems = (gridType, widget) => {
@@ -94,6 +95,7 @@ export function GridsContentProvider({ children }) {
       softFlushMenu();
       removePlaceHolders();
       emptyDropper();
+      toggleEditMode(false);
     }
   };
 
@@ -107,6 +109,12 @@ export function GridsContentProvider({ children }) {
   };
 
   const isMenuVisible = () => centerWidget.length > 0 || rightWidget.length > 0;
+
+  const isEditModeOn = () => editMode;
+
+  const toggleEditMode = (newState) => {
+    setEditMode(newState);
+  };
 
   const removePlaceHolders = () => {
     setPlaceholders((prev) => {
@@ -135,6 +143,8 @@ export function GridsContentProvider({ children }) {
         currentClass,
         removePlaceHolders,
         placeholders,
+        isEditModeOn,
+        toggleEditMode,
       }}
     >
       {children}

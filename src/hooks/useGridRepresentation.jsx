@@ -59,6 +59,7 @@ export function GridRepresentationProvider({ children }) {
   //====================================================================================================
 
   const addPlaceHolders = () => {
+    //removePlaceHolders();
     Object.entries(gridRepresentation.current).forEach(([key, value]) => {
       for (let i = 0; i < value.length; i++) {
         for (let j = 0; j < value[0].length; j++) {
@@ -247,6 +248,7 @@ export function GridRepresentationProvider({ children }) {
       let requiredGrid = temp[gridType];
       for (let i = 0; i < h; i++) {
         for (let j = 0; j < w; j++) {
+          console.log("removing ", i + x - 1, j + y - 1, gridType, x, y, w, h);
           requiredGrid[i + x - 1][j + y - 1] = null;
         }
       }
@@ -405,7 +407,7 @@ export function GridRepresentationProvider({ children }) {
     return [gridType, localX, localY, localW, localH, outOfBoundFactor];
   };
 
-  const applyChanges = (
+  const applyChanges = async (
     gridType,
     localX,
     localY,
@@ -435,7 +437,7 @@ export function GridRepresentationProvider({ children }) {
         layout.x &&
         getIdFromIndex(foundGridSelector, layout.x, layout.y) === id
       ) {
-        removeWidgetFromGridRepresentation(
+        await removeWidgetFromGridRepresentation(
           foundGridSelector,
           layout.x,
           layout.y,

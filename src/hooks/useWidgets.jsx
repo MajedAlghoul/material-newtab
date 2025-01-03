@@ -26,6 +26,13 @@ export function WidgetsProvider({ children }) {
     AddNewItemPlaceholder,
   };
 
+  const defaultWidgetIDs = [
+    "771bdc39-8e79-4e34-a30c-00b3393351cd",
+    "dbaad026-e60b-4550-9f20-05cb608f429d",
+    "a0750c28-1f1e-4a91-80e7-1a7bafa515f5",
+    "65b172c0-ff13-4aa6-b7eb-32d55bd107fb",
+  ];
+
   const getComponent = (wComponent) => {
     return defaultWidgetsList[wComponent];
   };
@@ -60,20 +67,19 @@ export function WidgetsProvider({ children }) {
   };
 
   const editWidget = (id, property1, property2, edited) => {
-    return new Promise((resolve) => {
-      setWidgets((prev) => {
-        const temp = { ...prev };
-        temp[id] = { ...temp[id] };
-        temp[id][property1][property2] = edited;
-        return temp;
-      });
-      resolve();
+    setWidgets((prev) => {
+      const temp = { ...prev };
+      temp[id] = { ...temp[id] };
+      temp[id][property1][property2] = edited;
+      return temp;
     });
   };
 
   useEffect(() => {
     async function innerEffect() {
       let storage = await pullStorage("widgets");
+      // > 0 is set to default to default widgets on page refresh
+      // for development purposes
       if (!storage || (Object.keys(storage).length > 0 && blueprints)) {
         await setStorage("widgets", defaultWidgets(blueprints));
         storage = await pullStorage("widgets");
@@ -94,7 +100,14 @@ export function WidgetsProvider({ children }) {
   }, [widgets]);
   return (
     <WidgetsContext.Provider
-      value={{ widgets, addWidget, removeWidget, editWidget, getComponent }}
+      value={{
+        widgets,
+        addWidget,
+        removeWidget,
+        editWidget,
+        getComponent,
+        defaultWidgetIDs,
+      }}
     >
       {children}
     </WidgetsContext.Provider>

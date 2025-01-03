@@ -11,14 +11,14 @@ export const widgetOverlayXSvg = (
     <path
       d="M16.9707 17.5557L5.65699 6.24196"
       stroke="white"
-      stroke-width="2"
-      stroke-linecap="round"
+      strokeWwidth="2"
+      strokeLinecap="round"
     />
     <path
       d="M5.65625 17.5557L16.97 6.24196"
       stroke="white"
-      stroke-width="2"
-      stroke-linecap="round"
+      strokeWidth="2"
+      strokeLinecap="round"
     />
   </svg>
 );
@@ -37,8 +37,8 @@ export const widgetOverlayMinusSvg = (
       x2="15"
       y2="1"
       stroke="white"
-      stroke-width="2"
-      stroke-linecap="round"
+      strokeWidth="2"
+      strokeLinecap="round"
     />
   </svg>
 );

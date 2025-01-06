@@ -1,88 +1,9 @@
-.widgets-menu-shadow {
-  left: -14px;
-  top: -14px;
-  position: absolute;
-  z-index: 1;
-}
-
-.actual-widgets-menu {
-  background-color: var(--widget-background-color);
-  min-width: 76px;
-  min-height: 76px;
-  width: 100%;
-  height: 100.2%;
-  border-radius: 26px;
-  color: var(--text-color);
-  position: absolute;
-  z-index: 2;
-  /*box-shadow: 0px 0px 0px 14px var(--highlight-color);*/
-}
-
-.menu-template {
-  /*background-color: var(--widget-background-color);*/
-  min-width: 76px;
-  min-height: 76px;
-  border-radius: 26px;
-  /*color: var(--text-color);*/
-  position: relative;
-  /*box-shadow: 0px 0px 0px 14px var(--highlight-color);*/
-}
-
-.actual-widgets-menu-inner {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.top-widget-menu-container {
-  display: flex;
-  width: 100%;
-  height: 23%;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.widget-menu-title-bar {
-  position: relative;
-  width: 100%;
-  height: 60%;
-}
-
-.widget-menu-title-text {
-  position: absolute;
-
-  left: 50%;
-  transform: translate(-50%, 40%);
-  font-size: 1.2rem;
-}
-
-.widget-menu-title-x-button {
-  position: absolute;
-  right: 0;
-  transform: translate(-50%, 90%);
-  background: none;
-  border: none;
-  outline: none;
-}
-.widget-menu-title-x-button:hover {
-  background-color: #ffffff20;
-  border-radius: 999px;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transform: translate(-37%, 37%);
-  cursor: pointer;
-}
-
 .widget-menu-search-container {
   display: flex;
   justify-content: center;
   align-items: flex-start;
   width: 100%;
-  height: 40%;
+  height: 12%;
 }
 .widget-menu-search-bar {
   width: 80%;
@@ -108,27 +29,6 @@
   text-align: center;
 }
 
-.bottom-widget-menu-container {
-  width: 100%;
-  height: 76%;
-  overflow: auto;
-  margin-top: 6px;
-}
-.bottom-widget-menu-container::-webkit-scrollbar {
-  width: 6px;
-}
-.bottom-widget-menu-container::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.bottom-widget-menu-container::-webkit-scrollbar-thumb {
-  background-color: #ffffff30;
-  border-radius: 20px;
-}
-
-.bottom-widget-menu-container::-webkit-scrollbar-thumb:hover {
-  background-color: #ffffff50;
-}
 .widget-menu-item-title {
   font-size: 14px;
   width: 82%;

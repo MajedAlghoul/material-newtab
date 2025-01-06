@@ -12,6 +12,7 @@ import {
 } from "../../../app/Svgs.jsx";
 import { WeatherWidget } from "../../widgets/weatherWidget/WeatherWidget.jsx";
 
+import DefaultMenu from "../../defaultMenu/DefaultMenu.jsx";
 export function AppsMenu() {
   const [layout, setLayout] = useState({ x: null, y: null, w: null, h: null });
 
@@ -61,26 +62,6 @@ export function AppsMenu() {
     }
   }, [gridsWH]);
 
-  const placeWidget = () => {};
-
-  const closeMenu = () => {
-    hardFlushMenu();
-  };
-
-  const scrollNext = (whichContainer) => {
-    if (silderRefs.current[whichContainer]) {
-      silderRefs.current[whichContainer].scrollLeft +=
-        scrollIntervals[whichContainer];
-    }
-  };
-
-  const scrollPrev = (whichContainer) => {
-    if (silderRefs.current[whichContainer]) {
-      silderRefs.current[whichContainer].scrollLeft -=
-        scrollIntervals[whichContainer];
-    }
-  };
-
   useEffect(() => {
     const handleScroll = () => {
       silderRefs.current.forEach((ref, index) => {
@@ -112,106 +93,34 @@ export function AppsMenu() {
     let w = gridsWH["cw"];
     if (w) {
       setContent([
-        <div key={"widget-menu-content"} className="actual-widgets-menu">
-          <div className="actual-widgets-menu-inner">
-            <div className="top-widget-menu-container">
-              <div className="widget-menu-title-bar">
-                <div className="widget-menu-title-text">Add an app</div>
-                <button
-                  className="widget-menu-title-x-button"
-                  onClick={closeMenu}
-                >
-                  {closeXSvg}
-                </button>
-              </div>
-              <div className="widget-menu-search-container">
-                <input
-                  className="widget-menu-search-bar"
-                  placeholder="Search Widgets"
-                  type="text"
-                />
-              </div>
-            </div>
-            <div className="bottom-widget-menu-container">
-              <label htmlFor="app-name-input">Name</label>
-              <input
-                id="app-name-input"
-                className="widget-menu-search-bar"
-                placeholder="App Name"
-                type="text"
-              />
-              <label htmlFor="app-url-input">Url</label>
-              <input
-                id="app-url-input"
-                className="widget-menu-search-bar"
-                placeholder="App URL"
-                type="text"
-              />
-              <div>
-                <button className="form-add-button">Add</button>
-                <WeatherWidget></WeatherWidget>
-              </div>
-            </div>
+        <>
+          <div className="widget-menu-search-container">
+            <input
+              className="widget-menu-search-bar"
+              placeholder="Search Widgets"
+              type="text"
+            />
           </div>
-        </div>,
+          <label htmlFor="app-name-input">Name</label>
+          <input
+            id="app-name-input"
+            className="widget-menu-search-bar"
+            placeholder="App Name"
+            type="text"
+          />
+          <label htmlFor="app-url-input">Url</label>
+          <input
+            id="app-url-input"
+            className="widget-menu-search-bar"
+            placeholder="App URL"
+            type="text"
+          />
+          <div>
+            <button className="form-add-button">Add</button>
+            <WeatherWidget></WeatherWidget>
+          </div>
+        </>,
       ]);
-      if (w === 3) {
-        setLayout({
-          x: 1,
-          y: 1,
-          w: 3,
-          h: 4,
-        });
-        setContent((prev) => {
-          return [
-            ...prev,
-            <svg
-              width="312"
-              height="416"
-              viewBox="0 0 312 416"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="widgets-menu-shadow"
-              key={"widget-menu-shadow"}
-            >
-              <rect
-                width="312"
-                height="416"
-                rx="39"
-                fill="var(--highlight-color)"
-              />
-            </svg>,
-          ];
-        });
-      } else {
-        setLayout({
-          x: 1,
-          y: 1,
-          w: 5,
-          h: 4,
-        });
-        setContent((prev) => {
-          return [
-            ...prev,
-            <svg
-              width="520"
-              height="415"
-              viewBox="0 0 520 415"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="widgets-menu-shadow"
-              key={"widget-menu-shadow"}
-            >
-              <rect
-                width="520"
-                height="415"
-                rx="39"
-                fill="var(--highlight-color)"
-              />
-            </svg>,
-          ];
-        });
-      }
     }
 
     setTimeout(() => {
@@ -230,17 +139,5 @@ export function AppsMenu() {
       });
     };
   }, [silderRefs, canScrollLeft, canScrollRight, scrollIntervals]);
-  return (
-    <div
-      className={`menu-template`}
-      style={{
-        gridRow: `${layout.x} / ${layout.x + layout.h}`,
-        gridColumn: `${layout.y} / ${layout.y + layout.w}`,
-        width: `${layout.w * 76 + (layout.w - 1) * 28}px`,
-        height: `${layout.h * 76 + (layout.h - 1) * 28}px`,
-      }}
-    >
-      {content}
-    </div>
-  );
+  return <DefaultMenu title="Add an App">{content}</DefaultMenu>;
 }

@@ -1,5 +1,5 @@
 import { useGridsWH } from "../../../hooks/useGridsWH.jsx";
-import "./WidgetsMenu.css";
+import styles from "./WidgetsMenu.module.css";
 import { useWidgets } from "../../../hooks/useWidgets.jsx";
 import { useGridsContent } from "../../../hooks/useGridsContent.jsx";
 import { useEffect, useState, useRef } from "react";
@@ -12,7 +12,7 @@ import {
 } from "../../../app/Svgs.jsx";
 import { useWidgetDropper } from "../../../hooks/useWidgetDropper.jsx";
 import { EditModeFakeMenu } from "../editModeFakeMenu/EditModeFakeMenu.jsx";
-
+import DefaultMenu from "../../defaultMenu/DefaultMenu.jsx";
 export function WidgetsMenu({ children }) {
   const [layout, setLayout] = useState({ x: null, y: null, w: null, h: null });
 
@@ -47,11 +47,11 @@ export function WidgetsMenu({ children }) {
 
   const widgetPlaceable = (w, h) => {
     let resultLeft =
-      findAvailibleSpace("left", w, h, "") == null ? false : true;
+      findAvailibleSpace("left", w, h, "")[0] == null ? false : true;
     let resultCenter =
-      findAvailibleSpace("center", w, h, "") == null ? false : true;
+      findAvailibleSpace("center", w, h, "")[0] == null ? false : true;
     let resultRight =
-      findAvailibleSpace("right", w, h, "") == null ? false : true;
+      findAvailibleSpace("right", w, h, "")[0] == null ? false : true;
     return resultLeft || resultCenter || resultRight;
   };
 
@@ -63,7 +63,6 @@ export function WidgetsMenu({ children }) {
       hardFlushMenu();
     }
   }, [gridsWH]);
-
   const placeWidget = (ww, wh, index, data, widget) => {
     //softFlushMenu();
     addPlaceHolders();
@@ -74,10 +73,6 @@ export function WidgetsMenu({ children }) {
       "add-new-item-widget"
     );
     drop(ww, wh, index, data, widget);
-  };
-
-  const closeMenu = () => {
-    hardFlushMenu();
   };
 
   const scrollNext = (whichContainer) => {
@@ -94,220 +89,150 @@ export function WidgetsMenu({ children }) {
     }
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      silderRefs.current.forEach((ref, index) => {
-        if (ref) {
-          const { scrollLeft, scrollWidth, clientWidth } = ref;
-          if (canScrollLeft[index] !== scrollLeft > 0) {
-            setCanScrollLeft((prev) => {
-              let temp = [...prev];
-              temp[index] = scrollLeft > 0;
-              return temp;
-            });
-          }
-          if (canScrollRight[0] !== scrollLeft < scrollWidth - clientWidth) {
-            setCanScrollRight((prev) => {
-              let temp = [...prev];
-              temp[index] = scrollLeft < scrollWidth - clientWidth;
-              return temp;
-            });
-          }
-          setScrollIntervals((prev) => {
+  const handleScroll = () => {
+    silderRefs.current.forEach((ref, index) => {
+      if (ref) {
+        const { scrollLeft, scrollWidth, clientWidth } = ref;
+        if (canScrollLeft[index] !== scrollLeft > 0) {
+          setCanScrollLeft((prev) => {
             let temp = [...prev];
-            temp[index] = clientWidth;
+            temp[index] = scrollLeft > 0;
             return temp;
           });
         }
-      });
-    };
-
-    let w = gridsWH["cw"];
-    if (w) {
-      setContent([
-        <div key={"widget-menu-content"} className="actual-widgets-menu">
-          <div className="actual-widgets-menu-inner">
-            <div className="top-widget-menu-container">
-              <div className="widget-menu-title-bar">
-                <div className="widget-menu-title-text">Add a Widget</div>
-                <button
-                  className="widget-menu-title-x-button"
-                  onClick={closeMenu}
-                >
-                  {closeXSvg}
-                </button>
-              </div>
-              <div className="widget-menu-search-container">
-                <input
-                  className="widget-menu-search-bar"
-                  placeholder="Search Widgets"
-                  type="text"
-                />
-              </div>
-            </div>
-            <div className="bottom-widget-menu-container">
-              {Object.entries(blueprints).map(
-                ([blueprintName, blueprintValue], blueprintIndex) => {
-                  if (!blueprintValue.sizes.images) return null;
-
-                  const maxHeight = Math.max(
-                    ...blueprintValue.sizes.sizes.map((element) => element.h)
-                  );
-                  return (
-                    <div
-                      key={blueprintName}
-                      className="widget-menu-item-weather-container"
-                      style={{ height: `${76 + maxHeight * 32}px` }}
-                    >
-                      <div className="widget-menu-item-title">
-                        {blueprintName}
-                      </div>
-                      <div className="widget-menu-item-weather-body">
-                        <div
-                          className="widget-menu-item-weather-horizontal-viewer"
-                          ref={(el) =>
-                            (silderRefs.current[blueprintIndex] = el)
-                          }
-                        >
-                          {[...blueprintValue.sizes.images]
-                            .reverse()
-                            .map((image, index) => {
-                              const ww =
-                                blueprintValue.sizes.sizes[
-                                  blueprintValue.sizes.images.length - 1 - index
-                                ].w;
-                              const wh =
-                                blueprintValue.sizes.sizes[
-                                  blueprintValue.sizes.images.length - 1 - index
-                                ].h;
-
-                              return (
-                                <div
-                                  key={index}
-                                  className={`${
-                                    index ===
-                                    blueprintValue.sizes.images.length - 1
-                                      ? "last-widget-margin"
-                                      : null
-                                  } add-weather-containers`}
-                                >
-                                  <button
-                                    onClick={() =>
-                                      placeWidget(
-                                        ww,
-                                        wh,
-                                        blueprintValue.sizes.images.length -
-                                          1 -
-                                          index,
-                                        blueprintValue.otherProps,
-                                        blueprintName
-                                      )
-                                    }
-                                    className={`weather-buttons ${
-                                      !widgetPlaceable(ww, wh) &&
-                                      "grayed-out-widgets"
-                                    }`}
-                                  >
-                                    {image}
-                                  </button>
-                                  <div className="widget-dimensions-text">
-                                    {`${ww}x${wh}`}
-                                  </div>
-                                </div>
-                              );
-                            })}
-                        </div>
-                        {canScrollLeft[blueprintIndex] && (
-                          <div className="scroll-button-containers scroll-button-previous">
-                            <button
-                              className="scroll-buttons"
-                              onClick={() => {
-                                scrollPrev(blueprintIndex);
-                              }}
-                            >
-                              {sliderBackArrow}
-                            </button>
-                          </div>
-                        )}
-                        {canScrollRight[blueprintIndex] && (
-                          <div className="scroll-button-containers scroll-button-next">
-                            <button
-                              className="scroll-buttons"
-                              onClick={() => {
-                                scrollNext(blueprintIndex);
-                              }}
-                            >
-                              {sliderForwardArrow}
-                            </button>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  );
-                }
-              )}
-            </div>
-          </div>
-        </div>,
-      ]);
-      if (w === 3) {
-        setLayout({
-          x: 1,
-          y: 1,
-          w: 3,
-          h: 4,
-        });
-        setContent((prev) => {
-          return [
-            ...prev,
-            <svg
-              width="312"
-              height="416"
-              viewBox="0 0 312 416"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="widgets-menu-shadow"
-              key={"widget-menu-shadow"}
-            >
-              <rect
-                width="312"
-                height="416"
-                rx="39"
-                fill="var(--highlight-color)"
-              />
-            </svg>,
-          ];
-        });
-      } else {
-        setLayout({
-          x: 1,
-          y: 1,
-          w: 5,
-          h: 4,
-        });
-        setContent((prev) => {
-          return [
-            ...prev,
-            <svg
-              width="520"
-              height="415"
-              viewBox="0 0 520 415"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="widgets-menu-shadow"
-              key={"widget-menu-shadow"}
-            >
-              <rect
-                width="520"
-                height="415"
-                rx="39"
-                fill="var(--highlight-color)"
-              />
-            </svg>,
-          ];
+        if (canScrollRight[0] !== scrollLeft < scrollWidth - clientWidth) {
+          setCanScrollRight((prev) => {
+            let temp = [...prev];
+            temp[index] = scrollLeft < scrollWidth - clientWidth;
+            return temp;
+          });
+        }
+        setScrollIntervals((prev) => {
+          let temp = [...prev];
+          temp[index] = clientWidth;
+          return temp;
         });
       }
-    }
+    });
+  };
+
+  useEffect(() => {
+    setContent(
+      <>
+        <div className={styles["widget-menu-search-container"]}>
+          <input
+            className={styles["widget-menu-search-bar"]}
+            placeholder="Search Widgets"
+            type="text"
+          />
+        </div>
+        {Object.entries(blueprints).map(
+          ([blueprintName, blueprintValue], blueprintIndex) => {
+            if (!blueprintValue.sizes.images) return null;
+
+            const maxHeight = Math.max(
+              ...blueprintValue.sizes.sizes.map((element) => element.h)
+            );
+            return (
+              <div
+                key={blueprintName}
+                className={styles["widget-menu-item-weather-container"]}
+                style={{ height: `${76 + maxHeight * 32}px` }}
+              >
+                <div className={styles["widget-menu-item-title"]}>
+                  {blueprintName}
+                </div>
+                <div className={styles["widget-menu-item-weather-body"]}>
+                  <div
+                    className={
+                      styles["widget-menu-item-weather-horizontal-viewer"]
+                    }
+                    ref={(el) => (silderRefs.current[blueprintIndex] = el)}
+                  >
+                    {[...blueprintValue.sizes.images]
+                      .reverse()
+                      .map((image, index) => {
+                        const ww =
+                          blueprintValue.sizes.sizes[
+                            blueprintValue.sizes.images.length - 1 - index
+                          ].w;
+                        const wh =
+                          blueprintValue.sizes.sizes[
+                            blueprintValue.sizes.images.length - 1 - index
+                          ].h;
+
+                        return (
+                          <div
+                            key={index}
+                            className={`${
+                              index === blueprintValue.sizes.images.length - 1
+                                ? styles["last-widget-margin"]
+                                : null
+                            } ${styles["add-weather-containers"]}`}
+                          >
+                            <button
+                              onClick={() => {
+                                if (widgetPlaceable(ww, wh)) {
+                                  placeWidget(
+                                    ww,
+                                    wh,
+                                    blueprintValue.sizes.images.length -
+                                      1 -
+                                      index,
+                                    blueprintValue.otherProps,
+                                    blueprintName
+                                  );
+                                }
+                              }}
+                              className={`${styles["weather-buttons"]} ${
+                                !widgetPlaceable(ww, wh) &&
+                                styles["grayed-out-widgets"]
+                              }`}
+                            >
+                              {image}
+                            </button>
+                            <div className={styles["widget-dimensions-text"]}>
+                              {`${ww}x${wh}`}
+                            </div>
+                          </div>
+                        );
+                      })}
+                  </div>
+                  {canScrollLeft[blueprintIndex] && (
+                    <div
+                      className={`${styles["scroll-button-containers"]} ${styles["scroll-button-previous"]}`}
+                    >
+                      <button
+                        className={styles["scroll-buttons"]}
+                        onClick={() => {
+                          scrollPrev(blueprintIndex);
+                        }}
+                      >
+                        {sliderBackArrow}
+                      </button>
+                    </div>
+                  )}
+                  {canScrollRight[blueprintIndex] && (
+                    <div
+                      className={`${styles["scroll-button-containers"]} ${styles["scroll-button-next"]}`}
+                    >
+                      <button
+                        className={styles["scroll-buttons"]}
+                        onClick={() => {
+                          scrollNext(blueprintIndex);
+                        }}
+                      >
+                        {sliderForwardArrow}
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+          }
+        )}
+      </>
+    );
 
     setTimeout(() => {
       silderRefs.current.forEach((ref) => {
@@ -325,17 +250,5 @@ export function WidgetsMenu({ children }) {
       });
     };
   }, [silderRefs, canScrollLeft, canScrollRight, scrollIntervals]);
-  return (
-    <div
-      className={`menu-template`}
-      style={{
-        gridRow: `${layout.x} / ${layout.x + layout.h}`,
-        gridColumn: `${layout.y} / ${layout.y + layout.w}`,
-        width: `${layout.w * 76 + (layout.w - 1) * 28}px`,
-        height: `${layout.h * 76 + (layout.h - 1) * 28}px`,
-      }}
-    >
-      {content}
-    </div>
-  );
+  return <DefaultMenu title="Add a Widget">{content}</DefaultMenu>;
 }

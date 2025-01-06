@@ -248,7 +248,6 @@ export function GridRepresentationProvider({ children }) {
       let requiredGrid = temp[gridType];
       for (let i = 0; i < h; i++) {
         for (let j = 0; j < w; j++) {
-          console.log("removing ", i + x - 1, j + y - 1, gridType, x, y, w, h);
           requiredGrid[i + x - 1][j + y - 1] = null;
         }
       }

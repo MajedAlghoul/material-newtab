@@ -14,7 +14,13 @@ import { AddNewItemPlaceholder } from "../components/addNewItemPlaceholder/AddNe
 const WidgetDropperContext = createContext();
 
 export function WidgetsDropper({ children }) {
+  const [placeholderHover, setPlaceholderHover] = useState({
+    x: null,
+    y: null,
+  });
+
   const [dropper, setDropper] = useState(null);
+  //==================================================================
 
   const drop = (w, h, sizeIndex, data, widget) => {
     setDropper({ w, h, sizeIndex, data, widget });
@@ -28,9 +34,36 @@ export function WidgetsDropper({ children }) {
   const getDropper = () => {
     return dropper;
   };
+
+  const updatePlaceholderLocation = (x, y) => {
+    setPlaceholderHover(() => ({
+      x,
+      y,
+    }));
+  };
+
+  const clearPlaceholderLocation = () => {
+    setPlaceholderHover(() => ({ x: null, y: null }));
+  };
+
+  const getPlaceholderLocation = (gridType, w, h, id) => {
+    return getBestEstimatedPlace(
+      gridType,
+      placeholderHover.x,
+      placeholderHover.y,
+      w,
+      h,
+      id
+    );
+  };
   return (
     <WidgetDropperContext.Provider
-      value={{ drop, emptyDropper, isDropperEmpty, getDropper }}
+      value={{
+        drop,
+        emptyDropper,
+        isDropperEmpty,
+        getDropper,
+      }}
     >
       {children}
     </WidgetDropperContext.Provider>

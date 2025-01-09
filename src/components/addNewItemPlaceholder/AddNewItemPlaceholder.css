@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: center;
   /*box-shadow: 0px 0px 0px 14px #f0dcc6;*/
+  z-index: 1 !important;
 }
 
 .add-new-item-placeholder-widget-button {
@@ -24,5 +25,5 @@
 }
 
 .supreme-placeholder {
-  z-index: 1;
+  z-index: 1 !important;
 }

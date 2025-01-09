@@ -56,7 +56,35 @@ export function GridRepresentationProvider({ children }) {
     removePlaceHolders,
   } = useGridsContent();
 
+  const [placeholderHover, setPlaceholderHover] = useState({
+    x: null,
+    y: null,
+  });
+
   //====================================================================================================
+
+  const updatePlaceholderLocation = (x, y) => {
+    setPlaceholderHover(() => ({
+      x,
+      y,
+    }));
+  };
+
+  const clearPlaceholderLocation = () => {
+    setPlaceholderHover(() => ({ x: null, y: null }));
+  };
+
+  const getPlaceholderLocation = (gridType, w, h, id) => {
+    console.log("i hate this ", id);
+    return getBestEstimatedPlace(
+      gridType,
+      placeholderHover.x,
+      placeholderHover.y,
+      w,
+      h,
+      id
+    );
+  };
 
   const addPlaceHolders = () => {
     //removePlaceHolders();
@@ -64,7 +92,9 @@ export function GridRepresentationProvider({ children }) {
       for (let i = 0; i < value.length; i++) {
         for (let j = 0; j < value[0].length; j++) {
           if (
-            value[i][j] === null &&
+            // adjusted to add placeholders even behind weidgets for
+            // widget drag support
+            // value[i][j] === null &&
             gridsWH["gh"] > i &&
             ((key === "left" && gridsWH["lw"] > j) ||
               (key === "center" && gridsWH["cw"] > j) ||
@@ -86,14 +116,15 @@ export function GridRepresentationProvider({ children }) {
   };
 
   //===============================================================================================================================
-  const getBestEstimatedPlace = (gridType, x, y, w, h) => {
+  const getBestEstimatedPlace = (gridType, x, y, w, h, id) => {
+    console.log("now.. ", gridType, x, y, w, h, id);
     const halfW = Math.trunc(w / 2);
     const halfH = Math.trunc(h / 2);
     for (let hopeY = y - halfW; hopeY <= y; hopeY++) {
       if (hopeY < 1) hopeY = 1;
       for (let hopeX = x - halfH; hopeX <= x; hopeX++) {
         if (hopeX < 1) hopeX = 1;
-        if (isSpaceAvailable(gridType, hopeX, hopeY, w, h, "")) {
+        if (isSpaceAvailable(gridType, hopeX, hopeY, w, h, id)) {
           //console.log("found1 ", hopeX, hopeY);
           return [hopeX, hopeY];
         }
@@ -498,6 +529,10 @@ export function GridRepresentationProvider({ children }) {
         scheduleFalling,
         addPlaceHolders,
         getBestEstimatedPlace,
+        placeholderHover,
+        updatePlaceholderLocation,
+        clearPlaceholderLocation,
+        getPlaceholderLocation,
       }}
     >
       {children}

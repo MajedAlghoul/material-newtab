@@ -4,6 +4,7 @@ import { useWidgets } from "../../hooks/useWidgets.jsx";
 import { useGridsContent } from "../../hooks/useGridsContent.jsx";
 import { useEffect, useState, useRef } from "react";
 import { useGridRepresentation } from "../../hooks/useGridRepresentation.jsx";
+import { useWidgetDropper } from "../../hooks/useWidgetDropper.jsx";
 import {
   widgetOverlayXSvg,
   widgetOverlayMinusSvg,
@@ -43,13 +44,40 @@ function WidgetTemplate({ className, id, layout, setLayout, children }) {
     applyChanges,
     scheduleFalling,
     addPlaceHolders,
+    placeholderHover,
+    updatePlaceholderLocation,
+    clearPlaceholderLocation,
+    getPlaceholderLocation,
   } = useGridRepresentation();
+
+  const { getDropper, isDropperEmpty } = useWidgetDropper();
+
   const [widgetAndGridReady, setWidgetAndGridReady] = useState(false);
+  const [widgetHeld, setWidgetHeld] = useState(false);
+  const [originalLocation, setOriginalLocation] = useState({
+    x: layout.x,
+    y: layout.y,
+  });
+  //=====================================================================
+
   useEffect(() => {
     if (widgets && gridsWH !== undefined && !widgetAndGridReady) {
       setWidgetAndGridReady(true);
     }
   }, [gridsWH]);
+
+  const triggerWidgetHold = (stat) => {
+    setWidgetHeld(stat);
+  };
+  useEffect(() => {
+    const handleMouseUp = () => setWidgetHeld(false);
+
+    // Listen for mouseup anywhere in the document
+    document.addEventListener("mouseup", handleMouseUp);
+    return () => {
+      document.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, []);
 
   const determineGridWidthFromGridType = (gridType) => {
     if (gridType === "left") {
@@ -99,9 +127,35 @@ function WidgetTemplate({ className, id, layout, setLayout, children }) {
     }
   }, [gridsWH]);
 
+  useEffect(() => {
+    if (widgetHeld && layout && layout.x !== null) {
+      console.log(layout, placeholderHover);
+      const gType = findWidgetGridType(id);
+      console.log("wtf???", layout.w, layout.h);
+      const [tempX, tempY] = [
+        ...getPlaceholderLocation(gType, layout.w, layout.h, id),
+      ];
+      console.log("dds ", tempX, tempY, id);
+      if (tempX !== null) {
+        //console.log("special ", originalLocation.x, originalLocation.y);
+        //layout.x = originalLocation.x;
+        //layout.y = originalLocation.y;
+        setLayout({ ...layout, x: tempX, y: tempY });
+      }
+      //} else {
+      //setOriginalLocation({ x: layout.x, y: layout.y });
+      //setLayout({ ...layout, x: tempX, y: tempY });
+      //}
+    }
+  }, [widgetHeld, placeholderHover, originalLocation]);
+
   return (
     <div
-      className={`widget-template ${className}`}
+      onMouseDown={() => triggerWidgetHold(true)}
+      //onMouseUp={() => triggerWidgetHold(false)}
+      className={`widget-template ${className} ${
+        isEditModeOn() && widgetHeld && "transparent-held-widget"
+      }`}
       style={{
         gridRow: `${layout.x} / ${layout.x + layout.h}`,
         gridColumn: `${layout.y} / ${layout.y + layout.w}`,
@@ -109,7 +163,7 @@ function WidgetTemplate({ className, id, layout, setLayout, children }) {
         height: `${layout.h * 76 + (layout.h - 1) * 28}px`,
       }}
     >
-      {isEditModeOn() && !defaultWidgetIDs.includes(id) && (
+      {!widgetHeld && isEditModeOn() && !defaultWidgetIDs.includes(id) && (
         <div className="widget-template-buttons-container">
           <button
             className="widget-template-buttons"

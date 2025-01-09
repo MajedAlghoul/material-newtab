@@ -28,7 +28,13 @@ export function AddNewItemPlaceholder({ gridType, x, y }) {
     isMenuVisible,
     currentClass,
   } = useGridsContent();
-  const { isSpaceAvailable, getBestEstimatedPlace } = useGridRepresentation();
+  const {
+    isSpaceAvailable,
+    getBestEstimatedPlace,
+    placeholderHover,
+    updatePlaceholderLocation,
+    clearPlaceholderLocation,
+  } = useGridRepresentation();
   const { getDropper, isDropperEmpty } = useWidgetDropper();
   const { widgets, addWidget } = useWidgets();
   const [dropReady, setDropReady] = useState(false);
@@ -36,6 +42,11 @@ export function AddNewItemPlaceholder({ gridType, x, y }) {
 
   const handleMouseOn = (stat) => {
     setMouseOn(stat);
+    if (stat) {
+      updatePlaceholderLocation(x, y);
+    } else {
+      clearPlaceholderLocation();
+    }
   };
 
   const handleOnClick = () => {
@@ -59,10 +70,12 @@ export function AddNewItemPlaceholder({ gridType, x, y }) {
     const [dropW, dropH] = isDropperEmpty()
       ? [null, null]
       : [dropperObj.w, dropperObj.h];
+
     const [bestX, bestY] =
       dropW !== null
-        ? getBestEstimatedPlace(gridType, x, y, dropW, dropH, "")
+        ? getBestEstimatedPlace(gridType, x, y, dropW, dropH)
         : [null, null];
+
     if (!isDropperEmpty() && mouseOn && bestX !== null) {
       setDropReady(true);
       setLayout({ x: bestX, y: bestY, w: dropW, h: dropH });

@@ -31,6 +31,7 @@ export function AddMenu({ setClasses }) {
     toggleEditMode,
   } = useGridsContent();
   const { addPlaceHolders } = useGridRepresentation();
+
   const handleEditLayout = () => {
     const w = gridsWH["cw"];
     if (w) {

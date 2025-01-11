@@ -69,7 +69,7 @@ export function WidgetsProvider({ children }) {
   const editWidget = (id, property1, property2, edited) => {
     setWidgets((prev) => {
       const temp = { ...prev };
-      temp[id] = { ...temp[id] };
+      temp[id] = { ...prev[id] };
       temp[id][property1][property2] = edited;
       return temp;
     });

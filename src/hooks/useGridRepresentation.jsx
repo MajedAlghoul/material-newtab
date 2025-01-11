@@ -1,4 +1,11 @@
-import { createContext, useContext, useState, useEffect, useRef } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+} from "react";
 import { useGridsWH } from "./useGridsWH.jsx";
 import { useWidgets } from "./useWidgets.jsx";
 import { useGridsContent } from "./useGridsContent.jsx";
@@ -7,8 +14,14 @@ import { generateUUID } from "../app/utility.js";
 
 const GridRepresentationContext = createContext();
 export function GridRepresentationProvider({ children }) {
-  const { widgets, addWidget, removeWidget, editWidget, getComponent } =
-    useWidgets();
+  const {
+    widgets,
+    addWidget,
+    removeWidget,
+    editWidget,
+    getComponent,
+    defaultWidgetIDs,
+  } = useWidgets();
 
   const gridRepresentation = useRef({
     left: [
@@ -56,35 +69,77 @@ export function GridRepresentationProvider({ children }) {
     removePlaceHolders,
   } = useGridsContent();
 
+  const [widgetHold, setWidgetHold] = useState({
+    gridType: null,
+    w: null,
+    h: null,
+    id: null,
+  });
+
   const [placeholderHover, setPlaceholderHover] = useState({
     x: null,
     y: null,
   });
 
+  const [dragLocation, setDragLocation] = useState([null, null]);
+
   //====================================================================================================
 
   const updatePlaceholderLocation = (x, y) => {
-    setPlaceholderHover(() => ({
-      x,
-      y,
-    }));
+    if (x !== null && (x !== placeholderHover.x || y !== placeholderHover.y)) {
+      setPlaceholderHover(() => ({
+        x,
+        y,
+      }));
+    }
   };
 
   const clearPlaceholderLocation = () => {
     setPlaceholderHover(() => ({ x: null, y: null }));
   };
 
-  const getPlaceholderLocation = (gridType, w, h, id) => {
-    console.log("i hate this ", id);
-    return getBestEstimatedPlace(
+  const updateWidgetHold = (gridType, w, h, id) => {
+    setWidgetHold(() => ({
       gridType,
-      placeholderHover.x,
-      placeholderHover.y,
       w,
       h,
-      id
-    );
+      id,
+    }));
   };
+
+  const clearWidgetHold = () => {
+    setWidgetHold(() => ({
+      gridType: null,
+      w: null,
+      h: null,
+      id: null,
+    }));
+  };
+
+  useEffect(() => {
+    if (
+      widgetHold.w !== null &&
+      placeholderHover.x !== null
+      //!defaultWidgetIDs.includes(widgetHold.id)
+    ) {
+      const temp = getBestEstimatedPlace(
+        widgetHold.gridType,
+        placeholderHover.x,
+        placeholderHover.y,
+        widgetHold.w,
+        widgetHold.h,
+        widgetHold.id
+      );
+      //console.log("widgetHold!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ", prev);
+      setDragLocation((prev) => {
+        //console.log("prev ", prev);
+        if (temp[0] !== null && (temp[0] !== prev[0] || temp[1] !== prev[1])) {
+          return [temp[0], temp[1]];
+        }
+        return [null, null];
+      });
+    }
+  }, [placeholderHover, widgetHold]);
 
   const addPlaceHolders = () => {
     //removePlaceHolders();
@@ -117,7 +172,7 @@ export function GridRepresentationProvider({ children }) {
 
   //===============================================================================================================================
   const getBestEstimatedPlace = (gridType, x, y, w, h, id) => {
-    console.log("now.. ", gridType, x, y, w, h, id);
+    //console.log("now.. ", gridType, x, y, w, h, id);
     const halfW = Math.trunc(w / 2);
     const halfH = Math.trunc(h / 2);
     for (let hopeY = y - halfW; hopeY <= y; hopeY++) {
@@ -130,13 +185,12 @@ export function GridRepresentationProvider({ children }) {
         }
       }
     }
-
     //if (halfH > 1 || halfW > 1) {
     for (let hopeY = Math.max(y, 1); hopeY >= 1; hopeY--) {
       //if (hopeY < 1) hopeY = 1;
       for (let hopeX = Math.max(x, 1); hopeX >= 1; hopeX--) {
         //if (hopeX < 1) hopeX = 1;
-        if (isSpaceAvailable(gridType, hopeX, hopeY, w, h, "")) {
+        if (isSpaceAvailable(gridType, hopeX, hopeY, w, h, id)) {
           return [hopeX, hopeY];
         }
       }
@@ -305,17 +359,17 @@ export function GridRepresentationProvider({ children }) {
   const findWidgetGridType = (id) => {
     try {
       if (leftItems && RightItems && centerItems && HiddenItems) {
-        if (leftItems[id] !== undefined) {
-          return "left";
+        if (HiddenItems[id] !== undefined) {
+          return "hidden";
         }
         if (RightItems[id] !== undefined) {
           return "right";
         }
+        if (leftItems[id] !== undefined) {
+          return "left";
+        }
         if (centerItems[id] !== undefined) {
           return "center";
-        }
-        if (HiddenItems[id] !== undefined) {
-          return "hidden";
         }
       }
 
@@ -530,9 +584,12 @@ export function GridRepresentationProvider({ children }) {
         addPlaceHolders,
         getBestEstimatedPlace,
         placeholderHover,
+        widgetHold,
         updatePlaceholderLocation,
         clearPlaceholderLocation,
-        getPlaceholderLocation,
+        updateWidgetHold,
+        clearWidgetHold,
+        dragLocation,
       }}
     >
       {children}

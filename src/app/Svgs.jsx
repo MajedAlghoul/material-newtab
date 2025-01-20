@@ -1,5 +1,21 @@
 import React from "react";
 
+export const hiddenWidgetsMenuShadow = (
+  <svg
+    width="312"
+    height="520"
+    viewBox="0 0 312 520"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className="widgets-menu-shadow "
+  >
+    <path
+      d="M0 39C0 17.4609 17.4609 0 39 0H273C294.539 0 312 17.4609 312 39V379C312 400.539 294.539 418 273 418H143C121.461 418 104 435.461 104 457V481C104 502.539 86.5391 520 65 520H39C17.4609 520 0 502.539 0 481V39Z"
+      fill="var(--highlight-color)"
+    />
+  </svg>
+);
+
 export const widgetOverlayXSvg = (
   <svg
     width="23"

@@ -31,6 +31,15 @@ export function AddMenu({ setClasses }) {
     toggleEditMode,
   } = useGridsContent();
   const { addPlaceHolders } = useGridRepresentation();
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else if (gridsWH) {
+      //setClasses("add-new-item-widget");
+      hardFlushMenu();
+    }
+  }, [gridsWH]);
+
 
   const handleEditLayout = () => {
     const w = gridsWH["cw"];

@@ -8,8 +8,9 @@ import {
   sliderBackArrow,
   sliderForwardArrow,
   closeXSvg,
+  hiddenWidgetsMenuShadow,
 } from "../../app/Svgs.jsx";
-function DefaultMenu({ title, children }) {
+function DefaultMenu({ shiftX = null, cShadow = null, title, children }) {
   const [layout, setLayout] = useState({ x: null, y: null, w: null, h: null });
 
   const [content, setContent] = useState([]);
@@ -17,14 +18,25 @@ function DefaultMenu({ title, children }) {
   const { gridsWH } = useGridsWH();
 
   const isInitialMount = useRef(true);
-  const { hardFlushMenu, softFlushMenu, addItems } = useGridsContent();
+  const { hardFlushMenu, softFlushMenu, addItems, centerWidget, rightWidget } =
+    useGridsContent();
+
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else if (gridsWH) {
+      //setClasses("add-new-item-widget");
+      hardFlushMenu();
+    }
+  }, [gridsWH]);
 
   const closeMenu = () => {
     hardFlushMenu();
   };
 
   useEffect(() => {
-    let w = gridsWH["cw"];
+    const g = centerWidget.length === 0 ? "rw" : "cw";
+    let w = gridsWH[g];
     if (w) {
       setContent([
         <div
@@ -48,35 +60,7 @@ function DefaultMenu({ title, children }) {
         </div>,
       ]);
 
-      if (w === 3) {
-        setLayout({
-          x: 1,
-          y: 1,
-          w: 3,
-          h: 4,
-        });
-        setContent((prev) => {
-          return [
-            ...prev,
-            <svg
-              width="312"
-              height="416"
-              viewBox="0 0 312 416"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className={styles["widgets-menu-shadow"]}
-              key={"widget-menu-shadow"}
-            >
-              <rect
-                width="312"
-                height="416"
-                rx="39"
-                fill="var(--highlight-color)"
-              />
-            </svg>,
-          ];
-        });
-      } else {
+      if (w === 5) {
         setLayout({
           x: 1,
           y: 1,
@@ -104,6 +88,41 @@ function DefaultMenu({ title, children }) {
             </svg>,
           ];
         });
+      } else {
+        setLayout({
+          x: 1,
+          y: 1,
+          w: 3,
+          h: 4,
+        });
+        setContent((prev) => {
+          return [
+            ...prev,
+            <svg
+              width="312"
+              height="416"
+              viewBox="0 0 312 416"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className={styles["widgets-menu-shadow"]}
+              key={"widget-menu-shadow"}
+            >
+              <rect
+                width="312"
+                height="416"
+                rx="39"
+                fill="var(--highlight-color)"
+              />
+            </svg>,
+          ];
+        });
+      }
+      if (rightWidget.length > 0 && gridsWH["gh"] > 5 && shiftX) {
+        setLayout((prev) => {
+          let temp = { ...prev };
+          temp.x = shiftX;
+          return temp;
+        });
       }
     }
   }, [children]);
@@ -119,6 +138,7 @@ function DefaultMenu({ title, children }) {
       }}
     >
       {content}
+      {rightWidget.length > 0 ? cShadow : null}
     </div>
   );
 }

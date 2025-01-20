@@ -359,9 +359,6 @@ export function GridRepresentationProvider({ children }) {
   const findWidgetGridType = (id) => {
     try {
       if (leftItems && RightItems && centerItems && HiddenItems) {
-        if (HiddenItems[id] !== undefined) {
-          return "hidden";
-        }
         if (RightItems[id] !== undefined) {
           return "right";
         }
@@ -370,6 +367,9 @@ export function GridRepresentationProvider({ children }) {
         }
         if (centerItems[id] !== undefined) {
           return "center";
+        }
+        if (HiddenItems[id] !== undefined) {
+          return "hidden";
         }
       }
 

@@ -20,7 +20,6 @@ export function WidgetsMenu({ children }) {
 
   const { gridsWH } = useGridsWH();
 
-  const isInitialMount = useRef(true);
   const { hardFlushMenu, softFlushMenu, addItems } = useGridsContent();
   const { blueprints } = useWidgetsBlueprints();
   const {
@@ -55,14 +54,8 @@ export function WidgetsMenu({ children }) {
     return resultLeft || resultCenter || resultRight;
   };
 
-  useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-    } else if (gridsWH) {
-      //setClasses("add-new-item-widget");
-      hardFlushMenu();
-    }
-  }, [gridsWH]);
+
+
   const placeWidget = (ww, wh, index, data, widget) => {
     //softFlushMenu();
     addPlaceHolders();

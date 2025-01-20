@@ -1,6 +1,22 @@
 .hidden-grid{
   display: grid;
   width: 100%;
+  height: auto;
+  justify-content: center;
+  gap: 28px;
+  grid-template-columns: repeat(2,76px);
+  margin-bottom: 40px;
+  padding-top: 14px;
+}
+
+.expanded-grid{
+  grid-template-columns: repeat(4, 76px) !important;
+}
+
+.no-hidden-widgets{
+  display: flex;
+  width: 100%;
   height: 100%;
-  background-color: crimson;
+  justify-content: center;
+  align-items: center;
 }

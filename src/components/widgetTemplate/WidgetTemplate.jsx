@@ -209,13 +209,19 @@ function WidgetTemplate({ className, id, layout, setLayout, children }) {
     <div
       onMouseDown={handleMouseDown}
       className={`widget-template ${className} ${
-        isEditModeOn() && widgetHeld && "transparent-held-widget"
+        isEditModeOn() && widgetHeld ? "transparent-held-widget" : ""
       }`}
       style={{
-        gridRow: `${layout.x} / ${layout.x + layout.h}`,
-        gridColumn: `${layout.y} / ${layout.y + layout.w}`,
-        width: `${layout.w * 76 + (layout.w - 1) * 28}px`,
-        height: `${layout.h * 76 + (layout.h - 1) * 28}px`,
+        gridRow:
+          findWidgetGridType(id) === "hidden"
+            ? "auto"
+            : `${layout?.x} / ${layout?.x + layout?.h}`,
+        gridColumn:
+          findWidgetGridType(id) === "hidden"
+            ? "auto"
+            : `${layout?.y} / ${layout?.y + layout?.w}`,
+        width: `${layout?.w * 76 + (layout?.w - 1) * 28}px`,
+        height: `${layout?.h * 76 + (layout?.h - 1) * 28}px`,
       }}
     >
       {!widgetHeld && isEditModeOn() && !defaultWidgetIDs.includes(id) && (

@@ -58,6 +58,6 @@ export function AppWidget({ id }) {
   );
 }
 
-AddNewItemWidget.propTypes = {
+AppWidget.propTypes = {
   id: PropTypes.string,
 };

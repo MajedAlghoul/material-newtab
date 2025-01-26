@@ -1,5 +1,6 @@
+import React from "react";
 import { useGridsWH } from "../../../hooks/useGridsWH.jsx";
-import "./AppsMenu.css";
+import styles from "./AppsMenu.module.css";
 import { useWidgets } from "../../../hooks/useWidgets.jsx";
 import { useGridsContent } from "../../../hooks/useGridsContent.jsx";
 import { useEffect, useState, useRef } from "react";
@@ -9,18 +10,17 @@ import {
   sliderBackArrow,
   sliderForwardArrow,
   closeXSvg,
+  genericAppSvg,
 } from "../../../app/Svgs.jsx";
 import { WeatherWidget } from "../../widgets/weatherWidget/WeatherWidget.jsx";
 
 import DefaultMenu from "../../defaultMenu/DefaultMenu.jsx";
+import { AppWidget } from "../../widgets/appWidget/AppWidget.jsx";
 export function AppsMenu() {
-  const [layout, setLayout] = useState({ x: null, y: null, w: null, h: null });
-
   const [content, setContent] = useState([]);
 
   const { gridsWH } = useGridsWH();
 
-  const isInitialMount = useRef(true);
   const { hardFlushMenu, softFlushMenu } = useGridsContent();
   const { blueprints } = useWidgetsBlueprints();
   const {
@@ -37,107 +37,56 @@ export function AppsMenu() {
     scheduleFalling,
   } = useGridRepresentation();
 
-  const silderRefs = useRef([]);
-
-  const [canScrollLeft, setCanScrollLeft] = useState([]);
-  const [canScrollRight, setCanScrollRight] = useState([]);
-  const [scrollIntervals, setScrollIntervals] = useState([]);
-
-  const widgetPlaceable = (w, h) => {
-    let resultLeft =
-      findAvailibleSpace("left", w, h, "") == null ? false : true;
-    let resultCenter =
-      findAvailibleSpace("center", w, h, "") == null ? false : true;
-    let resultRight =
-      findAvailibleSpace("right", w, h, "") == null ? false : true;
-    return resultLeft || resultCenter || resultRight;
-  };
-
   useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-    } else if (gridsWH) {
-      //setClasses("add-new-item-widget");
-      hardFlushMenu();
-    }
-  }, [gridsWH]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      silderRefs.current.forEach((ref, index) => {
-        if (ref) {
-          const { scrollLeft, scrollWidth, clientWidth } = ref;
-          if (canScrollLeft[index] !== scrollLeft > 0) {
-            setCanScrollLeft((prev) => {
-              let temp = [...prev];
-              temp[index] = scrollLeft > 0;
-              return temp;
-            });
-          }
-          if (canScrollRight[0] !== scrollLeft < scrollWidth - clientWidth) {
-            setCanScrollRight((prev) => {
-              let temp = [...prev];
-              temp[index] = scrollLeft < scrollWidth - clientWidth;
-              return temp;
-            });
-          }
-          setScrollIntervals((prev) => {
-            let temp = [...prev];
-            temp[index] = clientWidth;
-            return temp;
-          });
-        }
-      });
-    };
-
     let w = gridsWH["cw"];
     if (w) {
-      setContent([
-        <>
-          <div className="widget-menu-search-container">
+      setContent(
+        <div className={styles["add-app-container"]}>
+          <div className={styles["widget-menu-search-container"]}>
             <input
-              className="widget-menu-search-bar"
+              className={styles["widget-menu-search-bar"]}
               placeholder="Search Widgets"
               type="text"
             />
           </div>
-          <label htmlFor="app-name-input">Name</label>
-          <input
-            id="app-name-input"
-            className="widget-menu-search-bar"
-            placeholder="App Name"
-            type="text"
-          />
-          <label htmlFor="app-url-input">Url</label>
-          <input
-            id="app-url-input"
-            className="widget-menu-search-bar"
-            placeholder="App URL"
-            type="text"
-          />
-          <div>
-            <button className="form-add-button">Add</button>
-            <WeatherWidget></WeatherWidget>
-          </div>
-        </>,
-      ]);
-    }
 
-    setTimeout(() => {
-      silderRefs.current.forEach((ref) => {
-        if (ref) {
-          handleScroll();
-          ref.addEventListener("scroll", handleScroll);
-        }
-      });
-    }, 0);
-    return () => {
-      silderRefs.current.forEach((ref) => {
-        if (ref) {
-          ref.removeEventListener("scroll", handleScroll);
-        }
-      });
-    };
-  }, [silderRefs, canScrollLeft, canScrollRight, scrollIntervals]);
+          <div className={styles["app-look-container"]}>
+            <div className={styles["app-look"]}>
+              {React.cloneElement(genericAppSvg, { width: 32, height: 32 })}
+            </div>
+            <input
+              id="app-name-input"
+              className={styles["app-look-name"]}
+              placeholder="App Name"
+              type="text"
+            />
+          </div>
+
+          <div
+            className={`
+              ${styles["url-submit-container"]}
+              ${w < 5 ? styles["url-submit-container-m"] : ""}
+            `}
+          >
+            <input
+              id="app-url-input"
+              className={`${styles["app-url"]} ${
+                w < 5 ? styles["app-url-m"] : ""
+              }`}
+              placeholder="www.website.com"
+              type="text"
+            />
+            <button
+              className={`${styles["form-add-button"]} ${
+                w < 5 ? styles["form-add-button-m"] : ""
+              }`}
+            >
+              Add
+            </button>
+          </div>
+        </div>
+      );
+    }
+  }, [gridsWH]);
   return <DefaultMenu title="Add an App">{content}</DefaultMenu>;
 }

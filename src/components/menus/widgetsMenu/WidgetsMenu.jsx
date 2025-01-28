@@ -54,8 +54,6 @@ export function WidgetsMenu({ children }) {
     return resultLeft || resultCenter || resultRight;
   };
 
-
-
   const placeWidget = (ww, wh, index, data, widget) => {
     //softFlushMenu();
     addPlaceHolders();

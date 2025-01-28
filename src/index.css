@@ -21,6 +21,14 @@
   font-style: normal;
 }
 
+
+@font-face {
+  font-family: "Inter";
+  src: url("./assets/fonts/Inter-VariableFont_opsz,wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   margin: 0;
   font-family: "MPLUSRounded1c-Medium", -apple-system, BlinkMacSystemFont,

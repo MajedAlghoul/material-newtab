@@ -10,6 +10,7 @@ import { WeatherWidget } from "../components/widgets/weatherWidget/WeatherWidget
 import { SearchWidget } from "../components/widgets/searchWidget/SearchWidget.jsx";
 import { useWidgetsBlueprints } from "./useWidgetsBlueprints.jsx";
 import { AddNewItemPlaceholder } from "../components/addNewItemPlaceholder/AddNewItemPlaceholder.jsx";
+import { AppWidget } from "../components/widgets/appWidget/AppWidget.jsx";
 
 const WidgetsContext = createContext();
 
@@ -24,6 +25,7 @@ export function WidgetsProvider({ children }) {
     WeatherWidget,
     SearchWidget,
     AddNewItemPlaceholder,
+    AppWidget,
   };
 
   const defaultWidgetIDs = [
@@ -126,6 +128,7 @@ function defaultWidgets(blueprints) {
     const customizeCopy = { ...blueprints["Customize"] };
     const weatherCopy = { ...blueprints["Weather"] };
     const searchCopy = { ...blueprints["Search"] };
+    const appCopy = { ...blueprints["App"] };
     return {
       "771bdc39-8e79-4e34-a30c-00b3393351cd": new WidgetBackend(
         addCopy["wComponent"],
@@ -200,6 +203,13 @@ function defaultWidgets(blueprints) {
         searchCopy["otherProps"],
         searchCopy["sizes"]
       ),
+      /*
+      bkbkbk: new WidgetBackend(
+        appCopy["wComponent"],
+        appCopy["layouts"],
+        appCopy["otherProps"],
+        appCopy["sizes"]
+      ),*/
     };
   }
 }

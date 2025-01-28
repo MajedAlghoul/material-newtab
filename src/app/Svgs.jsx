@@ -27,7 +27,7 @@ export const widgetOverlayXSvg = (
     <path
       d="M16.9707 17.5557L5.65699 6.24196"
       stroke="white"
-      strokeWwidth="2"
+      strokeWidth="2"
       strokeLinecap="round"
     />
     <path

@@ -222,5 +222,26 @@ function defaultWidgetsBlueprints() {
         images: [searchSize0Svg, searchSize1Svg, searchSize2Svg],
       }
     ),
+    App: new WidgetBackend(
+      "AppWidget",
+      {
+        gridType: "center",
+        regularX: 4,
+        regularY: 1,
+        minimizedX: null,
+        minimizedY: null,
+        sizeIndex: 0,
+      },
+      {
+        icon: null,
+        name: "",
+        url: null,
+      },
+      {
+        sizesCount: 1,
+        sizes: [{ w: 1, h: 1 }],
+        images: null,
+      }
+    ),
   };
 }

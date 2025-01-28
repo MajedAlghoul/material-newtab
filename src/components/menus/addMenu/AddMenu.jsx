@@ -40,7 +40,6 @@ export function AddMenu({ setClasses }) {
     }
   }, [gridsWH]);
 
-
   const handleEditLayout = () => {
     const w = gridsWH["cw"];
     if (w) {
@@ -86,7 +85,7 @@ export function AddMenu({ setClasses }) {
       softFlushMenu();
       addItems(
         "centerW",
-        <AppsMenu key={"add-menu"}></AppsMenu>,
+        <AppsMenu key={"add-menu"}>{setClasses}</AppsMenu>,
         setClasses,
         "add-new-item-widget"
       );

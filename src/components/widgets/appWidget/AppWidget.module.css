@@ -1,0 +1,84 @@
+.app-widget {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  background-color: #ffffff00 !important;
+  /*box-shadow: 0px 0px 0px 14px #f0dcc6;*/
+}
+
+.app-button:hover{
+  background-color: var(--primary-color);
+  border-bottom: 2px solid var(--widget-depth-color);
+}
+
+.app-button {
+  width: 100%;
+  height: 100%;
+  border-radius: 26px;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.app-actual-box{
+  width: 56px;
+  height: 54px;
+  background-color: var(--primary-color);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2px solid var(--widget-depth-color);
+}
+
+.app-name{
+  max-width: 90px;
+  background: none;
+  border: none;
+  font-size: 12px;
+  font-family: "Inter";
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.app-button:hover .app-actual-box{
+  border-bottom: none;
+}
+
+.app-button:hover .app-name{
+  position: absolute;
+  top: 50px;
+  max-width: 56px !important;
+  font-size: 11px;
+  color: var(--widget-inner-depth-wall-color);
+  text-shadow: 2px 2px 20px var(--text-color);
+  opacity: 90%;
+  font-weight: bold;
+}
+
+.app-button-hovered{
+  background-color: var(--primary-color);
+  border-bottom: 2px solid var(--widget-depth-color);
+}
+
+.app-actual-box-hovered{
+  border-bottom: none;
+}
+
+.app-name-hovered{
+  position: absolute;
+  top: 50px;
+  max-width: 56px !important;
+  font-size: 11px;
+  color: var(--widget-inner-depth-wall-color);
+  text-shadow: 2px 2px 20px var(--text-color);
+  opacity: 90%;
+  font-weight: bold;
+}

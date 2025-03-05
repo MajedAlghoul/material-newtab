@@ -10,7 +10,14 @@ import {
   closeXSvg,
   hiddenWidgetsMenuShadow,
 } from "../../app/Svgs.jsx";
-function DefaultMenu({ shiftX = null, cShadow = null, title, children }) {
+function DefaultMenu({
+  shiftX = null,
+  cShadow = null,
+  cX = 1,
+  cStyle = "widgets-menu-shadow",
+  title,
+  children,
+}) {
   const [layout, setLayout] = useState({ x: null, y: null, w: null, h: null });
 
   const [content, setContent] = useState([]);
@@ -90,7 +97,7 @@ function DefaultMenu({ shiftX = null, cShadow = null, title, children }) {
         });
       } else {
         setLayout({
-          x: 1,
+          x: g === "rw" ? cX : 1,
           y: 1,
           w: 3,
           h: 4,
@@ -138,7 +145,9 @@ function DefaultMenu({ shiftX = null, cShadow = null, title, children }) {
       }}
     >
       {content}
-      {rightWidget.length > 0 ? cShadow : null}
+      {rightWidget.length > 0 ? (
+        <div className={styles[cStyle]}>{cShadow}</div>
+      ) : null}
     </div>
   );
 }

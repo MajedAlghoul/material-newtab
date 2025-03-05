@@ -14,10 +14,11 @@ import { AddNewItemPlaceholder } from "../components/addNewItemPlaceholder/AddNe
 const WidgetDropperContext = createContext();
 
 export function WidgetsDropper({ children }) {
+  /*
   const [placeholderHover, setPlaceholderHover] = useState({
     x: null,
     y: null,
-  });
+  });*/
 
   const [dropper, setDropper] = useState(null);
   //==================================================================
@@ -35,6 +36,7 @@ export function WidgetsDropper({ children }) {
     return dropper;
   };
 
+  /*
   const updatePlaceholderLocation = (x, y) => {
     setPlaceholderHover(() => ({
       x,
@@ -55,7 +57,7 @@ export function WidgetsDropper({ children }) {
       h,
       id
     );
-  };
+  };*/
   return (
     <WidgetDropperContext.Provider
       value={{

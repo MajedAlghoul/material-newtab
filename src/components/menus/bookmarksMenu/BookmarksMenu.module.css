@@ -11,6 +11,32 @@
   z-index: 2;
 }
 
+.bookmarks-list-separator {
+  width: 4px;
+  height: 90%;
+  background-color: var(--separator-light-color);
+  border-radius: 999px;
+}
+.folder-title {
+  margin-bottom: 16px;
+}
+
+.bookmarks-list-expanded {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.bookmarks-left-houser {
+  width: 46%;
+  height: 100%;
+}
+.bookmarks-right-houser {
+  width: 46%;
+  height: 100%;
+}
+
 .actual-bookmarks-menu {
   background-color: var(--widget-background-color);
   min-width: 76px;

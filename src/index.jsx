@@ -8,21 +8,24 @@ import { GridRepresentationProvider } from "./hooks/useGridRepresentation.jsx";
 import { GridsContentProvider } from "./hooks/useGridsContent.jsx";
 import { WidgetsBlueprintsProvider } from "./hooks/useWidgetsBlueprints.jsx";
 import { WidgetsDropper } from "./hooks/useWidgetDropper.jsx";
+import { BookmarksProvider } from "./hooks/useBookmarks.jsx";
 //import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <GridsWHProvider>
     <WidgetsBlueprintsProvider>
-      <WidgetsProvider>
-        <WidgetsDropper>
-          <GridsContentProvider>
-            <GridRepresentationProvider>
-              <App />
-            </GridRepresentationProvider>
-          </GridsContentProvider>
-        </WidgetsDropper>
-      </WidgetsProvider>
+      <BookmarksProvider>
+        <WidgetsProvider>
+          <WidgetsDropper>
+            <GridsContentProvider>
+              <GridRepresentationProvider>
+                <App />
+              </GridRepresentationProvider>
+            </GridsContentProvider>
+          </WidgetsDropper>
+        </WidgetsProvider>
+      </BookmarksProvider>
     </WidgetsBlueprintsProvider>
   </GridsWHProvider>
 );

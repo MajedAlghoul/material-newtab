@@ -5,6 +5,13 @@
   z-index: 2;
 }
 
+.bookmarks-menu-shadow {
+  left: -14px;
+  top: -118px;
+  position: absolute;
+  z-index: 2;
+}
+
 .actual-widgets-menu {
   background-color: var(--widget-background-color);
   min-width: 76px;
@@ -83,6 +90,7 @@
   height: 86%;
   overflow: auto;
   margin-top: 6px;
+  border-radius: 0 0 26px 26px;
 }
 .bottom-widget-menu-container::-webkit-scrollbar {
   width: 6px;

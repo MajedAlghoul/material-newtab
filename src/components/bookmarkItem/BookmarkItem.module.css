@@ -1,0 +1,76 @@
+.bookmark-item-container {
+  width: 100%;
+  position: relative;
+  height: 36px;
+  flex-direction: column;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  border-radius: 0;
+}
+.bookmark-item-container-opened {
+  height: auto;
+}
+.bookmark-item-container:hover {
+  background-color: #ffffff20;
+}
+
+.bookmark-item-container-right:hover {
+  border-radius: 999px 0 0 999px;
+}
+
+.bookmark-item-container-left:hover {
+  border-radius: 0 999px 999px 0;
+}
+
+.bookmark-item-container:has(.bookmark-item-container:hover) {
+  background-color: transparent;
+}
+
+.bookmark-item-wrapper {
+  width: 100%;
+  position: relative;
+  box-sizing: border-box;
+  padding-right: 12px;
+}
+
+.bookmark-item-button {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  color: var(--text-color);
+  outline: none;
+}
+/*
+.bookmark-item-button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+*/
+.bookmark-item-container-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.bookmark-item-container-left {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  height: auto;
+}
+
+.bookmark-item-container-right {
+  height: auto;
+}
+
+.bookmark-item-container-right {
+  height: auto;
+}
+
+/* If you need more levels, continue the pattern */

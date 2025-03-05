@@ -107,3 +107,15 @@ export function generateUUID() {
     return v.toString(16);
   });
 }
+
+export function formatUrl(url) {
+  url = url.trim();
+  if (!/^https?:\/\//i.test(url)) {
+    url = "https://" + url;
+  }
+  if (!/https?:\/\/www\./i.test(url)) {
+    url = url.replace(/(https?:\/\/)/i, "$1www.");
+  }
+
+  return url;
+}

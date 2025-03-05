@@ -9,10 +9,12 @@ import { generateUUID } from "../../app/utility.js";
 import { useWidgetDropper } from "../../hooks/useWidgetDropper.jsx";
 import { useGridRepresentation } from "../../hooks/useGridRepresentation.jsx";
 import { useWidgets } from "../../hooks/useWidgets.jsx";
+import { useBookmarks } from "../../hooks/useBookmarks.jsx";
 
 export function AddNewItemPlaceholder({ gridType, x, y }) {
   const [layout, setLayout] = useState({ x: x, y: y, w: 1, h: 1 });
   const { gridsWH } = useGridsWH();
+  const { addBookmark, appsFolderId } = useBookmarks();
   const [classes, setClasses] = useState("add-new-item-placeholder");
   const {
     leftItems,
@@ -52,6 +54,7 @@ export function AddNewItemPlaceholder({ gridType, x, y }) {
   const handleOnClick = () => {
     if (dropReady) {
       const dropperObj = getDropper();
+      console.log(dropperObj.widget);
       addWidget(
         dropperObj.widget,
         gridType,
@@ -60,8 +63,12 @@ export function AddNewItemPlaceholder({ gridType, x, y }) {
         dropperObj.sizeIndex,
         dropperObj.data
       );
+      if (dropperObj.widget === "App") {
+        addBookmark(appsFolderId, dropperObj.data.name, dropperObj.data.url);
+      }
       hardFlushMenu();
     }
+
     //console.log("clicking ", layout.x, layout.y);
   };
 

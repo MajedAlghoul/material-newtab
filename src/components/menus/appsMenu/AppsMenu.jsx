@@ -13,12 +13,13 @@ import {
   genericAppSvg,
 } from "../../../app/Svgs.jsx";
 import { WeatherWidget } from "../../widgets/weatherWidget/WeatherWidget.jsx";
-
+import { formatUrl } from "../../../app/utility.js";
 import DefaultMenu from "../../defaultMenu/DefaultMenu.jsx";
 import { AppWidget } from "../../widgets/appWidget/AppWidget.jsx";
 import { use } from "react";
 import { useWidgetDropper } from "../../../hooks/useWidgetDropper.jsx";
 import { EditModeFakeMenu } from "../editModeFakeMenu/EditModeFakeMenu.jsx";
+import { useBookmarks } from "../../../hooks/useBookmarks.jsx";
 export function AppsMenu({ children }) {
   const [content, setContent] = useState([]);
   const appName = useRef(null);
@@ -44,7 +45,6 @@ export function AppsMenu({ children }) {
   } = useGridRepresentation();
   const { drop, emptyDropper, isDropperEmpty, getDropper } = useWidgetDropper();
   const { addItems, toggleEditMode } = useGridsContent();
-
   const placeWidget = (ww, wh, index, data, widget) => {
     //softFlushMenu();
     addPlaceHolders();
@@ -64,18 +64,6 @@ export function AppsMenu({ children }) {
       const fUrl = formatUrl(url);
       placeWidget(1, 1, 0, { name: name, url: fUrl }, "App");
     }
-  };
-
-  const formatUrl = (url) => {
-    url = url.trim();
-    if (!/^https?:\/\//i.test(url)) {
-      url = "https://" + url;
-    }
-    if (!/https?:\/\/www\./i.test(url)) {
-      url = url.replace(/(https?:\/\/)/i, "$1www.");
-    }
-
-    return url;
   };
 
   useEffect(() => {

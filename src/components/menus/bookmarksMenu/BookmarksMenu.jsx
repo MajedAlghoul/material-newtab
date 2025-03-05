@@ -1,125 +1,187 @@
 import { useGridsWH } from "../../../hooks/useGridsWH.jsx";
-import "./BookmarksMenu.css";
+import styles from "./BookmarksMenu.module.css";
 import { useWidgets } from "../../../hooks/useWidgets.jsx";
 import { useGridsContent } from "../../../hooks/useGridsContent.jsx";
 import { useEffect, useState, useRef } from "react";
 import { useGridRepresentation } from "../../../hooks/useGridRepresentation.jsx";
-
+import DefaultMenu from "../../defaultMenu/DefaultMenu.jsx";
+import { bookmarksMenuShadow } from "../../../app/Svgs.jsx";
+import { useBookmarks } from "../../../hooks/useBookmarks.jsx";
+import { BookmarkItem } from "../../bookmarkItem/BookmarkItem.jsx";
+import { render } from "@testing-library/react";
 export function BookmarksMenu() {
-  const [layout, setLayout] = useState({ x: null, y: null, w: null, h: null });
+  //const [layout, setLayout] = useState({ x: null, y: null, w: null, h: null });
 
   const [content, setContent] = useState(null);
 
   const { gridsWH } = useGridsWH();
 
   const isInitialMount = useRef(true);
-  const { hardFlushMenu, softFlushMenu } = useGridsContent();
-  /*useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-    } else if (gridsWH) {
-      hardFlushMenu();
+  const {
+    hardFlushMenu,
+    softFlushMenu,
+    leftItems,
+    centerItems,
+    RightItems,
+    HiddenItems,
+    addItems,
+    removeItems,
+    centerWidget,
+    rightWidget,
+    removePlaceHolders,
+  } = useGridsContent();
+  const { widgets, addWidget, removeWidget, editWidget, getComponent } =
+    useWidgets();
+  const { bookmarks, isFolder } = useBookmarks();
+  const [viewedBookmark, setViewedBookmark] = useState(null);
+
+  const handleViewBookmark = (bookmark, isClosing = false, parent) => {
+    //console.log("ddfc", viewedBookmark, bookmark, previousBookmark);
+    if (isClosing) {
+      // If closing current folder, go back to previous
+      //if (bookmark.id === previousBookmark.id) {
+      //  setViewedBookmark(null);
+      //} else {
+      setViewedBookmark(parent);
+      //}
+    } else if (!viewedBookmark || bookmark.id !== viewedBookmark.id) {
+      setViewedBookmark(bookmark);
     }
-  }, [gridsWH]);*/
+  };
+
+  /*
   useEffect(() => {
-    let w = gridsWH["rw"];
-    if (w) {
-      if (w === 1) {
-        w = gridsWH["cw"];
-        if (w === 3) {
-          setLayout({
-            x: 1,
-            y: 1,
-            w: 3,
-            h: 4,
-          });
-          setContent(
-            <>
-              <div className="actual-bookmarks-menu"></div>
-              <svg
-                width="312"
-                height="416"
-                viewBox="0 0 312 416"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="bookmarks-menu-shadow-1"
-              >
-                <rect
-                  width="312"
-                  height="416"
-                  rx="39"
-                  fill="var(--highlight-color)"
-                />
-              </svg>
-            </>
+    console.log("changed", viewedBookmark);
+  }, [viewedBookmark]);
+*/
+  const renderContent = () => {
+    const rw = gridsWH["rw"];
+    const cw = gridsWH["cw"];
+    if (rw) {
+      if (Object.keys(bookmarks).length > 0) {
+        if (rw === 1 && cw === 5) {
+          return (
+            <div className={`${styles["bookmarks-list-expanded"]}`}>
+              <div className={`${styles["bookmarks-left-houser"]}`}>
+                {Object.values(bookmarks[0].children).map((value) => {
+                  if (isFolder(value)) {
+                    return (
+                      <BookmarkItem
+                        key={value.id}
+                        title={value.title}
+                        setV={handleViewBookmark}
+                        self={value}
+                        parentBookmark={bookmarks[0]}
+                        isActive={value === viewedBookmark}
+                        activeBookmark={viewedBookmark}
+                        isInExpanded={true}
+                      >
+                        {value.children}
+                      </BookmarkItem>
+                    );
+                  }
+                  return (
+                    <BookmarkItem
+                      key={value.id}
+                      title={value.title}
+                      url={value.url}
+                      isInExpanded={true}
+                    />
+                  );
+                })}
+                <BookmarkItem
+                  key={bookmarks[1].id}
+                  title={bookmarks[1].title}
+                  setV={handleViewBookmark}
+                  self={bookmarks[1]}
+                  isActive={bookmarks[1] === viewedBookmark}
+                  activeBookmark={viewedBookmark}
+                  isInExpanded={true}
+                >
+                  {bookmarks[1].children}
+                </BookmarkItem>
+              </div>
+              <div className={`${styles["bookmarks-list-separator"]}`}></div>
+              <div className={`${styles["bookmarks-right-houser"]}`}>
+                {viewedBookmark && (
+                  <div className={styles["bookmarks-folder-content"]}>
+                    <div className={styles["folder-title"]}>
+                      {viewedBookmark.title}
+                    </div>
+                    {Object.values(viewedBookmark.children).map((value) => {
+                      if (isFolder(value)) {
+                        return (
+                          <BookmarkItem
+                            key={value.id}
+                            title={value.title}
+                            setV={handleViewBookmark}
+                            self={value}
+                            inRightPanel={true}
+                            parentBookmark={viewedBookmark}
+                            activeBookmark={viewedBookmark}
+                            isInExpanded={true}
+                          >
+                            {value.children}
+                          </BookmarkItem>
+                        );
+                      }
+                      return (
+                        <BookmarkItem
+                          key={value.id}
+                          title={value.title}
+                          url={value.url}
+                          isInExpanded={true}
+                          inRightPanel={true}
+                        />
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            </div>
           );
         } else {
-          setLayout({
-            x: 1,
-            y: 1,
-            w: 5,
-            h: 4,
-          });
-          setContent(
-            <>
-              <div className="actual-bookmarks-menu"></div>
-              <svg
-                width="520"
-                height="415"
-                viewBox="0 0 520 415"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="bookmarks-menu-shadow-1"
-              >
-                <rect
-                  width="520"
-                  height="415"
-                  rx="39"
-                  fill="var(--highlight-color)"
-                />
-              </svg>
-            </>
+          return (
+            <div className={`${styles["bookmarks-list"]}`}>
+              {Object.values(bookmarks[0].children).map((value) => {
+                if (isFolder(value)) {
+                  return (
+                    <BookmarkItem key={value.id} title={value.title}>
+                      {value.children}
+                    </BookmarkItem>
+                  );
+                }
+                return (
+                  <BookmarkItem
+                    key={value.id}
+                    title={value.title}
+                    url={value.url}
+                  ></BookmarkItem>
+                );
+              })}
+              <BookmarkItem key={bookmarks[1].id} title={bookmarks[1].title}>
+                {bookmarks[1].children}
+              </BookmarkItem>
+            </div>
           );
         }
       } else {
-        setLayout({
-          x: 2,
-          y: 1,
-          w: 3,
-          h: 4,
-        });
-        setContent(
-          <>
-            <div className="actual-bookmarks-menu"></div>
-            <svg
-              width="312"
-              height="519"
-              viewBox="0 0 312 519"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="bookmarks-menu-shadow"
-            >
-              <path
-                d="M0 480C0 501.539 17.4609 519 39 519H273C294.539 519 312 501.539 312 480V144C312 122.461 294.539 105 273 105H247C225.461 105 208 87.5391 208 66V39C208 17.4609 190.539 0 169 0H39C17.4609 0 0 17.4609 0 39V480Z"
-                fill="var(--highlight-color)"
-              />
-            </svg>
-          </>
+        return (
+          <div className={styles["no-hidden-widgets"]}>No hidden widgets</div>
         );
       }
     }
-  }, []);
+  };
+
   return (
-    <div
-      className={`menu-template`}
-      style={{
-        gridRow: `${layout.x} / ${layout.x + layout.h}`,
-        gridColumn: `${layout.y} / ${layout.y + layout.w}`,
-        width: `${layout.w * 76 + (layout.w - 1) * 28}px`,
-        height: `${layout.h * 76 + (layout.h - 1) * 28}px`,
-      }}
+    <DefaultMenu
+      cShadow={bookmarksMenuShadow}
+      shiftX={0}
+      cX={2}
+      cStyle="bookmarks-menu-shadow"
+      title={"Bookmarks"}
     >
-      {content}
-    </div>
+      {renderContent()}
+    </DefaultMenu>
   );
 }

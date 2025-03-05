@@ -47,7 +47,7 @@ export function HiddenWidgetsMenu() {
         );
       }
     }
-  }, [gridsWH]);
+  }, [gridsWH, HiddenItems, getComponent, widgets]);
 
   return (
     <DefaultMenu

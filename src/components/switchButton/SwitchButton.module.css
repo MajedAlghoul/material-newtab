@@ -1,0 +1,30 @@
+.switch-button {
+  width: 48px;
+  height: 26px;
+  border-radius: 999px;
+  background-color: #4f4f4f;
+  cursor: pointer;
+  border: none;
+  position: relative;
+}
+
+.switch-button::before {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  left: 4px;
+  top: 4px;
+  border-radius: 999px;
+  background-color: #ffffff;
+  transition: 0.4s;
+}
+
+.switch-button.active::before {
+  left: 26px;
+}
+
+.active {
+  background-color: var(--primary-color);
+  transition: 0.6s;
+}

@@ -1,5 +1,21 @@
 import React from "react";
 
+export const customizeMenuShadow = (
+  <svg
+    width="312"
+    height="519"
+    viewBox="0 0 312 519"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className="widgets-menu-shadow"
+  >
+    <path
+      d="M312 39c0-21.54-17.461-39-39-39H39C17.46 0 0 17.46 0 39v338c0 21.539 17.46 39 39 39h26c21.54 0 39 17.461 39 39v25c0 21.539 17.461 39 39 39h130c21.539 0 39-17.461 39-39z"
+      fill="var(--highlight-color)"
+    />
+  </svg>
+);
+
 export const bookmarkRightArrowSvg = (
   <svg
     width="11"

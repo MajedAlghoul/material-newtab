@@ -102,27 +102,29 @@ function DefaultMenu({
           w: 3,
           h: 4,
         });
-        setContent((prev) => {
-          return [
-            ...prev,
-            <svg
-              width="312"
-              height="416"
-              viewBox="0 0 312 416"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className={styles["widgets-menu-shadow"]}
-              key={"widget-menu-shadow"}
-            >
-              <rect
+        if (g === "cw") {
+          setContent((prev) => {
+            return [
+              ...prev,
+              <svg
                 width="312"
                 height="416"
-                rx="39"
-                fill="var(--highlight-color)"
-              />
-            </svg>,
-          ];
-        });
+                viewBox="0 0 312 416"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className={styles["widgets-menu-shadow"]}
+                key={"widget-menu-shadow"}
+              >
+                <rect
+                  width="312"
+                  height="416"
+                  rx="39"
+                  fill="var(--highlight-color)"
+                />
+              </svg>,
+            ];
+          });
+        }
       }
       if (rightWidget.length > 0 && gridsWH["gh"] > 5 && shiftX) {
         setLayout((prev) => {

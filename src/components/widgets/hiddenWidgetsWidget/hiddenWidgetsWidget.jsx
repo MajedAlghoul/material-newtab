@@ -1,4 +1,4 @@
-import "./hiddenWidgetsWidget.css";
+import styles from "./hiddenWidgetsWidget.module.scss";
 import WidgetTemplate from "../../widgetTemplate/WidgetTemplate.jsx";
 import PropTypes from "prop-types";
 import { useState } from "react";
@@ -10,7 +10,7 @@ import { hiddenWidgetsWidgetSvg } from "../../../app/Svgs.jsx";
 export function HiddenWidgetsWidget({ id }) {
   const [layout, setLayout] = useState({ x: null, y: null, w: null, h: null });
   const { gridsWH } = useGridsWH();
-  const [classes, setClasses] = useState("hidden-widgets-widget");
+  const [classes, setClasses] = useState(styles.hiddenWidgetsWidget);
   const {
     leftItems,
     centerItems,
@@ -29,34 +29,38 @@ export function HiddenWidgetsWidget({ id }) {
     const w = gridsWH["rw"];
     if (w) {
       hardFlushMenu();
-      if (!isMenuVisible() || currentClass() !== "hidden-widgets-widget") {
+      if (!isMenuVisible() || currentClass() !== styles.hiddenWidgetsWidget) {
         if (w === 1) {
           addItems(
             "centerW",
             <HiddenWidgetsMenu key={"hidden-widgets-menu"}></HiddenWidgetsMenu>,
             setClasses,
-            "hidden-widgets-widget"
+            styles.hiddenWidgetsWidget
           );
         } else {
           addItems(
             "rightW",
             <HiddenWidgetsMenu key={"hidden-widgets-menu"}></HiddenWidgetsMenu>,
             setClasses,
-            "hidden-widgets-widget"
+            styles.hiddenWidgetsWidget
           );
         }
-        setClasses("hidden-widgets-widget hidden-widgets-widget-active");
+        setClasses(
+          `${styles.hiddenWidgetsWidget} ${styles.hiddenWidgetsActive} ${
+            w > 1 ? styles.noshadow : ""
+          }`
+        );
       }
     }
   };
   return (
     <WidgetTemplate
-      className={classes}
+      className={`${styles.widget} ${classes}`}
       id={id}
       layout={layout}
       setLayout={setLayout}
     >
-      <button className="hidden-widgets-widget-button" onClick={handleOnClick}>
+      <button className={styles.hiddenWidgetsButton} onClick={handleOnClick}>
         {hiddenWidgetsWidgetSvg}
       </button>
     </WidgetTemplate>

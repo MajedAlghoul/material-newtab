@@ -1,4 +1,3 @@
-import "./AddNewItemWidget.css";
 import WidgetTemplate from "../../widgetTemplate/WidgetTemplate.jsx";
 import PropTypes from "prop-types";
 import { useRef, useState, useEffect } from "react";
@@ -6,11 +5,12 @@ import { useGridsWH } from "../../../hooks/useGridsWH.jsx";
 import { useGridsContent } from "../../../hooks/useGridsContent.jsx";
 import { AddMenu } from "../../menus/addMenu/AddMenu.jsx";
 import { useGridRepresentation } from "../../../hooks/useGridRepresentation.jsx";
+import styles from "./AddNewItemWidget.module.scss";
 
 export function AddNewItemWidget({ id }) {
   const [layout, setLayout] = useState({ x: null, y: null, w: null, h: null });
   const { gridsWH } = useGridsWH();
-  const [classes, setClasses] = useState("add-new-item-widget");
+  const [classes, setClasses] = useState(styles.addNewItemWidget);
   const isInitialMount = useRef(true);
   const { addPlaceHolders } = useGridRepresentation();
   const {
@@ -35,25 +35,30 @@ export function AddNewItemWidget({ id }) {
     const w = gridsWH["rw"];
     if (w) {
       hardFlushMenu();
-      if (!isMenuVisible() || currentClass() !== "add-new-item-widget") {
+      if (!isMenuVisible() || currentClass() !== styles.addNewItemWidget) {
         addItems(
           "rightW",
           <AddMenu setClasses={setClasses} key={"add-menu"}></AddMenu>,
           setClasses,
-          "add-new-item-widget"
+          styles.addNewItemWidget
         );
-        setClasses("add-new-item-widget add-new-item-widget-active");
+        setClasses(
+          `${styles.addNewItemWidget} ${styles.addNewItemActive} ${
+            w > 1 ? styles.noshadow : ""
+          }`
+        );
       }
     }
   };
+
   return (
     <WidgetTemplate
-      className={classes}
+      className={`${styles.widget} ${classes}`}
       id={id}
       layout={layout}
       setLayout={setLayout}
     >
-      <button className="add-new-item-widget-button" onClick={handleOnClick}>
+      <button className={styles.addNewItemButton} onClick={handleOnClick}>
         <svg
           width="26"
           stroke="var(--widget-text-color)"

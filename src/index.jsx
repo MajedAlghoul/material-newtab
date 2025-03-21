@@ -9,25 +9,28 @@ import { GridsContentProvider } from "./hooks/useGridsContent.jsx";
 import { WidgetsBlueprintsProvider } from "./hooks/useWidgetsBlueprints.jsx";
 import { WidgetsDropper } from "./hooks/useWidgetDropper.jsx";
 import { BookmarksProvider } from "./hooks/useBookmarks.jsx";
+import { ThemeProvider } from "./hooks/useTheme.jsx";
 //import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <GridsWHProvider>
-    <WidgetsBlueprintsProvider>
-      <BookmarksProvider>
-        <WidgetsProvider>
-          <WidgetsDropper>
-            <GridsContentProvider>
-              <GridRepresentationProvider>
-                <App />
-              </GridRepresentationProvider>
-            </GridsContentProvider>
-          </WidgetsDropper>
-        </WidgetsProvider>
-      </BookmarksProvider>
-    </WidgetsBlueprintsProvider>
-  </GridsWHProvider>
+  <ThemeProvider>
+    <GridsWHProvider>
+      <WidgetsBlueprintsProvider>
+        <BookmarksProvider>
+          <WidgetsProvider>
+            <WidgetsDropper>
+              <GridsContentProvider>
+                <GridRepresentationProvider>
+                  <App />
+                </GridRepresentationProvider>
+              </GridsContentProvider>
+            </WidgetsDropper>
+          </WidgetsProvider>
+        </BookmarksProvider>
+      </WidgetsBlueprintsProvider>
+    </GridsWHProvider>
+  </ThemeProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

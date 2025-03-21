@@ -1,10 +1,26 @@
-body,
-html {
+/* Fullscreen setup */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
   background-color: var(--secondary-color);
-  scrollbar-gutter: stable;
+  scrollbar-gutter: stable overlay; /* Ensures scrollbar overlays, not push content */
+  overflow: auto; /* Allow scrolling */
 }
 
+/* Make sure .monochrome mode applies the image correctly */
+.app-container.monochrome {
+  background-image: url("https://images.unsplash.com/photo-1516117172878-fd2c41f4a759");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  transition: ease-in 0.5s;
+}
+
+/* Prevent any unnecessary clipping */
 .app-container {
+  position: relative;
   display: flex;
   width: 100%;
   min-height: 100vh;
@@ -13,32 +29,40 @@ html {
   overflow-x: hidden;
 }
 
+/* Grid container should not be affected by scrollbar */
 .grids-container {
   display: flex;
   align-items: center;
-  position: relative;
-  left: calc((100vw - 100%) / 2);
   justify-content: space-between;
   width: calc(100vw - 64px);
   height: calc(100vh - 64px);
   min-height: 492px;
   margin: 32px;
-  margin-left: 27px;
-  margin-right: 27px;
 }
 
+/* ✅ Fix scrollbar inconsistency */
 ::-webkit-scrollbar {
   width: 10px;
 }
+
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.2); /* Ensure consistent look in both modes */
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #00000030;
-  border-radius: 0 0 20px 20px;
+  background-color: rgba(255, 255, 255, 0.3); /* Match monochrome mode */
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #00000050;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Ensure scrollbar visibility in monochrome mode */
+.monochrome ::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.monochrome ::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.5);
 }

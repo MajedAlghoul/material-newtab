@@ -9,6 +9,7 @@ import { customizeMenuShadow } from "../../../app/Svgs.jsx";
 import { render } from "@testing-library/react";
 import { SwitchButton } from "../../switchButton/SwitchButton.jsx";
 import { ColorSelector } from "../../colorSelector/ColorSelector.jsx";
+import { useTheme } from "../../../hooks/useTheme.jsx";
 
 export function CustomizeMenu() {
   //const [content, setContent] = useState(null);
@@ -26,6 +27,7 @@ export function CustomizeMenu() {
   } = useGridsContent();
   const { widgets, addWidget, removeWidget, editWidget, getComponent } =
     useWidgets();
+  const { theme, isMonochrome, setIsMonochrome, generateTheme } = useTheme();
 
   const renderContent = () => {
     return (
@@ -35,12 +37,19 @@ export function CustomizeMenu() {
           <div className={styles["customize-subject-container-inner"]}>
             <div className={styles["customize-box"]}>
               <span>Monochrome Mode</span>
-              <SwitchButton></SwitchButton>
+              <SwitchButton
+                trigger={setIsMonochrome}
+                defaultValue={isMonochrome}
+              ></SwitchButton>
             </div>
-            <div className={styles["customize-box-large"]}>
+            <div
+              className={`${styles["customize-box-large"]} ${
+                isMonochrome && styles["setting-disabled"]
+              }`}
+            >
               <div className={styles["customize-box-inner"]}>
                 <span>Primary Color</span>
-                <ColorSelector></ColorSelector>
+                <ColorSelector label={"--primary-color"}></ColorSelector>
               </div>
               <div className={styles["customize-box-separator"]}>
                 <div className={styles["customize-box-separator-dark"]}></div>
@@ -48,9 +57,17 @@ export function CustomizeMenu() {
               </div>
               <div className={styles["customize-box-inner"]}>
                 <span>Secondary Color</span>
-                <ColorSelector></ColorSelector>
+                <ColorSelector label={"--secondary-color"}></ColorSelector>
               </div>
             </div>
+            <button
+              className={`${styles["generate-theme-button"]} ${
+                isMonochrome && styles["setting-disabled"]
+              }`}
+              onClick={generateTheme}
+            >
+              Generate browser theme
+            </button>
           </div>
         </div>
       </div>

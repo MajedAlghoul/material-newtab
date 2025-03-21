@@ -6,7 +6,7 @@
 .customize-box {
   width: 100%;
   min-height: 52px;
-  background-color: #3a3a3a;
+  background-color: var(--widget-background-inner-color);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -17,7 +17,7 @@
 .customize-box-large {
   width: 100%;
   min-height: 52px;
-  background-color: #3a3a3a;
+  background-color: var(--widget-background-inner-color);
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -26,6 +26,11 @@
   padding: 20px 0px;
   box-sizing: border-box;
   gap: 16px;
+}
+
+.setting-disabled{
+  opacity: 0.5;
+  cursor: auto !important;
 }
 
 .customize-subject-container-inner {
@@ -69,4 +74,15 @@
   width: 100%;
   height: 1px;
   background-color: var(--separator-light-color);
+}
+
+
+.generate-theme-button{
+  height: 32px;
+  background-color: var(--primary-color);
+  color: var(--widget-text-color);
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
 }

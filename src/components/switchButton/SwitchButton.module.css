@@ -22,6 +22,7 @@
 
 .switch-button.active::before {
   left: 26px;
+  background-color: var(--widget-text-color);
 }
 
 .active {

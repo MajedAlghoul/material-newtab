@@ -55,7 +55,6 @@ export const ThemeProvider = ({ children }) => {
   }, [theme]);
 
   const updateTheme = (newTheme) => {
-    console.log(isMonochrome);
     if (newTheme["--secondary-color"]) {
       newTheme["--highlight-color"] = generateVariantColor(
         newTheme["--secondary-color"],

@@ -2,7 +2,7 @@ import { useGridsWH } from "../../../hooks/useGridsWH.jsx";
 import styles from "./CustomizeMenu.module.scss";
 import { useWidgets } from "../../../hooks/useWidgets.jsx";
 import { useGridsContent } from "../../../hooks/useGridsContent.jsx";
-import { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useGridRepresentation } from "../../../hooks/useGridRepresentation.jsx";
 import DefaultMenu from "../../defaultMenu/DefaultMenu.jsx";
 import { customizeMenuShadow } from "../../../app/Svgs.jsx";
@@ -10,6 +10,7 @@ import { render } from "@testing-library/react";
 import { SwitchButton } from "../../switchButton/SwitchButton.jsx";
 import { ColorSelector } from "../../colorSelector/ColorSelector.jsx";
 import { useTheme } from "../../../hooks/useTheme.jsx";
+import { questionSvg } from "../../../app/Svgs.jsx";
 
 export function CustomizeMenu() {
   //const [content, setContent] = useState(null);
@@ -60,14 +61,27 @@ export function CustomizeMenu() {
                 <ColorSelector label={"--secondary-color"}></ColorSelector>
               </div>
             </div>
-            <button
-              className={`${styles["generate-theme-button"]} ${
-                isMonochrome && styles["setting-disabled"]
-              }`}
-              onClick={generateTheme}
-            >
-              Generate browser theme
-            </button>
+            <div className={styles["generate-theme-container"]}>
+              <button
+                className={`${styles["generate-theme-button"]} ${
+                  isMonochrome && styles["setting-disabled"]
+                }`}
+                onClick={generateTheme}
+              >
+                Generate browser theme
+              </button>
+              <button
+                className={`${styles["question-button"]} ${
+                  isMonochrome && styles["setting-disabled"]
+                }`}
+              >
+                <>
+                  {React.cloneElement(questionSvg, {
+                    style: { width: "16px", height: "16px" },
+                  })}
+                </>
+              </button>
+            </div>
           </div>
         </div>
       </div>
